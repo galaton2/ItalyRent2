@@ -447,7 +447,43 @@ table.data tbody tr:last-child td{border-bottom:none;}
 .col-toggle-item input{accent-color:var(--accent);}
 
 .two-col-form{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
-@media (max-width:700px){.two-col-form{grid-template-columns:1fr;} .grid-2,.grid-3{grid-template-columns:1fr;} .sidebar{width:210px;flex-basis:210px;}}
+
+.hamburger{
+  display:none;width:36px;height:36px;flex:0 0 auto;
+  border:1px solid var(--line);border-radius:8px;background:var(--surface);
+  align-items:center;justify-content:center;cursor:pointer;color:var(--ink);
+}
+.sidebar-backdrop{display:none;position:fixed;inset:0;background:rgba(10,12,16,.45);z-index:95;}
+.sidebar-backdrop.show{display:block;}
+
+@media (max-width:860px){
+  .hamburger{display:flex;}
+  .sidebar{
+    position:fixed;left:0;top:0;bottom:0;z-index:100;width:250px;flex:0 0 250px;
+    transform:translateX(-100%);transition:transform .2s ease;box-shadow:20px 0 46px rgba(0,0,0,.28);
+  }
+  .sidebar.open{transform:translateX(0);}
+  #app{display:block;}
+  .main{width:100%;}
+  .topbar{padding:12px 14px;flex-wrap:wrap;row-gap:10px;}
+  .topbar h2{font-size:17px;}
+  .topbar .sub{display:none;}
+  .search-box{min-width:0;flex:1 1 100%;order:5;}
+  #btnDisconnect{display:none;}
+  .view{padding:14px 14px 50px;}
+  .ledger{overflow-x:auto;-webkit-overflow-scrolling:touch;}
+  .ledger-item{flex:0 0 148px;}
+  .ledger-item .val{font-size:23px;}
+  .grid-2,.grid-3,.two-col-form{grid-template-columns:1fr;}
+  .drawer{width:100vw;}
+  table.data th, table.data td{padding-left:10px;padding-right:10px;}
+  .filterbar{padding:12px 14px;}
+  .panel-body{padding:14px;}
+}
+@media (max-width:420px){
+  .setup-card{padding:26px 22px 22px;}
+  .ledger-item{flex-basis:130px;}
+}
 
 .tag-list{display:flex;flex-wrap:wrap;gap:6px;}
 .tag-pill{background:var(--surface-2);border:1px solid var(--line);padding:4px 10px;border-radius:20px;font-size:12px;}
@@ -489,8 +525,9 @@ table.data tbody tr:last-child td{border-bottom:none;}
 <div id="toasts"></div>
 
 <!-- =================== APP =================== -->
+<div class="sidebar-backdrop" id="sidebarBackdrop"></div>
 <div id="app" class="hidden">
-  <aside class="sidebar">
+  <aside class="sidebar" id="sidebarEl">
     <div class="sidebar-brand">
       <div class="mark">IH</div>
       <div class="txt"><b>Italy Housing</b><span>CRM панель</span></div>
@@ -540,6 +577,9 @@ table.data tbody tr:last-child td{border-bottom:none;}
 
   <main class="main">
     <div class="topbar">
+      <button class="hamburger" id="btnHamburger" aria-label="Меню">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+      </button>
       <div>
         <h2 id="viewTitle">Дашборд</h2>
         <div class="sub" id="viewSub">Общая картина по платформе</div>
@@ -1020,6 +1060,7 @@ document.getElementById("navList").addEventListener("click", (e)=>{
   const item = e.target.closest(".nav-item");
   if (!item) return;
   switchView(item.dataset.view);
+  closeSidebar();
 });
 function switchView(view){
   document.querySelectorAll(".nav-item").forEach(n=>n.classList.toggle("active", n.dataset.view===view));
@@ -1038,17 +1079,41 @@ document.getElementById("globalSearch").addEventListener("input", (e)=>{
 });
 switchView("dashboard");
 
-/* ---------------- Render: everything ---------------- */
+/* ---------------- Mobile sidebar (hamburger drawer) ---------------- */
+function openSidebar(){
+  document.getElementById("sidebarEl").classList.add("open");
+  document.getElementById("sidebarBackdrop").classList.add("show");
+}
+function closeSidebar(){
+  document.getElementById("sidebarEl").classList.remove("open");
+  document.getElementById("sidebarBackdrop").classList.remove("show");
+}
+document.getElementById("btnHamburger").addEventListener("click", openSidebar);
+document.getElementById("sidebarBackdrop").addEventListener("click", closeSidebar);
+
+/* ---------------- Render: everything (each section isolated so one
+   failure — e.g. Chart.js CDN blocked — never blanks out the rest) ---------------- */
+function safeRun(label, fn){
+  try{ fn(); }
+  catch(e){
+    console.error("[CRM] render error in "+label, e);
+    if (!safeRun._warned) safeRun._warned = {};
+    if (!safeRun._warned[label]){
+      safeRun._warned[label] = true;
+      toast("Не удалось отрисовать «"+label+"»: "+(e.message||e), "err");
+    }
+  }
+}
 function renderAll(){
-  populateCityRoomFilters();
-  renderNavCounts();
-  renderDashboard();
-  renderListings();
-  renderUsers();
-  renderFriends();
-  renderReviews();
-  renderSubs();
-  renderSettingsStatic();
+  safeRun("фильтры", populateCityRoomFilters);
+  safeRun("счётчики меню", renderNavCounts);
+  safeRun("дашборд", renderDashboard);
+  safeRun("объявления", renderListings);
+  safeRun("пользователи", renderUsers);
+  safeRun("анкеты", renderFriends);
+  safeRun("отзывы", renderReviews);
+  safeRun("подписки", renderSubs);
+  safeRun("настройки", renderSettingsStatic);
 }
 
 function renderNavCounts(){
@@ -1129,6 +1194,13 @@ function renderDashboard(){
 }
 
 function drawCharts(L){
+  if (typeof Chart === "undefined"){
+    ["chartTimeline","chartStatus","chartCities","chartRooms"].forEach(id=>{
+      const el = document.getElementById(id);
+      if (el && el.parentElement) el.parentElement.innerHTML = '<div class="empty-state" style="padding:20px;"><b>График недоступен</b>Не загрузился Chart.js с CDN (проверь интернет/блокировщик).</div>';
+    });
+    return;
+  }
   const accent = getComputedStyle(document.body).getPropertyValue("--accent").trim() || "#B2431B";
   const good = getComputedStyle(document.body).getPropertyValue("--good").trim() || "#2E7D4F";
   const warn = getComputedStyle(document.body).getPropertyValue("--warn").trim() || "#B6902C";
