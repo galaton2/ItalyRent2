@@ -1,0 +1,1703 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Italy Housing — CRM</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.4/chart.umd.min.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-firestore-compat.js"></script>
+<style>
+/* ============ TOKENS ============ */
+:root{
+  --bg:#F5F4F1;
+  --surface:#FFFFFF;
+  --surface-2:#FBFAF8;
+  --ink:#1C2024;
+  --ink-soft:#5B6167;
+  --ink-faint:#9297A0;
+  --line:#E4E1DA;
+  --line-soft:#EDEAE3;
+  --sidebar:#122031;
+  --sidebar-ink:#D9E1EA;
+  --sidebar-ink-dim:#7C8CA0;
+  --sidebar-line:#22344A;
+  --accent:#B2431B;
+  --accent-ink:#FFFFFF;
+  --accent-soft:#F4E1D6;
+  --gold:#B6902C;
+  --good:#2E7D4F;
+  --good-soft:#E4F1E9;
+  --warn:#B6902C;
+  --warn-soft:#FBF1DC;
+  --bad:#B23A2E;
+  --bad-soft:#F8E4E1;
+  --radius-s:6px;
+  --radius-m:10px;
+  --radius-l:16px;
+  --font-display:'Fraunces', serif;
+  --font-body:'Inter', sans-serif;
+  --font-mono:'IBM Plex Mono', monospace;
+  --shadow-1: 0 1px 2px rgba(20,20,20,.06), 0 1px 1px rgba(20,20,20,.04);
+  --shadow-2: 0 10px 30px rgba(20,20,20,.10), 0 2px 8px rgba(20,20,20,.06);
+  --density: 14px;
+}
+body.dark{
+  --bg:#15181B;
+  --surface:#1D2125;
+  --surface-2:#20242A;
+  --ink:#EDEEF0;
+  --ink-soft:#AEB4BC;
+  --ink-faint:#767E88;
+  --line:#2B3036;
+  --line-soft:#262A2F;
+  --sidebar:#0D1520;
+  --sidebar-line:#1C2A3A;
+  --accent-soft:#3A2419;
+  --good-soft:#173226;
+  --warn-soft:#332A15;
+  --bad-soft:#331B17;
+  --shadow-1: 0 1px 2px rgba(0,0,0,.4);
+  --shadow-2: 0 10px 30px rgba(0,0,0,.5);
+}
+*{box-sizing:border-box;}
+html,body{margin:0;padding:0;}
+body{
+  background:var(--bg);
+  color:var(--ink);
+  font-family:var(--font-body);
+  font-size:14px;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:inherit;}
+button{font-family:inherit;}
+::selection{background:var(--accent-soft);}
+.hidden{display:none !important;}
+::-webkit-scrollbar{width:10px;height:10px;}
+::-webkit-scrollbar-thumb{background:var(--line);border-radius:8px;}
+::-webkit-scrollbar-track{background:transparent;}
+
+/* ============ SETUP SCREEN ============ */
+#setupScreen{
+  min-height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:
+    radial-gradient(circle at 15% 20%, rgba(178,67,27,.08), transparent 40%),
+    radial-gradient(circle at 85% 80%, rgba(182,144,44,.08), transparent 40%),
+    var(--bg);
+  padding:24px;
+}
+.setup-card{
+  width:100%;
+  max-width:560px;
+  background:var(--surface);
+  border:1px solid var(--line);
+  border-radius:var(--radius-l);
+  padding:40px 40px 32px;
+  box-shadow:var(--shadow-2);
+}
+.setup-mark{
+  width:44px;height:44px;border-radius:10px;
+  background:var(--accent);color:#fff;
+  display:flex;align-items:center;justify-content:center;
+  font-family:var(--font-display);font-size:20px;font-weight:600;
+  margin-bottom:20px;
+}
+.setup-card h1{
+  font-family:var(--font-display);
+  font-weight:600;
+  font-size:26px;
+  margin:0 0 6px;
+  letter-spacing:-.01em;
+}
+.setup-card p.lead{
+  color:var(--ink-soft);
+  margin:0 0 28px;
+  line-height:1.55;
+  font-size:14.5px;
+}
+.field{margin-bottom:14px;}
+.field label{
+  display:block;
+  font-size:12.5px;
+  font-weight:600;
+  color:var(--ink-soft);
+  margin-bottom:6px;
+}
+.field textarea, .field input{
+  width:100%;
+  padding:10px 12px;
+  border:1px solid var(--line);
+  border-radius:var(--radius-s);
+  background:var(--surface-2);
+  color:var(--ink);
+  font-family:var(--font-mono);
+  font-size:13px;
+  resize:vertical;
+}
+.field textarea{min-height:110px;}
+.field input:focus, .field textarea:focus{outline:2px solid var(--accent);outline-offset:1px;}
+.field-hint{font-size:12px;color:var(--ink-faint);margin-top:5px;line-height:1.5;}
+.setup-actions{display:flex;align-items:center;gap:12px;margin-top:22px;}
+.btn{
+  appearance:none;border:1px solid transparent;cursor:pointer;
+  border-radius:var(--radius-s);
+  padding:9px 16px;
+  font-size:13.5px;font-weight:600;
+  display:inline-flex;align-items:center;gap:7px;
+  transition:background .12s ease, border-color .12s ease, transform .05s ease;
+}
+.btn:active{transform:translateY(1px);}
+.btn-primary{background:var(--accent);color:var(--accent-ink);}
+.btn-primary:hover{background:#9C3A17;}
+.btn-ghost{background:transparent;border-color:var(--line);color:var(--ink);}
+.btn-ghost:hover{background:var(--surface-2);}
+.btn-danger-ghost{background:transparent;border-color:var(--bad);color:var(--bad);}
+.btn-danger-ghost:hover{background:var(--bad-soft);}
+.btn-sm{padding:6px 11px;font-size:12.5px;}
+.setup-error{
+  margin-top:14px;padding:10px 12px;border-radius:var(--radius-s);
+  background:var(--bad-soft);color:var(--bad);font-size:13px;line-height:1.5;
+}
+
+/* ============ APP SHELL ============ */
+#app{display:flex;min-height:100vh;}
+.sidebar{
+  width:236px;flex:0 0 236px;
+  background:var(--sidebar);
+  color:var(--sidebar-ink);
+  display:flex;flex-direction:column;
+  position:sticky;top:0;height:100vh;
+}
+.sidebar-brand{
+  display:flex;align-items:center;gap:10px;
+  padding:20px 18px 16px;
+  border-bottom:1px solid var(--sidebar-line);
+}
+.sidebar-brand .mark{
+  width:32px;height:32px;border-radius:8px;background:var(--accent);
+  display:flex;align-items:center;justify-content:center;
+  font-family:var(--font-display);font-weight:700;font-size:15px;color:#fff;flex:0 0 auto;
+}
+.sidebar-brand .txt{line-height:1.2;}
+.sidebar-brand .txt b{font-family:var(--font-display);font-size:15px;font-weight:600;display:block;}
+.sidebar-brand .txt span{font-size:11px;color:var(--sidebar-ink-dim);letter-spacing:.02em;}
+.nav{flex:1;padding:14px 10px;overflow-y:auto;}
+.nav-group-label{
+  font-size:10.5px;letter-spacing:.06em;color:var(--sidebar-ink-dim);
+  padding:14px 10px 6px;font-weight:600;
+}
+.nav-item{
+  display:flex;align-items:center;gap:10px;
+  padding:9px 12px;margin:2px 0;border-radius:8px;
+  cursor:pointer;color:var(--sidebar-ink-dim);
+  font-size:13.5px;font-weight:500;
+  border:1px solid transparent;
+  transition:background .12s ease,color .12s ease;
+}
+.nav-item .ico{width:17px;height:17px;flex:0 0 auto;opacity:.85;}
+.nav-item:hover{background:rgba(255,255,255,.05);color:var(--sidebar-ink);}
+.nav-item.active{background:rgba(178,67,27,.18);color:#fff;border-color:rgba(178,67,27,.35);}
+.nav-item .count{
+  margin-left:auto;font-family:var(--font-mono);font-size:11px;
+  background:rgba(255,255,255,.08);padding:1px 6px;border-radius:20px;color:var(--sidebar-ink-dim);
+}
+.sidebar-foot{
+  padding:14px 16px;border-top:1px solid var(--sidebar-line);
+  font-size:11.5px;color:var(--sidebar-ink-dim);
+  display:flex;align-items:center;justify-content:space-between;
+}
+.conn-dot{width:7px;height:7px;border-radius:50%;background:var(--good);display:inline-block;margin-right:6px;}
+.conn-dot.off{background:var(--bad);}
+
+.main{flex:1;min-width:0;display:flex;flex-direction:column;}
+.topbar{
+  position:sticky;top:0;z-index:20;
+  background:var(--bg);
+  border-bottom:1px solid var(--line);
+  padding:16px 28px;
+  display:flex;align-items:center;gap:16px;
+  backdrop-filter:blur(6px);
+}
+.topbar h2{
+  font-family:var(--font-display);font-weight:600;font-size:20px;margin:0;
+  letter-spacing:-.01em;
+}
+.topbar .sub{font-size:12.5px;color:var(--ink-faint);margin-top:2px;}
+.topbar-spacer{flex:1;}
+.search-box{
+  display:flex;align-items:center;gap:8px;
+  background:var(--surface);border:1px solid var(--line);border-radius:var(--radius-s);
+  padding:8px 12px;min-width:230px;
+}
+.search-box input{border:none;background:transparent;outline:none;font-size:13px;color:var(--ink);width:100%;}
+.search-box svg{opacity:.5;flex:0 0 auto;}
+
+.view{padding:24px 28px 60px;}
+
+/* ============ KPI LEDGER STRIP ============ */
+.ledger{
+  display:flex;
+  background:var(--surface);
+  border:1px solid var(--line);
+  border-radius:var(--radius-m);
+  overflow:hidden;
+  margin-bottom:20px;
+  box-shadow:var(--shadow-1);
+}
+.ledger-item{
+  flex:1;padding:16px 20px;
+  border-right:1px solid var(--line-soft);
+  position:relative;
+}
+.ledger-item:last-child{border-right:none;}
+.ledger-item .lbl{font-size:11.5px;color:var(--ink-faint);font-weight:600;letter-spacing:.01em;margin-bottom:6px;}
+.ledger-item .val{font-family:var(--font-display);font-size:28px;font-weight:600;letter-spacing:-.01em;}
+.ledger-item .delta{font-size:11.5px;margin-top:4px;color:var(--ink-faint);}
+.ledger-item .delta.up{color:var(--good);}
+.ledger-item .accentbar{position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--accent);opacity:0;}
+.ledger-item.hot .accentbar{opacity:1;}
+
+.grid-2{display:grid;grid-template-columns:1.3fr 1fr;gap:18px;margin-bottom:18px;}
+.grid-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:18px;margin-bottom:18px;}
+@media (max-width:1000px){.grid-2,.grid-3{grid-template-columns:1fr;}}
+
+.panel{
+  background:var(--surface);
+  border:1px solid var(--line);
+  border-radius:var(--radius-m);
+  box-shadow:var(--shadow-1);
+}
+.panel-head{
+  padding:14px 18px;border-bottom:1px solid var(--line-soft);
+  display:flex;align-items:center;gap:10px;
+}
+.panel-head h3{margin:0;font-size:14px;font-weight:600;}
+.panel-head .hint{font-size:11.5px;color:var(--ink-faint);margin-left:auto;}
+.panel-body{padding:16px 18px;}
+.panel-body.tight{padding:0;}
+
+/* ============ TABLES ============ */
+.table-wrap{overflow-x:auto;}
+table.data{width:100%;border-collapse:collapse;font-size:13px;}
+table.data th{
+  text-align:left;padding:10px 14px;
+  font-size:11px;text-transform:none;color:var(--ink-faint);
+  font-weight:600;border-bottom:1px solid var(--line);
+  white-space:nowrap;background:var(--surface-2);
+  position:sticky;top:0;
+}
+table.data td{
+  padding:calc(var(--density) * 0.7) 14px;
+  border-bottom:1px solid var(--line-soft);
+  vertical-align:middle;
+}
+table.data tbody tr{cursor:pointer;transition:background .1s ease;}
+table.data tbody tr:hover{background:var(--surface-2);}
+table.data tbody tr:last-child td{border-bottom:none;}
+.cell-main{font-weight:600;}
+.cell-sub{color:var(--ink-faint);font-size:12px;margin-top:2px;}
+.mono{font-family:var(--font-mono);font-size:12px;color:var(--ink-soft);}
+
+.badge{
+  display:inline-flex;align-items:center;gap:5px;
+  padding:3px 9px;border-radius:20px;font-size:11.5px;font-weight:600;
+  white-space:nowrap;
+}
+.badge.good{background:var(--good-soft);color:var(--good);}
+.badge.warn{background:var(--warn-soft);color:var(--warn);}
+.badge.bad{background:var(--bad-soft);color:var(--bad);}
+.badge.neutral{background:var(--surface-2);color:var(--ink-soft);border:1px solid var(--line);}
+.badge.accent{background:var(--accent-soft);color:var(--accent);}
+
+/* ============ FILTER BAR ============ */
+.filterbar{
+  display:flex;flex-wrap:wrap;gap:10px;align-items:center;
+  padding:14px 18px;border-bottom:1px solid var(--line-soft);
+}
+.filterbar select, .filterbar input[type=text]{
+  padding:7px 10px;border:1px solid var(--line);border-radius:var(--radius-s);
+  background:var(--surface-2);color:var(--ink);font-size:12.5px;
+}
+.filterbar .fbar-search{flex:1;min-width:180px;}
+.chip-toggle{
+  display:flex;gap:6px;
+  background:var(--surface-2);border:1px solid var(--line);border-radius:var(--radius-s);padding:3px;
+}
+.chip-toggle button{
+  border:none;background:transparent;padding:5px 11px;border-radius:5px;
+  font-size:12px;font-weight:600;color:var(--ink-soft);cursor:pointer;
+}
+.chip-toggle button.active{background:var(--accent);color:#fff;}
+
+/* ============ PAGINATION ============ */
+.pager{display:flex;align-items:center;justify-content:space-between;padding:12px 18px;font-size:12px;color:var(--ink-faint);}
+.pager .btns{display:flex;gap:6px;}
+.pager button{
+  border:1px solid var(--line);background:var(--surface);border-radius:6px;
+  padding:5px 10px;font-size:12px;cursor:pointer;color:var(--ink);
+}
+.pager button:disabled{opacity:.4;cursor:default;}
+
+/* ============ EMPTY / LOADING ============ */
+.empty-state{padding:50px 20px;text-align:center;color:var(--ink-faint);}
+.empty-state .em-ico{font-size:26px;margin-bottom:8px;opacity:.6;}
+.empty-state b{color:var(--ink-soft);display:block;margin-bottom:4px;font-size:13.5px;}
+.loading-row{padding:30px;text-align:center;color:var(--ink-faint);font-size:12.5px;}
+
+/* ============ DRAWER ============ */
+.drawer-backdrop{
+  position:fixed;inset:0;background:rgba(15,17,20,.45);
+  z-index:80;opacity:0;pointer-events:none;transition:opacity .15s ease;
+}
+.drawer-backdrop.show{opacity:1;pointer-events:auto;}
+.drawer{
+  position:fixed;top:0;right:0;bottom:0;
+  width:min(480px,100vw);
+  background:var(--surface);
+  z-index:90;
+  box-shadow:-16px 0 40px rgba(0,0,0,.18);
+  transform:translateX(100%);
+  transition:transform .18s ease;
+  display:flex;flex-direction:column;
+}
+.drawer.show{transform:translateX(0);}
+.drawer-head{
+  padding:18px 20px;border-bottom:1px solid var(--line);
+  display:flex;align-items:flex-start;gap:12px;
+}
+.drawer-head .ti{flex:1;min-width:0;}
+.drawer-head h3{margin:0 0 4px;font-family:var(--font-display);font-size:19px;font-weight:600;}
+.drawer-head .meta{font-size:12px;color:var(--ink-faint);}
+.drawer-close{
+  border:none;background:var(--surface-2);width:28px;height:28px;border-radius:7px;
+  cursor:pointer;color:var(--ink-soft);flex:0 0 auto;font-size:15px;line-height:1;
+}
+.drawer-body{flex:1;overflow-y:auto;padding:18px 20px;}
+.drawer-foot{padding:14px 20px;border-top:1px solid var(--line);display:flex;gap:8px;flex-wrap:wrap;}
+
+.dl{display:grid;grid-template-columns:120px 1fr;gap:8px 14px;font-size:13px;margin-bottom:4px;}
+.dl dt{color:var(--ink-faint);font-size:12px;padding-top:2px;}
+.dl dd{margin:0;font-weight:500;line-height:1.5;}
+.section-title{
+  font-size:11px;font-weight:700;letter-spacing:.04em;color:var(--ink-faint);
+  margin:20px 0 10px;padding-top:14px;border-top:1px solid var(--line-soft);
+}
+.section-title:first-child{margin-top:0;border-top:none;padding-top:0;}
+.photo-row{display:flex;gap:8px;overflow-x:auto;padding-bottom:4px;}
+.photo-row img{width:96px;height:96px;object-fit:cover;border-radius:8px;border:1px solid var(--line);flex:0 0 auto;}
+.desc-block{
+  background:var(--surface-2);border:1px solid var(--line-soft);border-radius:8px;
+  padding:12px 14px;font-size:13px;line-height:1.6;white-space:pre-wrap;
+}
+.editable-field{margin-bottom:12px;}
+.editable-field label{display:block;font-size:11.5px;color:var(--ink-faint);font-weight:600;margin-bottom:5px;}
+.editable-field input, .editable-field select, .editable-field textarea{
+  width:100%;padding:8px 10px;border:1px solid var(--line);border-radius:7px;
+  background:var(--surface-2);color:var(--ink);font-size:13px;font-family:inherit;
+}
+.editable-field textarea{min-height:80px;resize:vertical;}
+.inline-edit-row{display:flex;gap:8px;align-items:flex-end;}
+.inline-edit-row .editable-field{flex:1;margin-bottom:0;}
+
+/* ============ TOASTS ============ */
+#toasts{position:fixed;bottom:20px;right:20px;z-index:200;display:flex;flex-direction:column;gap:8px;}
+.toast{
+  background:var(--ink);color:var(--bg);
+  padding:11px 16px;border-radius:8px;font-size:13px;
+  box-shadow:var(--shadow-2);
+  display:flex;align-items:center;gap:10px;
+  animation:toastin .18s ease;
+  max-width:340px;
+}
+.toast.err{background:var(--bad);color:#fff;}
+.toast.ok{background:var(--good);color:#fff;}
+@keyframes toastin{from{transform:translateY(8px);opacity:0;}to{transform:translateY(0);opacity:1;}}
+
+/* ============ CHARTS ============ */
+.chart-box{position:relative;height:260px;}
+.chart-box.sm{height:200px;}
+
+/* ============ CUSTOMIZE ============ */
+.cz-row{display:flex;align-items:center;justify-content:space-between;padding:13px 0;border-bottom:1px solid var(--line-soft);gap:16px;}
+.cz-row:last-child{border-bottom:none;}
+.cz-row .cz-label{font-size:13.5px;font-weight:600;}
+.cz-row .cz-desc{font-size:12px;color:var(--ink-faint);margin-top:2px;}
+.swatches{display:flex;gap:8px;}
+.swatch{width:26px;height:26px;border-radius:50%;cursor:pointer;border:2px solid transparent;box-shadow:var(--shadow-1);}
+.swatch.active{border-color:var(--ink);}
+.switch{
+  width:40px;height:22px;border-radius:20px;background:var(--line);position:relative;cursor:pointer;flex:0 0 auto;
+  transition:background .15s ease;
+}
+.switch.on{background:var(--accent);}
+.switch .knob{position:absolute;top:2px;left:2px;width:18px;height:18px;border-radius:50%;background:#fff;transition:left .15s ease;box-shadow:0 1px 3px rgba(0,0,0,.3);}
+.switch.on .knob{left:20px;}
+.col-toggles{display:flex;flex-wrap:wrap;gap:8px;}
+.col-toggle-item{
+  display:flex;align-items:center;gap:6px;
+  border:1px solid var(--line);padding:6px 10px;border-radius:20px;font-size:12px;
+  background:var(--surface-2);cursor:pointer;user-select:none;
+}
+.col-toggle-item input{accent-color:var(--accent);}
+
+.two-col-form{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+@media (max-width:700px){.two-col-form{grid-template-columns:1fr;} .grid-2,.grid-3{grid-template-columns:1fr;} .sidebar{width:210px;flex-basis:210px;}}
+
+.tag-list{display:flex;flex-wrap:wrap;gap:6px;}
+.tag-pill{background:var(--surface-2);border:1px solid var(--line);padding:4px 10px;border-radius:20px;font-size:12px;}
+
+.avatar{width:34px;height:34px;border-radius:50%;object-fit:cover;background:var(--surface-2);border:1px solid var(--line);flex:0 0 auto;}
+.flex-mid{display:flex;align-items:center;gap:10px;}
+
+.copy-btn{border:1px solid var(--line);background:var(--surface-2);border-radius:6px;padding:2px 8px;font-size:11px;cursor:pointer;color:var(--ink-soft);}
+</style>
+</head>
+<body>
+
+<!-- =================== SETUP SCREEN =================== -->
+<div id="setupScreen">
+  <div class="setup-card">
+    <div class="setup-mark">IH</div>
+    <h1>Подключение к Firebase</h1>
+    <p class="lead">Вставь конфиг своего Firebase-проекта (тот же, что использует Telegram-бот — Firestore Native, коллекции <code>listings / users / friend_profiles / reviews / subscriptions / config</code>). Вход не нужен: CRM работает по открытым правилам Firestore. Конфиг сохраняется только в этом браузере.</p>
+    <div class="field">
+      <label>Firebase config (объект из Project settings → Web app)</label>
+      <textarea id="fbConfigInput" placeholder='{
+  "apiKey": "...",
+  "authDomain": "yourapp.firebaseapp.com",
+  "projectId": "yourapp",
+  "storageBucket": "yourapp.appspot.com",
+  "appId": "..."
+}'></textarea>
+      <div class="field-hint">Firebase Console → ⚙ Project settings → раздел «Your apps» → Config. Можно вставить и как объект JS (<span class="mono" style="font-family:inherit">apiKey: "..."</span>), CRM сама распарсит.</div>
+    </div>
+    <div id="setupError" class="setup-error hidden"></div>
+    <div class="setup-actions">
+      <button class="btn btn-primary" id="btnConnect">Подключить и открыть CRM</button>
+      <button class="btn btn-ghost" id="btnDemoMode">Демо-режим (без Firebase)</button>
+    </div>
+  </div>
+</div>
+
+<!-- =================== TOASTS =================== -->
+<div id="toasts"></div>
+
+<!-- =================== APP =================== -->
+<div id="app" class="hidden">
+  <aside class="sidebar">
+    <div class="sidebar-brand">
+      <div class="mark">IH</div>
+      <div class="txt"><b>Italy Housing</b><span>CRM панель</span></div>
+    </div>
+    <nav class="nav" id="navList">
+      <div class="nav-group-label">Обзор</div>
+      <div class="nav-item" data-view="dashboard">
+        <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="7" height="9" rx="1.5"/><rect x="14" y="3" width="7" height="5" rx="1.5"/><rect x="14" y="12" width="7" height="9" rx="1.5"/><rect x="3" y="16" width="7" height="5" rx="1.5"/></svg>
+        Дашборд
+      </div>
+      <div class="nav-group-label">Данные</div>
+      <div class="nav-item" data-view="listings">
+        <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V20a1 1 0 0 0 1 1h4v-6h4v6h4a1 1 0 0 0 1-1V9.5"/></svg>
+        Объявления <span class="count" id="cnt-listings">0</span>
+      </div>
+      <div class="nav-item" data-view="users">
+        <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="8" r="3.4"/><path d="M4.5 20c1.6-3.6 4.4-5.4 7.5-5.4s5.9 1.8 7.5 5.4"/></svg>
+        Пользователи <span class="count" id="cnt-users">0</span>
+      </div>
+      <div class="nav-item" data-view="friends">
+        <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="8.5" cy="8" r="3"/><circle cx="16" cy="9.5" r="2.4"/><path d="M2.8 19c1.2-3.2 3.2-4.6 5.7-4.6s4.5 1.4 5.7 4.6"/><path d="M13.6 15.2c.9-.3 1.9-.3 2.8.3 1.6.9 2.4 2.1 3 3.5"/></svg>
+        Анкеты «Люди» <span class="count" id="cnt-friends">0</span>
+      </div>
+      <div class="nav-item" data-view="reviews">
+        <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="m12 3 2.6 5.6 6 .7-4.4 4.2 1.1 6-5.3-3-5.3 3 1.1-6-4.4-4.2 6-.7Z"/></svg>
+        Отзывы <span class="count" id="cnt-reviews">0</span>
+      </div>
+      <div class="nav-item" data-view="subs">
+        <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M10 3.5c-3.6 1-6 3.9-6 8 0 4.6 3.6 8.5 8 8.5s8-3.9 8-8.5c0-4.1-2.4-7-6-8"/><path d="M12 2v6"/></svg>
+        Подписки <span class="count" id="cnt-subs">0</span>
+      </div>
+      <div class="nav-group-label">Управление</div>
+      <div class="nav-item" data-view="settings">
+        <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="3"/><path d="M19.4 13.5a1.7 1.7 0 0 0 .3 1.9l.1.1a2 2 0 1 1-2.9 2.9l-.1-.1a1.7 1.7 0 0 0-1.9-.3 1.7 1.7 0 0 0-1 1.6v.2a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.6 1.7 1.7 0 0 0-1.9.3l-.1.1a2 2 0 1 1-2.9-2.9l.1-.1a1.7 1.7 0 0 0 .3-1.9 1.7 1.7 0 0 0-1.6-1h-.2a2 2 0 1 1 0-4h.1A1.7 1.7 0 0 0 4.1 8a1.7 1.7 0 0 0-.3-1.9l-.1-.1A2 2 0 1 1 6.6 3.1l.1.1a1.7 1.7 0 0 0 1.9.3H8.7A1.7 1.7 0 0 0 9.7 2v-.2a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.6 1.7 1.7 0 0 0 1.9-.3l.1-.1a2 2 0 1 1 2.9 2.9l-.1.1a1.7 1.7 0 0 0-.3 1.9v.1c.3.7.9 1.1 1.6 1.1h.2a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.6 1Z"/></svg>
+        Настройки бота
+      </div>
+      <div class="nav-item" data-view="customize">
+        <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 2v4M12 18v4M4.9 4.9l2.8 2.8M16.3 16.3l2.8 2.8M2 12h4M18 12h4M4.9 19.1l2.8-2.8M16.3 7.7l2.8-2.8"/><circle cx="12" cy="12" r="4"/></svg>
+        Кастомизация
+      </div>
+    </nav>
+    <div class="sidebar-foot">
+      <span><span class="conn-dot" id="connDot"></span><span id="connLabel">подключено</span></span>
+      <span id="projectLabel" class="mono" style="font-size:10.5px;"></span>
+    </div>
+  </aside>
+
+  <main class="main">
+    <div class="topbar">
+      <div>
+        <h2 id="viewTitle">Дашборд</h2>
+        <div class="sub" id="viewSub">Общая картина по платформе</div>
+      </div>
+      <div class="topbar-spacer"></div>
+      <div class="search-box" id="globalSearchBox">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+        <input id="globalSearch" type="text" placeholder="Поиск по текущему разделу...">
+      </div>
+      <button class="btn btn-ghost btn-sm" id="btnDisconnect" title="Сменить проект Firebase">Сменить проект</button>
+    </div>
+
+    <!-- ===== DASHBOARD ===== -->
+    <section class="view" id="view-dashboard">
+      <div class="ledger" id="kpiLedger"></div>
+      <div class="grid-2">
+        <div class="panel">
+          <div class="panel-head"><h3>Новые объявления по дням</h3><span class="hint">последние 30 дней</span></div>
+          <div class="panel-body"><div class="chart-box"><canvas id="chartTimeline"></canvas></div></div>
+        </div>
+        <div class="panel">
+          <div class="panel-head"><h3>Статусы модерации</h3></div>
+          <div class="panel-body"><div class="chart-box"><canvas id="chartStatus"></canvas></div></div>
+        </div>
+      </div>
+      <div class="grid-2">
+        <div class="panel">
+          <div class="panel-head"><h3>Объявления по городам</h3><span class="hint">топ-10</span></div>
+          <div class="panel-body"><div class="chart-box"><canvas id="chartCities"></canvas></div></div>
+        </div>
+        <div class="panel">
+          <div class="panel-head"><h3>Типы размещения</h3></div>
+          <div class="panel-body"><div class="chart-box"><canvas id="chartRooms"></canvas></div></div>
+        </div>
+      </div>
+      <div class="panel">
+        <div class="panel-head"><h3>Ожидают модерации</h3><span class="hint" id="pendingHint"></span></div>
+        <div class="panel-body tight table-wrap">
+          <table class="data" id="tblPendingPreview">
+            <thead><tr><th>Город</th><th>Тип</th><th>Цена</th><th>Автор</th><th>Создано</th><th></th></tr></thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== LISTINGS ===== -->
+    <section class="view hidden" id="view-listings">
+      <div class="panel">
+        <div class="filterbar">
+          <div class="chip-toggle" id="statusFilter">
+            <button data-val="" class="active">Все</button>
+            <button data-val="pending">На модерации</button>
+            <button data-val="approved">Опубликованы</button>
+            <button data-val="rejected">Отклонены</button>
+          </div>
+          <select id="cityFilter"><option value="">Все города</option></select>
+          <select id="roomFilter"><option value="">Все типы</option></select>
+          <select id="sortFilter">
+            <option value="created_desc">Сначала новые</option>
+            <option value="created_asc">Сначала старые</option>
+            <option value="price_asc">Цена ↑</option>
+            <option value="price_desc">Цена ↓</option>
+          </select>
+        </div>
+        <div class="panel-body tight table-wrap">
+          <table class="data" id="tblListings">
+            <thead><tr></tr></thead>
+            <tbody></tbody>
+          </table>
+        </div>
+        <div class="pager" id="pagerListings"></div>
+      </div>
+    </section>
+
+    <!-- ===== USERS ===== -->
+    <section class="view hidden" id="view-users">
+      <div class="panel">
+        <div class="panel-body tight table-wrap">
+          <table class="data" id="tblUsers">
+            <thead><tr><th>Пользователь</th><th>Страна / город</th><th>Университет</th><th>Язык</th><th>Профиль</th><th>Регистрация</th></tr></thead>
+            <tbody></tbody>
+          </table>
+        </div>
+        <div class="pager" id="pagerUsers"></div>
+      </div>
+    </section>
+
+    <!-- ===== FRIENDS ===== -->
+    <section class="view hidden" id="view-friends">
+      <div class="panel">
+        <div class="panel-body tight table-wrap">
+          <table class="data" id="tblFriends">
+            <thead><tr><th></th><th>Имя</th><th>Откуда</th><th>Университет</th><th>Статус</th><th>Обновлено</th><th></th></tr></thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== REVIEWS ===== -->
+    <section class="view hidden" id="view-reviews">
+      <div class="panel">
+        <div class="panel-body tight table-wrap">
+          <table class="data" id="tblReviews">
+            <thead><tr><th></th><th>Автор</th><th>Текст</th><th>Статус</th><th>Дата</th><th></th></tr></thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== SUBSCRIPTIONS ===== -->
+    <section class="view hidden" id="view-subs">
+      <div class="panel">
+        <div class="panel-body tight table-wrap">
+          <table class="data" id="tblSubs">
+            <thead><tr><th>Пользователь</th><th>Город</th><th>Тип</th><th>Макс. цена</th><th>Статус</th><th>Создана</th><th></th></tr></thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== SETTINGS ===== -->
+    <section class="view hidden" id="view-settings">
+      <div class="grid-2">
+        <div class="panel">
+          <div class="panel-head"><h3>Чат модерации</h3></div>
+          <div class="panel-body">
+            <div class="editable-field">
+              <label>ID чата модерации (config/main → moderation_chat_id)</label>
+              <input id="modChatIdInput" type="text" placeholder="например -1001234567890">
+            </div>
+            <button class="btn btn-primary btn-sm" id="btnSaveModChat">Сохранить</button>
+            <div class="field-hint" style="margin-top:12px;">Этот чат бот использует, чтобы присылать новые объявления на одобрение. Задаётся автоматически командой <code>/addnewmoderationchat123456</code> в боте — здесь можно посмотреть и поправить вручную.</div>
+          </div>
+        </div>
+        <div class="panel">
+          <div class="panel-head"><h3>Справочники бота</h3><span class="hint">только чтение — заданы в коде бота</span></div>
+          <div class="panel-body">
+            <div class="section-title" style="margin-top:0;">Города (26)</div>
+            <div class="tag-list" id="citiesTagList"></div>
+            <div class="section-title">Типы размещения</div>
+            <div class="tag-list" id="roomsTagList"></div>
+            <div class="section-title">Контакты поддержки</div>
+            <div class="dl">
+              <dt>Telegram</dt><dd>@io_student_vrime_1</dd>
+              <dt>Телефон</dt><dd>+39 347 174 3236</dd>
+              <dt>WhatsApp</dt><dd>+39 347 174 3236</dd>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="panel">
+        <div class="panel-head"><h3>Подключение</h3></div>
+        <div class="panel-body">
+          <div class="dl">
+            <dt>Project ID</dt><dd id="settingsProjectId" class="mono"></dd>
+            <dt>Режим</dt><dd>Firestore напрямую из браузера, без Firebase Auth</dd>
+          </div>
+          <div class="field-hint" style="margin-top:10px;">Пока вход не настроен, CRM работает по открытым правилам Firestore (allow read, write: if true). Это ок для внутреннего/тестового использования, но перед тем как давать доступ другим людям — добавь Firebase Auth и ограничь правила по ролям (например, коллекция <code>admins</code> с UID).</div>
+          <button class="btn btn-danger-ghost btn-sm" id="btnDisconnect2" style="margin-top:14px;">Отключиться от проекта</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== CUSTOMIZE ===== -->
+    <section class="view hidden" id="view-customize">
+      <div class="grid-2">
+        <div class="panel">
+          <div class="panel-head"><h3>Внешний вид</h3></div>
+          <div class="panel-body">
+            <div class="cz-row">
+              <div><div class="cz-label">Тёмная тема</div><div class="cz-desc">Переключить всю панель на тёмную палитру</div></div>
+              <div class="switch" id="swDark"><div class="knob"></div></div>
+            </div>
+            <div class="cz-row">
+              <div><div class="cz-label">Акцентный цвет</div><div class="cz-desc">Цвет активных элементов, кнопок, графиков</div></div>
+              <div class="swatches" id="accentSwatches"></div>
+            </div>
+            <div class="cz-row">
+              <div><div class="cz-label">Плотность таблиц</div><div class="cz-desc">Высота строк в списках</div></div>
+              <div class="chip-toggle" id="densityToggle">
+                <button data-val="10">Компактно</button>
+                <button data-val="14">Обычно</button>
+                <button data-val="20">Свободно</button>
+              </div>
+            </div>
+            <div class="cz-row">
+              <div><div class="cz-label">Шрифт заголовков</div><div class="cz-desc">Гарнитура для крупных заголовков разделов</div></div>
+              <div class="chip-toggle" id="fontToggle">
+                <button data-val="'Fraunces', serif">Fraunces</button>
+                <button data-val="'Inter', sans-serif">Inter</button>
+                <button data-val="'IBM Plex Mono', monospace">Mono</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="panel">
+          <div class="panel-head"><h3>Колонки таблицы объявлений</h3><span class="hint">видимость</span></div>
+          <div class="panel-body">
+            <div class="col-toggles" id="colToggles"></div>
+            <div class="field-hint" style="margin-top:14px;">Настройки сохраняются в этом браузере (localStorage) и применяются сразу.</div>
+          </div>
+        </div>
+      </div>
+      <div class="panel">
+        <div class="panel-head"><h3>Боковое меню</h3></div>
+        <div class="panel-body">
+          <div class="cz-row">
+            <div><div class="cz-label">Показывать счётчики в меню</div><div class="cz-desc">Число записей рядом с разделом</div></div>
+            <div class="switch on" id="swCounts"><div class="knob"></div></div>
+          </div>
+          <div class="cz-row">
+            <div><div class="cz-label">Сбросить настройки</div><div class="cz-desc">Вернуть кастомизацию по умолчанию</div></div>
+            <button class="btn btn-ghost btn-sm" id="btnResetCustomize">Сбросить</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<!-- ============ DRAWER ============ -->
+<div class="drawer-backdrop" id="drawerBackdrop"></div>
+<div class="drawer" id="drawer">
+  <div class="drawer-head">
+    <div class="ti"><h3 id="drawerTitle">—</h3><div class="meta" id="drawerMeta"></div></div>
+    <button class="drawer-close" id="drawerClose">✕</button>
+  </div>
+  <div class="drawer-body" id="drawerBody"></div>
+  <div class="drawer-foot" id="drawerFoot"></div>
+</div>
+
+<script>
+/* =========================================================================
+   ITALY HOUSING CRM — единый файл, Firestore напрямую из браузера.
+   Коллекции: listings, users, friend_profiles, reviews, subscriptions, config
+   ========================================================================= */
+
+const CITIES = ["Rome","Milan","Naples","Turin","Bologna","Florence","Venice","Genoa","Verona","Bari","Palermo","Catania","Messina","Syracuse","Trapani","Agrigento","Taormina","Cagliari","Padua","Pisa","Siena","Perugia","Parma","Modena","Trieste","Lecce"];
+const ROOM_TYPES = ["Single","Double","Triple","Studio","Whole apartment","Bed place"];
+const STATUS_LABEL = {pending:"На модерации", approved:"Опубликовано", rejected:"Отклонено"};
+const STATUS_BADGE = {pending:"warn", approved:"good", rejected:"bad"};
+const LS_KEY_FB = "ih_crm_firebase_config";
+const LS_KEY_CZ = "ih_crm_customize";
+
+let db = null;
+let demoMode = false;
+let unsub = {}; // active onSnapshot unsubscribers
+let store = { listings: [], users: [], friends: [], reviews: [], subs: [], config: {} };
+let listingsFilter = { status:"", city:"", room:"", sort:"created_desc", q:"" };
+let usersQuery = "";
+let listingsPage = 0, usersPage = 0;
+const PAGE_SIZE = 20;
+let charts = {};
+
+/* ---------------- utils ---------------- */
+function ts(v){
+  if (!v) return null;
+  if (typeof v.toDate === "function") return v.toDate();
+  if (v.seconds) return new Date(v.seconds*1000);
+  if (v instanceof Date) return v;
+  return null;
+}
+function fmtDate(v){
+  const d = ts(v);
+  if (!d) return "—";
+  return d.toLocaleDateString("ru-RU", {day:"2-digit", month:"short", year:"numeric"}) + " " +
+         d.toLocaleTimeString("ru-RU", {hour:"2-digit", minute:"2-digit"});
+}
+function fmtDateShort(v){
+  const d = ts(v);
+  if (!d) return "—";
+  return d.toLocaleDateString("ru-RU", {day:"2-digit", month:"2-digit"});
+}
+function esc(s){
+  if (s === undefined || s === null) return "";
+  return String(s).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+}
+function initials(name){
+  if (!name) return "?";
+  return name.trim().split(/\s+/).slice(0,2).map(w=>w[0]).join("").toUpperCase();
+}
+function toast(msg, kind){
+  const el = document.createElement("div");
+  el.className = "toast" + (kind ? " "+kind : "");
+  el.textContent = msg;
+  document.getElementById("toasts").appendChild(el);
+  setTimeout(()=>{ el.style.opacity="0"; el.style.transition="opacity .2s"; setTimeout(()=>el.remove(),200); }, 3200);
+}
+
+/* ---------------- Firebase config parsing / connect ---------------- */
+function parseFirebaseConfig(raw){
+  raw = raw.trim();
+  if (!raw) throw new Error("Пусто");
+  // Try strict JSON first
+  try { return JSON.parse(raw); } catch(e) {}
+  // Try to coerce a JS object literal (e.g. copy-pasted `const firebaseConfig = {...}`)
+  let body = raw;
+  const braceStart = body.indexOf("{");
+  const braceEnd = body.lastIndexOf("}");
+  if (braceStart !== -1 && braceEnd !== -1) body = body.slice(braceStart, braceEnd+1);
+  body = body.replace(/(['"])?([a-zA-Z0-9_]+)\1?\s*:/g, '"$2":')
+             .replace(/'/g, '"')
+             .replace(/,\s*}/g, "}");
+  try { return JSON.parse(body); } catch(e) {
+    throw new Error("Не удалось распознать конфиг. Проверь формат — это должен быть объект вида { apiKey: ..., projectId: ... }.");
+  }
+}
+
+function connectFirebase(config){
+  if (firebase.apps.length) firebase.apps.forEach(a=>a.delete());
+  firebase.initializeApp(config);
+  db = firebase.firestore();
+  document.getElementById("projectLabel").textContent = config.projectId || "";
+  document.getElementById("settingsProjectId").textContent = config.projectId || "—";
+  document.getElementById("connLabel").textContent = "подключено";
+  document.getElementById("connDot").classList.remove("off");
+}
+
+function boot(){
+  const saved = localStorage.getItem(LS_KEY_FB);
+  if (saved) {
+    try {
+      const cfg = JSON.parse(saved);
+      connectFirebase(cfg);
+      showApp();
+      attachListeners();
+      return;
+    } catch(e) { localStorage.removeItem(LS_KEY_FB); }
+  }
+  document.getElementById("setupScreen").classList.remove("hidden");
+}
+
+function showApp(){
+  document.getElementById("setupScreen").classList.add("hidden");
+  document.getElementById("app").classList.remove("hidden");
+}
+
+document.getElementById("btnConnect").addEventListener("click", ()=>{
+  const raw = document.getElementById("fbConfigInput").value;
+  const errBox = document.getElementById("setupError");
+  errBox.classList.add("hidden");
+  try{
+    const cfg = parseFirebaseConfig(raw);
+    if (!cfg.projectId) throw new Error("В конфиге нет projectId — проверь, что скопировал весь объект.");
+    connectFirebase(cfg);
+    localStorage.setItem(LS_KEY_FB, JSON.stringify(cfg));
+    demoMode = false;
+    showApp();
+    attachListeners();
+  }catch(e){
+    errBox.textContent = e.message || String(e);
+    errBox.classList.remove("hidden");
+  }
+});
+
+document.getElementById("btnDemoMode").addEventListener("click", ()=>{
+  demoMode = true;
+  loadDemoData();
+  document.getElementById("projectLabel").textContent = "demo";
+  document.getElementById("settingsProjectId").textContent = "demo (без Firebase)";
+  document.getElementById("connLabel").textContent = "демо-данные";
+  document.getElementById("connDot").classList.add("off");
+  showApp();
+  renderAll();
+});
+
+function disconnect(){
+  localStorage.removeItem(LS_KEY_FB);
+  Object.values(unsub).forEach(u=>{ if (typeof u === "function") u(); });
+  unsub = {};
+  location.reload();
+}
+document.getElementById("btnDisconnect").addEventListener("click", disconnect);
+document.getElementById("btnDisconnect2").addEventListener("click", disconnect);
+
+/* ---------------- Demo data (для тестового просмотра CRM без своего Firebase) ---------------- */
+function loadDemoData(){
+  const now = Date.now();
+  const day = 86400000;
+  store.listings = Array.from({length:34}).map((_,i)=>({
+    id:"demo_"+i,
+    city: CITIES[i % CITIES.length],
+    housing_type: ["Комната","Квартира","Студия","Койко-место"][i%4],
+    room: ROOM_TYPES[i % ROOM_TYPES.length],
+    address: "Via Roma "+ (i+1) + ", " + CITIES[i % CITIES.length],
+    address_lat: 41.9 + (i%10)*0.01, address_lng: 12.5 + (i%10)*0.01,
+    price: 300 + (i*17 % 500), price_type: i%2 ? "person":"property",
+    deposit: 300, utilities: 40, available_from: "01.10.2026",
+    included: i%3===0, extra_costs: i%3===0 ? "" : "свет и газ отдельно",
+    contract: ["С контрактом","Без контракта","Возможны оба варианта"][i%3],
+    gender: ["all","male","female"][i%3],
+    description: "Светлая комната рядом с университетом, 5 минут пешком до метро. Все удобства, стиральная машина, вайфай.",
+    phone:"+390000000"+i, whatsapp:"+390000000"+i, username:"user"+i,
+    owner_id: 100000+i, active: i%4!==0, status: ["approved","pending","rejected","approved"][i%4],
+    created_at:{seconds:(now - i*day*1.3)/1000},
+    photos: [], photo_urls: [],
+  }));
+  store.users = Array.from({length:22}).map((_,i)=>({
+    id:String(200000+i), username:"student"+i, name:"Студент "+(i+1),
+    country:["Russia","Ukraine","Kazakhstan","Georgia"][i%4], hometown_city:"Город"+i,
+    university: i%5===0 ? "Не учусь" : "Sapienza University",
+    profile_description:"Учусь на втором курсе, ищу жильё недалеко от кампуса.",
+    profile_completed: i%6!==0, language: i%3===0?"en":"ru",
+    first_seen:{seconds:(now-i*day*2)/1000}, last_seen:{seconds:(now-i*day*0.2)/1000},
+  }));
+  store.friends = store.users.slice(0,10).map((u,i)=>({
+    id:u.id, name:u.name, username:u.username, country:u.country, hometown_city:u.hometown_city,
+    university:u.university, profile_description:u.profile_description,
+    active: i%3!==0, friend_avatar_url:"", friend_updated_at:{seconds:(now-i*day)/1000},
+  }));
+  store.reviews = Array.from({length:9}).map((_,i)=>({
+    id:"rev_"+i, user_id:300000+i, name:"Гость "+(i+1), username:"guest"+i, avatar_url:"",
+    text:"Отличный сервис, быстро нашли комнату, поддержка всегда на связи и отвечает оперативно!",
+    active:i%4!==0, created_at:{seconds:(now-i*day*3)/1000},
+  }));
+  store.subs = Array.from({length:12}).map((_,i)=>({
+    id:"sub_"+i, user_id:400000+i, city:CITIES[i%CITIES.length], room:ROOM_TYPES[i%ROOM_TYPES.length],
+    price_max: 400+i*30, active:i%5!==0, created_at:{seconds:(now-i*day)/1000},
+  }));
+  store.config = {moderation_chat_id: -1001234567890};
+  document.getElementById("modChatIdInput").value = store.config.moderation_chat_id;
+}
+
+/* ---------------- Firestore realtime listeners ---------------- */
+function attachListeners(){
+  if (demoMode) return;
+  unsub.listings = db.collection("listings").onSnapshot(snap=>{
+    store.listings = snap.docs.map(d=>({id:d.id, ...d.data()}));
+    renderAll();
+  }, err=>{ toast("Ошибка чтения listings: "+err.message, "err"); });
+
+  unsub.users = db.collection("users").onSnapshot(snap=>{
+    store.users = snap.docs.map(d=>({id:d.id, ...d.data()}));
+    renderAll();
+  }, err=>{ toast("Ошибка чтения users: "+err.message, "err"); });
+
+  unsub.friends = db.collection("friend_profiles").onSnapshot(snap=>{
+    store.friends = snap.docs.map(d=>({id:d.id, ...d.data()}));
+    renderAll();
+  }, err=>{ toast("Ошибка чтения friend_profiles: "+err.message, "err"); });
+
+  unsub.reviews = db.collection("reviews").onSnapshot(snap=>{
+    store.reviews = snap.docs.map(d=>({id:d.id, ...d.data()}));
+    renderAll();
+  }, err=>{ toast("Ошибка чтения reviews: "+err.message, "err"); });
+
+  unsub.subs = db.collection("subscriptions").onSnapshot(snap=>{
+    store.subs = snap.docs.map(d=>({id:d.id, ...d.data()}));
+    renderAll();
+  }, err=>{ toast("Ошибка чтения subscriptions: "+err.message, "err"); });
+
+  db.collection("config").doc("main").onSnapshot(doc=>{
+    store.config = doc.exists ? doc.data() : {};
+    const inp = document.getElementById("modChatIdInput");
+    if (inp && document.activeElement !== inp) inp.value = store.config.moderation_chat_id ?? "";
+    renderAll();
+  }, err=>{ toast("Ошибка чтения config: "+err.message, "err"); });
+}
+
+/* ---------------- Navigation ---------------- */
+const VIEW_TITLES = {
+  dashboard:["Дашборд","Общая картина по платформе"],
+  listings:["Объявления","Модерация и управление объявлениями"],
+  users:["Пользователи","Все, кто запускал бота"],
+  friends:["Анкеты «Люди»","Публичные профили в разделе Mini App"],
+  reviews:["Отзывы","Отзывы, отправленные через /review"],
+  subs:["Подписки","Уведомления о новых объявлениях по фильтрам"],
+  settings:["Настройки бота","Чат модерации и справочники"],
+  customize:["Кастомизация","Тема, плотность, колонки — только в этом браузере"],
+};
+document.getElementById("navList").addEventListener("click", (e)=>{
+  const item = e.target.closest(".nav-item");
+  if (!item) return;
+  switchView(item.dataset.view);
+});
+function switchView(view){
+  document.querySelectorAll(".nav-item").forEach(n=>n.classList.toggle("active", n.dataset.view===view));
+  document.querySelectorAll(".view").forEach(v=>v.classList.toggle("hidden", v.id !== "view-"+view));
+  document.getElementById("viewTitle").textContent = VIEW_TITLES[view][0];
+  document.getElementById("viewSub").textContent = VIEW_TITLES[view][1];
+  document.getElementById("globalSearch").value = "";
+  listingsFilter.q = ""; usersQuery = "";
+  document.getElementById("globalSearchBox").style.visibility = (view==="listings"||view==="users") ? "visible":"hidden";
+  renderAll();
+}
+document.getElementById("globalSearch").addEventListener("input", (e)=>{
+  const active = document.querySelector(".nav-item.active").dataset.view;
+  if (active==="listings"){ listingsFilter.q = e.target.value.toLowerCase(); listingsPage=0; renderListings(); }
+  if (active==="users"){ usersQuery = e.target.value.toLowerCase(); usersPage=0; renderUsers(); }
+});
+switchView("dashboard");
+
+/* ---------------- Render: everything ---------------- */
+function renderAll(){
+  populateCityRoomFilters();
+  renderNavCounts();
+  renderDashboard();
+  renderListings();
+  renderUsers();
+  renderFriends();
+  renderReviews();
+  renderSubs();
+  renderSettingsStatic();
+}
+
+function renderNavCounts(){
+  document.getElementById("cnt-listings").textContent = store.listings.length;
+  document.getElementById("cnt-users").textContent = store.users.length;
+  document.getElementById("cnt-friends").textContent = store.friends.length;
+  document.getElementById("cnt-reviews").textContent = store.reviews.length;
+  document.getElementById("cnt-subs").textContent = store.subs.length;
+}
+
+function populateCityRoomFilters(){
+  const cityEl = document.getElementById("cityFilter");
+  if (cityEl.options.length <= 1){
+    CITIES.forEach(c=>{ const o=document.createElement("option"); o.value=c; o.textContent=c; cityEl.appendChild(o); });
+  }
+  const roomEl = document.getElementById("roomFilter");
+  if (roomEl.options.length <= 1){
+    ROOM_TYPES.forEach(r=>{ const o=document.createElement("option"); o.value=r; o.textContent=r; roomEl.appendChild(o); });
+  }
+}
+
+/* ---------------- Dashboard ---------------- */
+function renderDashboard(){
+  const L = store.listings;
+  const total = L.length;
+  const pending = L.filter(x=>x.status==="pending").length;
+  const approved = L.filter(x=>x.status==="approved" || x.active).length;
+  const rejected = L.filter(x=>x.status==="rejected").length;
+  const usersTotal = store.users.length;
+  const reviewsTotal = store.reviews.length;
+  const activeSubs = store.subs.filter(s=>s.active).length;
+
+  const ledger = document.getElementById("kpiLedger");
+  const items = [
+    ["Всего объявлений", total, true],
+    ["На модерации", pending, pending>0],
+    ["Опубликовано", approved, false],
+    ["Отклонено", rejected, false],
+    ["Пользователей", usersTotal, false],
+    ["Активных подписок", activeSubs, false],
+  ];
+  ledger.innerHTML = items.map(([lbl,val,hot])=>`
+    <div class="ledger-item ${hot?'hot':''}">
+      <div class="accentbar"></div>
+      <div class="lbl">${lbl}</div>
+      <div class="val">${val}</div>
+    </div>`).join("");
+
+  // Pending preview table (top 6 newest pending)
+  const pendingRows = L.filter(x=>x.status==="pending")
+    .sort((a,b)=> (ts(b.created_at)||0) - (ts(a.created_at)||0))
+    .slice(0,6);
+  document.getElementById("pendingHint").textContent = pending + " ожидают решения";
+  const tbody = document.querySelector("#tblPendingPreview tbody");
+  if (!pendingRows.length){
+    tbody.innerHTML = `<tr><td colspan="6"><div class="empty-state"><div class="em-ico">✓</div><b>Очередь пуста</b>Новых объявлений на модерации нет.</div></td></tr>`;
+  } else {
+    tbody.innerHTML = pendingRows.map(x=>`
+      <tr data-id="${x.id}" class="row-pending-preview">
+        <td>${esc(x.city||"—")}</td>
+        <td>${esc(x.room||x.housing_type||"—")}</td>
+        <td>€${x.price ?? 0}</td>
+        <td class="mono">${x.username ? "@"+esc(x.username) : (x.owner_id||"—")}</td>
+        <td>${fmtDateShort(x.created_at)}</td>
+        <td style="text-align:right;">
+          <button class="btn btn-primary btn-sm act-approve" data-id="${x.id}">Одобрить</button>
+        </td>
+      </tr>`).join("");
+    tbody.querySelectorAll(".row-pending-preview").forEach(tr=>{
+      tr.addEventListener("click",(e)=>{ if(e.target.closest("button")) return; openListingDrawer(tr.dataset.id); });
+    });
+    tbody.querySelectorAll(".act-approve").forEach(btn=>{
+      btn.addEventListener("click",(e)=>{ e.stopPropagation(); approveListing(btn.dataset.id); });
+    });
+  }
+
+  drawCharts(L);
+}
+
+function drawCharts(L){
+  const accent = getComputedStyle(document.body).getPropertyValue("--accent").trim() || "#B2431B";
+  const good = getComputedStyle(document.body).getPropertyValue("--good").trim() || "#2E7D4F";
+  const warn = getComputedStyle(document.body).getPropertyValue("--warn").trim() || "#B6902C";
+  const bad = getComputedStyle(document.body).getPropertyValue("--bad").trim() || "#B23A2E";
+  const ink = getComputedStyle(document.body).getPropertyValue("--ink-soft").trim() || "#5B6167";
+  const gridColor = getComputedStyle(document.body).getPropertyValue("--line-soft").trim() || "#EDEAE3";
+  Chart.defaults.font.family = "'Inter', sans-serif";
+  Chart.defaults.font.size = 11.5;
+  Chart.defaults.color = ink;
+
+  // Timeline (last 30 days)
+  const days = [];
+  const counts = [];
+  const now = new Date();
+  for (let i=29;i>=0;i--){
+    const d = new Date(now); d.setDate(d.getDate()-i); d.setHours(0,0,0,0);
+    days.push(d);
+    counts.push(0);
+  }
+  L.forEach(x=>{
+    const d = ts(x.created_at);
+    if (!d) return;
+    const idx = days.findIndex(dd => dd.toDateString() === new Date(d.getFullYear(),d.getMonth(),d.getDate()).toDateString());
+    if (idx !== -1) counts[idx]++;
+  });
+  renderChart("chartTimeline","line",{
+    labels: days.map(d=>d.toLocaleDateString("ru-RU",{day:"2-digit",month:"2-digit"})),
+    datasets:[{data:counts, borderColor:accent, backgroundColor:accent+"22", fill:true, tension:.35, pointRadius:0, borderWidth:2}]
+  },{plugins:{legend:{display:false}}, scales:{x:{grid:{display:false},ticks:{maxTicksLimit:8}},y:{beginAtZero:true,grid:{color:gridColor},ticks:{precision:0}}}});
+
+  // Status donut
+  const pending = L.filter(x=>x.status==="pending").length;
+  const approved = L.filter(x=>x.status==="approved").length;
+  const rejected = L.filter(x=>x.status==="rejected").length;
+  renderChart("chartStatus","doughnut",{
+    labels:["На модерации","Опубликовано","Отклонено"],
+    datasets:[{data:[pending,approved,rejected], backgroundColor:[warn,good,bad], borderWidth:0}]
+  },{cutout:"68%", plugins:{legend:{position:"bottom", labels:{boxWidth:10, padding:14}}}});
+
+  // Cities bar (top10)
+  const byCity = {};
+  L.forEach(x=>{ if(x.city){ byCity[x.city]=(byCity[x.city]||0)+1; } });
+  const cityEntries = Object.entries(byCity).sort((a,b)=>b[1]-a[1]).slice(0,10);
+  renderChart("chartCities","bar",{
+    labels: cityEntries.map(e=>e[0]),
+    datasets:[{data:cityEntries.map(e=>e[1]), backgroundColor:accent, borderRadius:4, maxBarThickness:22}]
+  },{indexAxis:"y", plugins:{legend:{display:false}}, scales:{x:{beginAtZero:true,grid:{color:gridColor},ticks:{precision:0}},y:{grid:{display:false}}}});
+
+  // Room types
+  const byRoom = {};
+  ROOM_TYPES.forEach(r=>byRoom[r]=0);
+  L.forEach(x=>{ if (x.room && byRoom[x.room]!==undefined) byRoom[x.room]++; });
+  renderChart("chartRooms","bar",{
+    labels: Object.keys(byRoom),
+    datasets:[{data:Object.values(byRoom), backgroundColor:getPalette(6), borderRadius:4, maxBarThickness:34}]
+  },{plugins:{legend:{display:false}}, scales:{x:{grid:{display:false}},y:{beginAtZero:true,grid:{color:gridColor},ticks:{precision:0}}}});
+}
+function getPalette(n){
+  const base = ["#B2431B","#B6902C","#2E7D4F","#3C6E8F","#7A5AA8","#B23A2E"];
+  return Array.from({length:n},(_,i)=>base[i%base.length]);
+}
+function renderChart(canvasId, type, data, opts){
+  const ctx = document.getElementById(canvasId);
+  if (!ctx) return;
+  if (charts[canvasId]) charts[canvasId].destroy();
+  charts[canvasId] = new Chart(ctx, {type, data, options: Object.assign({responsive:true, maintainAspectRatio:false}, opts)});
+}
+
+/* ---------------- Listings table ---------------- */
+const LISTING_COLUMNS = [
+  {key:"city", label:"Город", default:true},
+  {key:"type", label:"Тип / размещение", default:true},
+  {key:"price", label:"Цена", default:true},
+  {key:"address", label:"Адрес", default:true},
+  {key:"owner", label:"Автор", default:true},
+  {key:"status", label:"Статус", default:true},
+  {key:"created", label:"Создано", default:true},
+];
+function getCustomize(){
+  try{ return Object.assign(defaultCustomize(), JSON.parse(localStorage.getItem(LS_KEY_CZ)||"{}")); }
+  catch(e){ return defaultCustomize(); }
+}
+function defaultCustomize(){
+  return { dark:false, accent:"#B2431B", density:14, headFont:"'Fraunces', serif",
+    cols: Object.fromEntries(LISTING_COLUMNS.map(c=>[c.key,c.default])), showCounts:true };
+}
+function saveCustomize(cz){ localStorage.setItem(LS_KEY_CZ, JSON.stringify(cz)); }
+
+function filteredListings(){
+  let L = store.listings.slice();
+  if (listingsFilter.status) L = L.filter(x=>x.status===listingsFilter.status);
+  if (listingsFilter.city) L = L.filter(x=>x.city===listingsFilter.city);
+  if (listingsFilter.room) L = L.filter(x=>x.room===listingsFilter.room);
+  if (listingsFilter.q){
+    const q = listingsFilter.q;
+    L = L.filter(x => [x.city,x.address,x.description,x.username,x.housing_type].some(v=> v && String(v).toLowerCase().includes(q)));
+  }
+  switch(listingsFilter.sort){
+    case "created_asc": L.sort((a,b)=>(ts(a.created_at)||0)-(ts(b.created_at)||0)); break;
+    case "price_asc": L.sort((a,b)=>(a.price||0)-(b.price||0)); break;
+    case "price_desc": L.sort((a,b)=>(b.price||0)-(a.price||0)); break;
+    default: L.sort((a,b)=>(ts(b.created_at)||0)-(ts(a.created_at)||0));
+  }
+  return L;
+}
+
+function renderListings(){
+  const cz = getCustomize();
+  const head = document.querySelector("#tblListings thead tr");
+  const cols = LISTING_COLUMNS.filter(c=>cz.cols[c.key]);
+  head.innerHTML = cols.map(c=>`<th>${c.label}</th>`).join("") + "<th></th>";
+
+  const all = filteredListings();
+  const totalPages = Math.max(1, Math.ceil(all.length / PAGE_SIZE));
+  listingsPage = Math.min(listingsPage, totalPages-1);
+  const pageRows = all.slice(listingsPage*PAGE_SIZE, listingsPage*PAGE_SIZE+PAGE_SIZE);
+
+  const tbody = document.querySelector("#tblListings tbody");
+  if (!pageRows.length){
+    tbody.innerHTML = `<tr><td colspan="${cols.length+1}"><div class="empty-state"><div class="em-ico">⌂</div><b>Ничего не найдено</b>Попробуй изменить фильтры или поиск.</div></td></tr>`;
+  } else {
+    tbody.innerHTML = pageRows.map(x=>{
+      const cells = cols.map(c=>{
+        switch(c.key){
+          case "city": return `<td><div class="cell-main">${esc(x.city||"—")}</div><div class="cell-sub">${esc(x.gender==="male"?"👨 парни":x.gender==="female"?"👩 девушки":"👥 все")}</div></td>`;
+          case "type": return `<td>${esc(x.housing_type||"—")}<div class="cell-sub">${esc(x.room||"—")}</div></td>`;
+          case "price": return `<td class="mono">€${x.price ?? 0}${x.price_type==="person"?"/чел":""}</td>`;
+          case "address": return `<td style="max-width:220px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${esc(x.address||"—")}</td>`;
+          case "owner": return `<td class="mono">${x.username?"@"+esc(x.username):(x.owner_id||"—")}</td>`;
+          case "status": return `<td><span class="badge ${STATUS_BADGE[x.status]||'neutral'}">${STATUS_LABEL[x.status]||x.status||"—"}</span></td>`;
+          case "created": return `<td>${fmtDateShort(x.created_at)}</td>`;
+        }
+      }).join("");
+      return `<tr data-id="${x.id}">${cells}<td style="text-align:right;white-space:nowrap;">
+        ${x.status==="pending" ? `<button class="btn btn-primary btn-sm act-approve" data-id="${x.id}">✓</button>
+        <button class="btn btn-danger-ghost btn-sm act-reject" data-id="${x.id}">✕</button>` : ""}
+      </td></tr>`;
+    }).join("");
+    tbody.querySelectorAll("tr[data-id]").forEach(tr=>{
+      tr.addEventListener("click",(e)=>{ if(e.target.closest("button")) return; openListingDrawer(tr.dataset.id); });
+    });
+    tbody.querySelectorAll(".act-approve").forEach(b=>b.addEventListener("click",(e)=>{e.stopPropagation(); approveListing(b.dataset.id);}));
+    tbody.querySelectorAll(".act-reject").forEach(b=>b.addEventListener("click",(e)=>{e.stopPropagation(); rejectListing(b.dataset.id);}));
+  }
+
+  const pager = document.getElementById("pagerListings");
+  pager.innerHTML = `<span>${all.length} объявлени${plural(all.length)} · страница ${listingsPage+1} из ${totalPages}</span>
+    <div class="btns">
+      <button ${listingsPage===0?"disabled":""} id="lpPrev">← Назад</button>
+      <button ${listingsPage>=totalPages-1?"disabled":""} id="lpNext">Вперёд →</button>
+    </div>`;
+  const prevBtn = document.getElementById("lpPrev"), nextBtn = document.getElementById("lpNext");
+  if (prevBtn) prevBtn.addEventListener("click",()=>{listingsPage--; renderListings();});
+  if (nextBtn) nextBtn.addEventListener("click",()=>{listingsPage++; renderListings();});
+}
+function plural(n){
+  const mod10=n%10, mod100=n%100;
+  if (mod10===1 && mod100!==11) return "е";
+  if ([2,3,4].includes(mod10) && ![12,13,14].includes(mod100)) return "я";
+  return "й";
+}
+
+document.getElementById("statusFilter").addEventListener("click",(e)=>{
+  const btn = e.target.closest("button"); if(!btn) return;
+  document.querySelectorAll("#statusFilter button").forEach(b=>b.classList.remove("active"));
+  btn.classList.add("active");
+  listingsFilter.status = btn.dataset.val; listingsPage=0; renderListings();
+});
+document.getElementById("cityFilter").addEventListener("change",(e)=>{ listingsFilter.city=e.target.value; listingsPage=0; renderListings(); });
+document.getElementById("roomFilter").addEventListener("change",(e)=>{ listingsFilter.room=e.target.value; listingsPage=0; renderListings(); });
+document.getElementById("sortFilter").addEventListener("change",(e)=>{ listingsFilter.sort=e.target.value; renderListings(); });
+
+/* ---------------- Listing actions ---------------- */
+function updateListing(id, patch){
+  if (demoMode){
+    const it = store.listings.find(x=>x.id===id);
+    if (it) Object.assign(it, patch);
+    renderAll();
+    return Promise.resolve();
+  }
+  return db.collection("listings").doc(id).update(patch);
+}
+function deleteListingDoc(id){
+  if (demoMode){
+    store.listings = store.listings.filter(x=>x.id!==id);
+    renderAll();
+    return Promise.resolve();
+  }
+  return db.collection("listings").doc(id).delete();
+}
+function approveListing(id){
+  updateListing(id, {active:true, status:"approved"})
+    .then(()=>toast("Объявление одобрено", "ok"))
+    .catch(e=>toast("Ошибка: "+e.message, "err"));
+}
+function rejectListing(id){
+  updateListing(id, {active:false, status:"rejected"})
+    .then(()=>toast("Объявление отклонено"))
+    .catch(e=>toast("Ошибка: "+e.message, "err"));
+}
+function deleteListing(id){
+  if (!confirm("Удалить объявление безвозвратно?")) return;
+  deleteListingDoc(id)
+    .then(()=>{ toast("Объявление удалено"); closeDrawer(); })
+    .catch(e=>toast("Ошибка: "+e.message, "err"));
+}
+
+/* ---------------- Drawer: listing detail / edit ---------------- */
+function openListingDrawer(id){
+  const x = store.listings.find(l=>l.id===id);
+  if (!x) return;
+  document.getElementById("drawerTitle").textContent = (x.housing_type||"Жильё") + " · " + (x.city||"");
+  document.getElementById("drawerMeta").innerHTML = `<span class="badge ${STATUS_BADGE[x.status]||'neutral'}">${STATUS_LABEL[x.status]||x.status||"—"}</span> · создано ${fmtDate(x.created_at)}`;
+
+  const photos = (x.photo_urls && x.photo_urls.length ? x.photo_urls : x.photos) || [];
+  const mapLink = (x.address_lat!=null && x.address_lng!=null) ? `https://maps.google.com/?q=${x.address_lat},${x.address_lng}` : null;
+
+  document.getElementById("drawerBody").innerHTML = `
+    ${photos.length ? `<div class="section-title" style="margin-top:0;">Фото</div><div class="photo-row">${photos.map(p=>`<img src="${esc(p)}" loading="lazy" onerror="this.style.display='none'">`).join("")}</div>` : ""}
+
+    <div class="section-title" ${photos.length?"":'style="margin-top:0;"'}>Параметры</div>
+    <dl class="dl">
+      <dt>Город</dt><dd>${esc(x.city||"—")}</dd>
+      <dt>Тип жилья</dt><dd>${esc(x.housing_type||"—")}</dd>
+      <dt>Размещение</dt><dd>${esc(x.room||"—")}</dd>
+      <dt>Адрес</dt><dd>${esc(x.address||"—")} ${mapLink?`<a href="${mapLink}" target="_blank" style="color:var(--accent);">↗ на карте</a>`:""}</dd>
+      <dt>Цена</dt><dd>€${x.price??0} ${x.price_type==="person"?"(за человека)":"(за всё жильё)"}</dd>
+      <dt>Депозит</dt><dd>€${x.deposit??0}</dd>
+      <dt>Коммуналка</dt><dd>€${x.utilities??0} ${x.included?" · включено в цену":(x.extra_costs?" · "+esc(x.extra_costs):"")}</dd>
+      <dt>Доступно с</dt><dd>${esc(x.available_from||"—")}</dd>
+      <dt>Контракт</dt><dd>${esc(x.contract||"—")}</dd>
+      <dt>Для кого</dt><dd>${x.gender==="male"?"Только парни":x.gender==="female"?"Только девушки":"Для всех"}</dd>
+    </dl>
+
+    <div class="section-title">Описание</div>
+    <div class="desc-block">${esc(x.description||"—")}</div>
+
+    <div class="section-title">Контакты автора</div>
+    <dl class="dl">
+      <dt>Telegram</dt><dd class="mono">${x.username?"@"+esc(x.username):"—"} <span style="color:var(--ink-faint);font-family:var(--font-body);">(id ${x.owner_id||"—"})</span></dd>
+      <dt>Телефон</dt><dd class="mono">${esc(x.phone||"—")}</dd>
+      <dt>WhatsApp</dt><dd class="mono">${esc(x.whatsapp||"—")}</dd>
+    </dl>
+
+    <div class="section-title">Быстрое редактирование</div>
+    <div class="editable-field">
+      <label>Цена, €</label>
+      <input type="number" id="editPrice" value="${x.price??0}">
+    </div>
+    <div class="inline-edit-row">
+      <div class="editable-field">
+        <label>Статус</label>
+        <select id="editStatus">
+          <option value="pending" ${x.status==="pending"?"selected":""}>На модерации</option>
+          <option value="approved" ${x.status==="approved"?"selected":""}>Опубликовано</option>
+          <option value="rejected" ${x.status==="rejected"?"selected":""}>Отклонено</option>
+        </select>
+      </div>
+    </div>
+    <div class="editable-field">
+      <label>Описание</label>
+      <textarea id="editDescription">${esc(x.description||"")}</textarea>
+    </div>
+  `;
+
+  document.getElementById("drawerFoot").innerHTML = `
+    <button class="btn btn-primary btn-sm" id="drawerSave">Сохранить изменения</button>
+    ${x.status!=="approved" ? `<button class="btn btn-ghost btn-sm" id="drawerApprove">✓ Одобрить</button>` : ""}
+    ${x.status!=="rejected" ? `<button class="btn btn-ghost btn-sm" id="drawerReject">✕ Отклонить</button>` : ""}
+    <button class="btn btn-danger-ghost btn-sm" id="drawerDelete" style="margin-left:auto;">Удалить</button>
+  `;
+  document.getElementById("drawerSave").addEventListener("click", ()=>{
+    const patch = {
+      price: Number(document.getElementById("editPrice").value)||0,
+      status: document.getElementById("editStatus").value,
+      description: document.getElementById("editDescription").value,
+    };
+    patch.active = patch.status === "approved";
+    updateListing(x.id, patch).then(()=>{ toast("Сохранено", "ok"); closeDrawer(); }).catch(e=>toast("Ошибка: "+e.message,"err"));
+  });
+  const apprBtn = document.getElementById("drawerApprove");
+  if (apprBtn) apprBtn.addEventListener("click", ()=>{ approveListing(x.id); closeDrawer(); });
+  const rejBtn = document.getElementById("drawerReject");
+  if (rejBtn) rejBtn.addEventListener("click", ()=>{ rejectListing(x.id); closeDrawer(); });
+  document.getElementById("drawerDelete").addEventListener("click", ()=> deleteListing(x.id));
+
+  openDrawer();
+}
+
+function openDrawer(){
+  document.getElementById("drawerBackdrop").classList.add("show");
+  document.getElementById("drawer").classList.add("show");
+}
+function closeDrawer(){
+  document.getElementById("drawerBackdrop").classList.remove("show");
+  document.getElementById("drawer").classList.remove("show");
+}
+document.getElementById("drawerBackdrop").addEventListener("click", closeDrawer);
+document.getElementById("drawerClose").addEventListener("click", closeDrawer);
+
+/* ---------------- Users ---------------- */
+function renderUsers(){
+  let U = store.users.slice().sort((a,b)=>(ts(b.first_seen)||0)-(ts(a.first_seen)||0));
+  if (usersQuery){
+    const q = usersQuery;
+    U = U.filter(u=>[u.name,u.username,u.hometown_city,u.university,u.country].some(v=>v && String(v).toLowerCase().includes(q)));
+  }
+  const totalPages = Math.max(1, Math.ceil(U.length/PAGE_SIZE));
+  usersPage = Math.min(usersPage, totalPages-1);
+  const rows = U.slice(usersPage*PAGE_SIZE, usersPage*PAGE_SIZE+PAGE_SIZE);
+  const tbody = document.querySelector("#tblUsers tbody");
+  if (!rows.length){
+    tbody.innerHTML = `<tr><td colspan="6"><div class="empty-state"><div class="em-ico">👤</div><b>Никого не найдено</b></div></td></tr>`;
+  } else {
+    tbody.innerHTML = rows.map(u=>`
+      <tr data-id="${u.id}">
+        <td><div class="flex-mid"><div class="avatar" style="display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:var(--ink-soft);">${esc(initials(u.name))}</div><div><div class="cell-main">${esc(u.name||"Без имени")}</div><div class="cell-sub">${u.username?"@"+esc(u.username):"id "+u.id}</div></div></div></td>
+        <td>${esc(u.country||"—")}${u.hometown_city?", "+esc(u.hometown_city):""}</td>
+        <td>${esc(u.university||"—")}</td>
+        <td><span class="badge neutral">${u.language==="en"?"EN":"RU"}</span></td>
+        <td>${u.profile_completed ? '<span class="badge good">заполнен</span>' : '<span class="badge neutral">не заполнен</span>'}</td>
+        <td>${fmtDateShort(u.first_seen)}</td>
+      </tr>`).join("");
+    tbody.querySelectorAll("tr[data-id]").forEach(tr=>tr.addEventListener("click",()=>openUserDrawer(tr.dataset.id)));
+  }
+  const pager = document.getElementById("pagerUsers");
+  pager.innerHTML = `<span>${U.length} пользовател${U.length===1?"ь":"ей"} · страница ${usersPage+1} из ${totalPages}</span>
+    <div class="btns"><button ${usersPage===0?"disabled":""} id="upPrev">← Назад</button><button ${usersPage>=totalPages-1?"disabled":""} id="upNext">Вперёд →</button></div>`;
+  const p=document.getElementById("upPrev"), n=document.getElementById("upNext");
+  if (p) p.addEventListener("click",()=>{usersPage--; renderUsers();});
+  if (n) n.addEventListener("click",()=>{usersPage++; renderUsers();});
+}
+
+function openUserDrawer(id){
+  const u = store.users.find(x=>x.id===id);
+  if (!u) return;
+  const listingsCount = store.listings.filter(l=>String(l.owner_id)===String(id)).length;
+  const isFriend = store.friends.some(f=>String(f.id)===String(id));
+  document.getElementById("drawerTitle").textContent = u.name || "Без имени";
+  document.getElementById("drawerMeta").textContent = u.username ? "@"+u.username : "Telegram id "+u.id;
+  document.getElementById("drawerBody").innerHTML = `
+    <dl class="dl">
+      <dt>Страна</dt><dd>${esc(u.country||"—")}</dd>
+      <dt>Город</dt><dd>${esc(u.hometown_city||"—")}</dd>
+      <dt>Университет</dt><dd>${esc(u.university||"—")}</dd>
+      <dt>Язык</dt><dd>${u.language==="en"?"English":"Русский"}</dd>
+      <dt>Профиль</dt><dd>${u.profile_completed?"заполнен":"не заполнен"}</dd>
+      <dt>Анкета «Люди»</dt><dd>${isFriend?"опубликована":"нет"}</dd>
+      <dt>Объявлений</dt><dd>${listingsCount}</dd>
+      <dt>Первый визит</dt><dd>${fmtDate(u.first_seen)}</dd>
+      <dt>Последний визит</dt><dd>${fmtDate(u.last_seen)}</dd>
+    </dl>
+    <div class="section-title">О себе</div>
+    <div class="desc-block">${esc(u.profile_description || u.bio || "Не заполнено")}</div>
+  `;
+  document.getElementById("drawerFoot").innerHTML = `<button class="btn btn-ghost btn-sm" id="drawerCopyId">Скопировать Telegram ID</button>`;
+  document.getElementById("drawerCopyId").addEventListener("click", ()=>{
+    navigator.clipboard?.writeText(String(u.id));
+    toast("ID скопирован", "ok");
+  });
+  openDrawer();
+}
+
+/* ---------------- Friend profiles ---------------- */
+function renderFriends(){
+  const F = store.friends.slice().sort((a,b)=>(ts(b.friend_updated_at)||0)-(ts(a.friend_updated_at)||0));
+  const tbody = document.querySelector("#tblFriends tbody");
+  if (!F.length){
+    tbody.innerHTML = `<tr><td colspan="7"><div class="empty-state"><div class="em-ico">🧑‍🤝‍🧑</div><b>Пока нет опубликованных анкет</b></div></td></tr>`;
+    return;
+  }
+  tbody.innerHTML = F.map(f=>`
+    <tr data-id="${f.id}">
+      <td>${f.friend_avatar_url ? `<img class="avatar" src="${esc(f.friend_avatar_url)}">` : `<div class="avatar" style="display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:var(--ink-soft);">${esc(initials(f.name))}</div>`}</td>
+      <td><div class="cell-main">${esc(f.name||"—")}</div><div class="cell-sub">${f.username?"@"+esc(f.username):""}</div></td>
+      <td>${esc(f.country||"—")}${f.hometown_city?", "+esc(f.hometown_city):""}</td>
+      <td>${esc(f.university||"—")}</td>
+      <td><span class="badge ${f.active?'good':'neutral'}">${f.active?"активна":"скрыта"}</span></td>
+      <td>${fmtDateShort(f.friend_updated_at)}</td>
+      <td style="text-align:right;white-space:nowrap;">
+        <button class="btn btn-ghost btn-sm act-toggle-friend" data-id="${f.id}" data-active="${f.active?1:0}">${f.active?"Скрыть":"Показать"}</button>
+        <button class="btn btn-danger-ghost btn-sm act-del-friend" data-id="${f.id}">Удалить</button>
+      </td>
+    </tr>`).join("");
+  tbody.querySelectorAll(".act-toggle-friend").forEach(b=>b.addEventListener("click",(e)=>{
+    e.stopPropagation();
+    const active = b.dataset.active==="1";
+    const patch = {active: !active};
+    (demoMode ? Promise.resolve(Object.assign(store.friends.find(f=>f.id===b.dataset.id),patch)) :
+      db.collection("friend_profiles").doc(b.dataset.id).update(patch))
+      .then(()=>{ toast(active?"Анкета скрыта":"Анкета включена"); renderAll(); })
+      .catch(e2=>toast("Ошибка: "+e2.message,"err"));
+  }));
+  tbody.querySelectorAll(".act-del-friend").forEach(b=>b.addEventListener("click",(e)=>{
+    e.stopPropagation();
+    if (!confirm("Удалить анкету?")) return;
+    (demoMode ? Promise.resolve(store.friends = store.friends.filter(f=>f.id!==b.dataset.id)) :
+      db.collection("friend_profiles").doc(b.dataset.id).delete())
+      .then(()=>{ toast("Анкета удалена"); renderAll(); })
+      .catch(e2=>toast("Ошибка: "+e2.message,"err"));
+  }));
+}
+
+/* ---------------- Reviews ---------------- */
+function renderReviews(){
+  const R = store.reviews.slice().sort((a,b)=>(ts(b.created_at)||0)-(ts(a.created_at)||0));
+  const tbody = document.querySelector("#tblReviews tbody");
+  if (!R.length){
+    tbody.innerHTML = `<tr><td colspan="6"><div class="empty-state"><div class="em-ico">★</div><b>Отзывов пока нет</b></div></td></tr>`;
+    return;
+  }
+  tbody.innerHTML = R.map(r=>`
+    <tr data-id="${r.id}">
+      <td>${r.avatar_url ? `<img class="avatar" src="${esc(r.avatar_url)}">` : `<div class="avatar" style="display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:var(--ink-soft);">${esc(initials(r.name))}</div>`}</td>
+      <td><div class="cell-main">${esc(r.name||"—")}</div><div class="cell-sub">${r.username?"@"+esc(r.username):""}</div></td>
+      <td style="max-width:340px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${esc(r.text||"")}</td>
+      <td><span class="badge ${r.active?'good':'neutral'}">${r.active?"опубликован":"скрыт"}</span></td>
+      <td>${fmtDateShort(r.created_at)}</td>
+      <td style="text-align:right;white-space:nowrap;">
+        <button class="btn btn-ghost btn-sm act-toggle-review" data-id="${r.id}" data-active="${r.active?1:0}">${r.active?"Скрыть":"Показать"}</button>
+        <button class="btn btn-danger-ghost btn-sm act-del-review" data-id="${r.id}">Удалить</button>
+      </td>
+    </tr>`).join("");
+  tbody.querySelectorAll("tr[data-id]").forEach(tr=>tr.addEventListener("click",(e)=>{
+    if (e.target.closest("button")) return;
+    const r = store.reviews.find(x=>x.id===tr.dataset.id);
+    document.getElementById("drawerTitle").textContent = r.name || "Отзыв";
+    document.getElementById("drawerMeta").textContent = fmtDate(r.created_at);
+    document.getElementById("drawerBody").innerHTML = `<div class="desc-block">${esc(r.text)}</div>`;
+    document.getElementById("drawerFoot").innerHTML = "";
+    openDrawer();
+  }));
+  tbody.querySelectorAll(".act-toggle-review").forEach(b=>b.addEventListener("click",(e)=>{
+    e.stopPropagation();
+    const active = b.dataset.active==="1";
+    const patch = {active: !active};
+    (demoMode ? Promise.resolve(Object.assign(store.reviews.find(r=>r.id===b.dataset.id),patch)) :
+      db.collection("reviews").doc(b.dataset.id).update(patch))
+      .then(()=>{ toast(active?"Отзыв скрыт":"Отзыв опубликован"); renderAll(); })
+      .catch(e2=>toast("Ошибка: "+e2.message,"err"));
+  }));
+  tbody.querySelectorAll(".act-del-review").forEach(b=>b.addEventListener("click",(e)=>{
+    e.stopPropagation();
+    if (!confirm("Удалить отзыв?")) return;
+    (demoMode ? Promise.resolve(store.reviews = store.reviews.filter(r=>r.id!==b.dataset.id)) :
+      db.collection("reviews").doc(b.dataset.id).delete())
+      .then(()=>{ toast("Отзыв удалён"); renderAll(); })
+      .catch(e2=>toast("Ошибка: "+e2.message,"err"));
+  }));
+}
+
+/* ---------------- Subscriptions ---------------- */
+function renderSubs(){
+  const S = store.subs.slice().sort((a,b)=>(ts(b.created_at)||0)-(ts(a.created_at)||0));
+  const tbody = document.querySelector("#tblSubs tbody");
+  if (!S.length){
+    tbody.innerHTML = `<tr><td colspan="7"><div class="empty-state"><div class="em-ico">🔔</div><b>Подписок нет</b></div></td></tr>`;
+    return;
+  }
+  tbody.innerHTML = S.map(s=>`
+    <tr data-id="${s.id}">
+      <td class="mono">${s.user_id}</td>
+      <td>${esc(s.city||"—")}</td>
+      <td>${esc(s.room||"—")}</td>
+      <td class="mono">${s.price_max>=999999999 ? "без лимита" : "€"+s.price_max}</td>
+      <td><span class="badge ${s.active?'good':'neutral'}">${s.active?"активна":"выключена"}</span></td>
+      <td>${fmtDateShort(s.created_at)}</td>
+      <td style="text-align:right;"><button class="btn btn-danger-ghost btn-sm act-del-sub" data-id="${s.id}">Удалить</button></td>
+    </tr>`).join("");
+  tbody.querySelectorAll(".act-del-sub").forEach(b=>b.addEventListener("click",(e)=>{
+    e.stopPropagation();
+    if (!confirm("Удалить подписку?")) return;
+    (demoMode ? Promise.resolve(store.subs = store.subs.filter(s=>s.id!==b.dataset.id)) :
+      db.collection("subscriptions").doc(b.dataset.id).delete())
+      .then(()=>{ toast("Подписка удалена"); renderAll(); })
+      .catch(e2=>toast("Ошибка: "+e2.message,"err"));
+  }));
+}
+
+/* ---------------- Settings ---------------- */
+function renderSettingsStatic(){
+  const cTags = document.getElementById("citiesTagList");
+  if (!cTags.children.length) cTags.innerHTML = CITIES.map(c=>`<span class="tag-pill">${c}</span>`).join("");
+  const rTags = document.getElementById("roomsTagList");
+  if (!rTags.children.length) rTags.innerHTML = ROOM_TYPES.map(r=>`<span class="tag-pill">${r}</span>`).join("");
+  const inp = document.getElementById("modChatIdInput");
+  if (inp && document.activeElement !== inp) inp.value = store.config.moderation_chat_id ?? "";
+}
+document.getElementById("btnSaveModChat").addEventListener("click", ()=>{
+  const raw = document.getElementById("modChatIdInput").value.trim();
+  const val = raw === "" ? null : Number(raw);
+  if (raw !== "" && Number.isNaN(val)){ toast("ID должен быть числом", "err"); return; }
+  (demoMode ? Promise.resolve(store.config.moderation_chat_id = val) :
+    db.collection("config").doc("main").set({moderation_chat_id: val}, {merge:true}))
+    .then(()=>toast("Сохранено", "ok"))
+    .catch(e=>toast("Ошибка: "+e.message,"err"));
+});
+
+/* ---------------- Customize ---------------- */
+function applyCustomize(cz){
+  document.body.classList.toggle("dark", !!cz.dark);
+  document.documentElement.style.setProperty("--accent", cz.accent);
+  document.documentElement.style.setProperty("--density", cz.density+"px");
+  document.documentElement.style.setProperty("--font-display", cz.headFont);
+  // derive accent-soft roughly by mixing with white/transparent using color-mix if supported
+  document.documentElement.style.setProperty("--accent-soft", cz.accent+"22");
+  document.getElementById("swDark").classList.toggle("on", !!cz.dark);
+  document.querySelectorAll("#accentSwatches .swatch").forEach(s=>s.classList.toggle("active", s.dataset.color===cz.accent));
+  document.querySelectorAll("#densityToggle button").forEach(b=>b.classList.toggle("active", Number(b.dataset.val)===cz.density));
+  document.querySelectorAll("#fontToggle button").forEach(b=>b.classList.toggle("active", b.dataset.val===cz.headFont));
+  document.getElementById("swCounts").classList.toggle("on", cz.showCounts!==false);
+  document.querySelectorAll(".nav-item .count").forEach(c=>c.style.display = cz.showCounts===false ? "none":"inline-block");
+  Object.entries(charts).forEach(([k,c])=>c && c.destroy());
+  charts = {};
+  if (document.getElementById("view-dashboard") && !document.getElementById("view-dashboard").classList.contains("hidden")) drawCharts(store.listings);
+}
+
+function initCustomizePanel(){
+  const cz = getCustomize();
+  const ACCENTS = ["#B2431B","#3C6E8F","#2E7D4F","#7A5AA8","#B6902C","#1C2024"];
+  document.getElementById("accentSwatches").innerHTML = ACCENTS.map(c=>`<div class="swatch" data-color="${c}" style="background:${c}"></div>`).join("");
+  applyCustomize(cz);
+
+  document.getElementById("swDark").addEventListener("click", ()=>{
+    const c = getCustomize(); c.dark = !c.dark; saveCustomize(c); applyCustomize(c);
+  });
+  document.getElementById("accentSwatches").addEventListener("click",(e)=>{
+    const sw = e.target.closest(".swatch"); if(!sw) return;
+    const c = getCustomize(); c.accent = sw.dataset.color; saveCustomize(c); applyCustomize(c);
+  });
+  document.getElementById("densityToggle").addEventListener("click",(e)=>{
+    const btn = e.target.closest("button"); if(!btn) return;
+    const c = getCustomize(); c.density = Number(btn.dataset.val); saveCustomize(c); applyCustomize(c);
+  });
+  document.getElementById("fontToggle").addEventListener("click",(e)=>{
+    const btn = e.target.closest("button"); if(!btn) return;
+    const c = getCustomize(); c.headFont = btn.dataset.val; saveCustomize(c); applyCustomize(c);
+  });
+  document.getElementById("swCounts").addEventListener("click", ()=>{
+    const c = getCustomize(); c.showCounts = c.showCounts===false ? true : false; saveCustomize(c); applyCustomize(c);
+  });
+  document.getElementById("btnResetCustomize").addEventListener("click", ()=>{
+    localStorage.removeItem(LS_KEY_CZ);
+    const c = getCustomize(); applyCustomize(c);
+    renderColumnToggles();
+    toast("Настройки сброшены");
+  });
+  renderColumnToggles();
+}
+function renderColumnToggles(){
+  const cz = getCustomize();
+  const box = document.getElementById("colToggles");
+  box.innerHTML = LISTING_COLUMNS.map(c=>`
+    <label class="col-toggle-item">
+      <input type="checkbox" data-key="${c.key}" ${cz.cols[c.key]?"checked":""}>
+      ${c.label}
+    </label>`).join("");
+  box.querySelectorAll("input[type=checkbox]").forEach(inp=>{
+    inp.addEventListener("change",()=>{
+      const c = getCustomize();
+      c.cols[inp.dataset.key] = inp.checked;
+      saveCustomize(c);
+      renderListings();
+    });
+  });
+}
+initCustomizePanel();
+
+/* ---------------- Boot ---------------- */
+boot();
+</script>
+</body>
+</html>
