@@ -840,17 +840,18 @@ function parseFirebaseConfig(raw){
   if (!raw) throw new Error("Пусто");
   // Try strict JSON first
   try { return JSON.parse(raw); } catch(e) {}
-  // Try to coerce a JS object literal (e.g. copy-pasted `const firebaseConfig = {...}`)
+  // Extract just the {...} object, e.g. from `const firebaseConfig = {...};`
   let body = raw;
   const braceStart = body.indexOf("{");
   const braceEnd = body.lastIndexOf("}");
   if (braceStart !== -1 && braceEnd !== -1) body = body.slice(braceStart, braceEnd+1);
-  body = body.replace(/(['"])?([a-zA-Z0-9_]+)\1?\s*:/g, '"$2":')
-             .replace(/'/g, '"')
-             .replace(/,\s*}/g, "}");
-  try { return JSON.parse(body); } catch(e) {
-    throw new Error("Не удалось распознать конфиг. Проверь формат — это должен быть объект вида { apiKey: ..., projectId: ... }.");
-  }
+  // Evaluate as an actual JS object literal (quote-safe — handles values that
+  // contain colons themselves, like "https://..." URLs, unlike a naive regex).
+  try {
+    const obj = Function('"use strict"; return (' + body + ');')();
+    if (obj && typeof obj === "object") return obj;
+  } catch(e) {}
+  throw new Error("Не удалось распознать конфиг. Проверь, что это объект вида { apiKey: \"...\", projectId: \"...\" }.");
 }
 
 function connectFirebase(config){
