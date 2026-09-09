@@ -232,6 +232,17 @@
     font-size:10.5px; font-weight:700; color:var(--ink-soft); background:var(--paper-dim);
     padding:4px 9px; border-radius:9px;
   }
+  /* Гендерные бейджи: голубой — для парней, розовый — для девушек */
+  .tag.gender-male{color:#1c7dc4; background:rgba(53,166,255,.16);}
+  .tag.gender-female{color:#d6337f; background:rgba(255,92,168,.16);}
+  #homeList .tag.gender-male,#homeList .tag.gender-female{color:#eaf6ff;}
+  #homeList .tag.gender-male{background:rgba(53,166,255,.3);}
+  #homeList .tag.gender-female{background:rgba(255,92,168,.3); color:#ffeaf3;}
+  .audience-male{color:#4fb3ff!important;}
+  .audience-female{color:#ff7fb8!important;}
+  .price-pill,.mc-price,.sheet-price{cursor:pointer;}
+  .price-sub{display:block; font-size:9.5px; font-weight:700; opacity:.7; margin-top:1px;}
+  .price-sub-inline{opacity:.7; font-weight:600;}
   /* Крупная лента на главной — фото остаётся главным элементом карточки. */
   #homeList{gap:18px;}
   #homeList .listing-card{display:block; border-radius:24px; box-shadow:0 12px 26px -18px rgba(0,0,0,.55);}
@@ -361,6 +372,28 @@
   .segmented{display:flex; flex-wrap:wrap; background:var(--slate-600); border-radius:12px; padding:3px; gap:2px;}
   .segmented button{flex:1; min-width:31%; padding:8px 6px; border-radius:9px; font-size:12px; font-weight:700; color:var(--text-1);}
   .segmented button.active{background:var(--lime); color:var(--lime-ink);}
+  /* Сегментированный выбор пола: голубой — «Для парней», розовый — «Для девушек» */
+  .segmented button.active.gender-active-male{background:#35a6ff; color:#04191e;}
+  .segmented button.active.gender-active-female{background:#ff6fb0; color:#2a0716;}
+
+  /* ---------- CURRENCY ---------- */
+  .currency-btn{font-family:var(--font-display); font-weight:800; font-size:15px; color:var(--lime);}
+  .currency-option-list{display:flex; flex-direction:column; gap:8px;}
+  .currency-option{
+    display:flex; align-items:center; gap:12px; width:100%; text-align:left;
+    background:var(--slate-700); border:1px solid var(--slate-border); border-radius:var(--radius-m);
+    padding:12px 14px;
+  }
+  .currency-option.active{border-color:var(--lime); background:rgba(53,217,239,.1);}
+  .currency-option-sym{
+    flex:none; width:38px; height:38px; border-radius:12px; background:var(--slate-600);
+    display:flex; align-items:center; justify-content:center; font-weight:800; font-size:13px; color:var(--lime);
+  }
+  .currency-option-text{flex:1; display:flex; flex-direction:column; gap:2px;}
+  .currency-option-text b{font-size:13.5px;}
+  .currency-option-text small{font-size:11.5px; color:var(--text-1); font-weight:600;}
+  .currency-option svg{flex:none; width:18px; height:18px; color:var(--lime);}
+  .currency-hint{color:var(--text-1); font-size:12.5px; margin:-8px 0 16px;}
   .range-row{display:flex; align-items:center; gap:10px;}
   .range-input{
     width:76px; background:var(--slate-600); border:1px solid var(--slate-border); border-radius:10px;
@@ -653,7 +686,12 @@
 <div id="app">
 
   <!-- ================= TOPBAR ================= -->
-  <header class="topbar" aria-hidden="true"></header>
+  <header class="topbar">
+    <span class="app-wordmark">Italy <b>Housing</b></span>
+    <button class="icon-btn currency-btn" id="currencyBtn" onclick="openCurrencySheet()" aria-label="Валюта цен">
+      <span id="currencyBtnLabel">€</span>
+    </button>
+  </header>
 
   <div id="diagBanner" style="display:none; padding:0 20px;"></div>
 
@@ -845,6 +883,11 @@
       </div>
 
       <div class="filter-block">
+        <span class="filter-label">Кому подходит</span>
+        <div class="segmented" id="fGender" style="margin-top:10px;"></div>
+      </div>
+
+      <div class="filter-block">
         <div class="filter-row"><span class="filter-label">Бюджет, €/мес</span></div>
         <div class="range-row">
           <input class="range-input" id="fMin" type="number" placeholder="от" oninput="applyFilters()" />
@@ -859,6 +902,20 @@
       </div>
 
       <button class="apply-btn" id="applyFilterBtn" onclick="closeFilterSheet()">Показать результаты</button>
+    </div>
+  </div>
+
+  <!-- ================= CURRENCY SHEET ================= -->
+  <div class="sheet-backdrop" id="currencySheetBackdrop" onclick="closeCurrencySheet()"></div>
+  <div class="sheet currency-sheet" id="currencySheet">
+    <button class="close-btn" onclick="closeCurrencySheet()">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+    </button>
+    <div class="sheet-grip"></div>
+    <div class="sheet-scroll">
+      <div class="filter-sheet-title"><h2>Валюта цен</h2></div>
+      <p class="currency-hint">Цены в объявлениях указаны в евро. Выберите валюту, чтобы сразу видеть примерный пересчёт бюджета.</p>
+      <div class="currency-option-list" id="currencyOptionList"></div>
     </div>
   </div>
 
@@ -990,8 +1047,33 @@ function photoBlockHTML(l){
 function listingCarouselHTML(l){
   const list = photoList(l);
   if (!list.length) return `<div class="lp-placeholder">${HOME_ICON_SVG}</div>`;
-  return `<div class="listing-carousel" onclick="event.stopPropagation()">${list.map(src =>
+  // Тап по фото должен открывать карточку жилья, а свайп между фото — листать галерею,
+  // не открывая её. Отличаем одно от другого по смещению пальца между pointerdown и click:
+  // если пользователь сдвинул палец больше чем на SWIPE_THRESHOLD px — это свайп, и клик
+  // гасится (stopPropagation) до того, как он всплывёт на .listing-card; если сдвига не
+  // было — это обычный тап, событие спокойно всплывает и открывает объявление.
+  return `<div class="listing-carousel" onpointerdown="carouselPointerDown(event)" onpointermove="carouselPointerMove(event)" onclick="carouselClick(event)">${list.map(src =>
     `<img src="${esc(src)}" loading="lazy" alt="Фото жилья" onerror="this.remove()">`).join("")}</div>`;
+}
+const SWIPE_THRESHOLD = 8; // px — минимальный сдвиг пальца, чтобы считать жест свайпом, а не тапом
+function carouselPointerDown(e){
+  const el = e.currentTarget;
+  el._swipeStartX = e.clientX;
+  el._swipeStartY = e.clientY;
+  el._swipeMoved = false;
+}
+function carouselPointerMove(e){
+  const el = e.currentTarget;
+  if (el._swipeStartX == null) return;
+  if (Math.abs(e.clientX - el._swipeStartX) > SWIPE_THRESHOLD || Math.abs(e.clientY - el._swipeStartY) > SWIPE_THRESHOLD){
+    el._swipeMoved = true;
+  }
+}
+function carouselClick(e){
+  const el = e.currentTarget;
+  if (el._swipeMoved) e.stopPropagation(); // был свайп — не даём карточке открыться
+  el._swipeStartX = null;
+  el._swipeMoved = false;
 }
 
 // ---------- 2. TELEGRAM WEBAPP ----------
@@ -1118,7 +1200,7 @@ const MAP_STYLES = {
 
 let allListings = [];         // все активные объявления (кэш из Firestore)
 let myListings = [];          // объявления текущего пользователя (любой статус)
-let filters = {city:"", rooms:[], min:"", max:"", q:""};
+let filters = {city:"", rooms:[], min:"", max:"", q:"", gender:""};
 let settings = {notif:true, haptics:true};
 let favorites = new Set();    // id избранных объявлений (синхронизировано с Firestore)
 let profileData = {};
@@ -1305,6 +1387,12 @@ function currentFilteredList(){
     if (filters.rooms.length && !filters.rooms.includes(l.room)) return false;
     if (filters.min && (l.price||0) < Number(filters.min)) return false;
     if (filters.max && (l.price||0) > Number(filters.max)) return false;
+    if (filters.gender){
+      // Объявления «для всех» (или без указания пола) показываем в обеих выборках —
+      // они подходят и парням, и девушкам, поэтому не должны выпадать из поиска.
+      const g = l.gender || "all";
+      if (g !== "all" && g !== filters.gender) return false;
+    }
     if (filters.q){
       const hay = `${l.city||""} ${l.room||""} ${l.housing_type||""} ${l.address||""} ${l.description||""}`.toLowerCase();
       if (!hay.includes(filters.q)) return false;
@@ -1464,7 +1552,7 @@ function closeFilterSheet(){
   if (!document.getElementById("sheet").classList.contains("open")) tg?.BackButton?.hide();
 }
 function resetFilters(){
-  filters = {city:"", rooms:[], min:"", max:"", q:""};
+  filters = {city:"", rooms:[], min:"", max:"", q:"", gender:""};
   document.getElementById("searchInput").value = "";
   document.getElementById("fCity").value = "";
   document.getElementById("fMin").value = "";
@@ -1475,6 +1563,7 @@ function resetFilters(){
   applyFilters();
 }
 
+const GENDER_OPTIONS = [["", "Любой"], ["male", "Для парней"], ["female", "Для девушек"]];
 function renderFilterOptions(){
   const citySel = document.getElementById("fCity");
   const cities = [...new Set(allListings.map(l => l.city).filter(Boolean))];
@@ -1485,11 +1574,26 @@ function renderFilterOptions(){
   const roomWrap = document.getElementById("fRoom");
   roomWrap.innerHTML = [["", "Любой"], ...ROOM_TYPES.map(r => [r, ROOM_LABEL_RU[r] || r])]
     .map(([val,label]) => `<button class="${(!val ? !filters.rooms.length : filters.rooms.includes(val))?"active":""}" onclick="pickRoom('${val}')">${label}</button>`).join("");
+
+  const genderWrap = document.getElementById("fGender");
+  if (genderWrap){
+    genderWrap.innerHTML = GENDER_OPTIONS.map(([val,label]) => {
+      const active = filters.gender === val;
+      const colorClass = active && val === "male" ? "gender-active-male" : active && val === "female" ? "gender-active-female" : "";
+      return `<button class="${active?"active":""} ${colorClass}" onclick="pickGender('${val}')">${label}</button>`;
+    }).join("");
+  }
 }
 function pickRoom(r){
   if (!r) filters.rooms = [];
   else if (filters.rooms.includes(r)) filters.rooms = filters.rooms.filter(x => x !== r);
   else filters.rooms = [...filters.rooms, r];
+  haptic("light");
+  renderFilterOptions();
+  applyFilters();
+}
+function pickGender(g){
+  filters.gender = (!g || filters.gender === g) ? "" : g;
   haptic("light");
   renderFilterOptions();
   applyFilters();
@@ -1502,6 +1606,7 @@ function activeFilterCount(){
   if (filters.min) n++;
   if (filters.max) n++;
   if (filters.q) n++;
+  if (filters.gender) n++;
   return n;
 }
 
