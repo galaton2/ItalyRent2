@@ -232,17 +232,10 @@
     font-size:10.5px; font-weight:700; color:var(--ink-soft); background:var(--paper-dim);
     padding:4px 9px; border-radius:9px;
   }
-  /* Гендерные бейджи: голубой — для парней, розовый — для девушек */
-  .tag.gender-male{color:#1c7dc4; background:rgba(53,166,255,.16);}
-  .tag.gender-female{color:#d6337f; background:rgba(255,92,168,.16);}
-  #homeList .tag.gender-male,#homeList .tag.gender-female{color:#eaf6ff;}
-  #homeList .tag.gender-male{background:rgba(53,166,255,.3);}
-  #homeList .tag.gender-female{background:rgba(255,92,168,.3); color:#ffeaf3;}
-  .audience-male{color:#4fb3ff!important;}
-  .audience-female{color:#ff7fb8!important;}
-  .price-pill,.mc-price,.sheet-price{cursor:pointer;}
-  .price-sub{display:block; font-size:9.5px; font-weight:700; opacity:.7; margin-top:1px;}
-  .price-sub-inline{opacity:.7; font-weight:600;}
+  .tag.tag-male{color:#0d6fc7; background:rgba(56,150,230,.16);}
+  .tag.tag-female{color:#d6316b; background:rgba(230,56,130,.14);}
+  .fact b.audience-male{color:#3b96e6;}
+  .fact b.audience-female{color:#e6388f;}
   /* Крупная лента на главной — фото остаётся главным элементом карточки. */
   #homeList{gap:18px;}
   #homeList .listing-card{display:block; border-radius:24px; box-shadow:0 12px 26px -18px rgba(0,0,0,.55);}
@@ -372,28 +365,6 @@
   .segmented{display:flex; flex-wrap:wrap; background:var(--slate-600); border-radius:12px; padding:3px; gap:2px;}
   .segmented button{flex:1; min-width:31%; padding:8px 6px; border-radius:9px; font-size:12px; font-weight:700; color:var(--text-1);}
   .segmented button.active{background:var(--lime); color:var(--lime-ink);}
-  /* Сегментированный выбор пола: голубой — «Для парней», розовый — «Для девушек» */
-  .segmented button.active.gender-active-male{background:#35a6ff; color:#04191e;}
-  .segmented button.active.gender-active-female{background:#ff6fb0; color:#2a0716;}
-
-  /* ---------- CURRENCY ---------- */
-  .currency-btn{font-family:var(--font-display); font-weight:800; font-size:15px; color:var(--lime);}
-  .currency-option-list{display:flex; flex-direction:column; gap:8px;}
-  .currency-option{
-    display:flex; align-items:center; gap:12px; width:100%; text-align:left;
-    background:var(--slate-700); border:1px solid var(--slate-border); border-radius:var(--radius-m);
-    padding:12px 14px;
-  }
-  .currency-option.active{border-color:var(--lime); background:rgba(53,217,239,.1);}
-  .currency-option-sym{
-    flex:none; width:38px; height:38px; border-radius:12px; background:var(--slate-600);
-    display:flex; align-items:center; justify-content:center; font-weight:800; font-size:13px; color:var(--lime);
-  }
-  .currency-option-text{flex:1; display:flex; flex-direction:column; gap:2px;}
-  .currency-option-text b{font-size:13.5px;}
-  .currency-option-text small{font-size:11.5px; color:var(--text-1); font-weight:600;}
-  .currency-option svg{flex:none; width:18px; height:18px; color:var(--lime);}
-  .currency-hint{color:var(--text-1); font-size:12.5px; margin:-8px 0 16px;}
   .range-row{display:flex; align-items:center; gap:10px;}
   .range-input{
     width:76px; background:var(--slate-600); border:1px solid var(--slate-border); border-radius:10px;
@@ -679,6 +650,7 @@
   .profile-actions-card{margin-top:24px;padding:18px;border:1px solid rgba(255,255,255,.13);border-radius:24px;background:#0b0b0c;}.profile-actions-head span{font-size:10px;font-weight:800;letter-spacing:.12em;color:var(--text-1);}.profile-actions-head h2{margin-top:5px;font-size:18px;}.profile-edit-action{width:100%;display:flex;align-items:center;gap:12px;margin-top:16px;padding:14px;border-radius:18px;background:var(--lime);color:var(--lime-ink);text-align:left;}.profile-edit-action b,.profile-edit-action small{display:block;}.profile-edit-action b{font-size:14px;}.profile-edit-action small{margin-top:3px;font-size:11px;opacity:.7;}.profile-edit-action i{margin-left:auto;font-style:normal;font-size:25px;line-height:1;}.profile-action-round{width:34px;height:34px;display:grid;place-items:center;border-radius:12px;background:rgba(0,0,0,.13);font-size:20px;}.profile-action-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-top:10px;}.profile-action-grid button{min-height:72px;padding:10px 6px;border-radius:16px;background:#151518;border:1px solid rgba(255,255,255,.08);color:var(--text-0);}.profile-action-grid span{display:grid;place-items:center;width:24px;height:24px;margin:0 auto 7px;border-radius:8px;background:#29292d;color:var(--lime);font-size:16px;font-weight:800;}.profile-action-grid b{display:block;font-size:10px;line-height:1.25;}
   .sheet.friend-profile-open{top:calc(env(safe-area-inset-top) + 58px);max-height:calc(100dvh - env(safe-area-inset-top) - 58px);border:1px solid rgba(255,255,255,.12);border-bottom:0;border-radius:26px 26px 0 0;background:#000!important;}.sheet.friend-profile-open .close-btn{display:none;}.sheet.friend-profile-open .sheet-grip{display:none;}.sheet.friend-profile-open .sheet-scroll{padding:0 20px calc(28px + env(safe-area-inset-bottom));}.friend-profile-header{position:sticky;top:0;z-index:4;display:flex;align-items:center;gap:10px;height:58px;background:#000;border-bottom:1px solid rgba(255,255,255,.1);margin:0 -20px 18px;padding:0 20px;}.friend-profile-header button{width:32px;height:32px;display:grid;place-items:center;border-radius:50%;background:#18181b;color:#fff;font-size:24px;line-height:1;}.friend-profile-header b{font-size:15px;}.friend-profile-hero{background:linear-gradient(155deg,#171719,#0b0b0c);}.friend-profile-fact,.friend-profile-about{background:#0d0d0f;}
   .language-dialog{position:fixed;inset:0;z-index:1000;display:grid;place-items:center;padding:24px;background:rgba(0,0,0,.72);backdrop-filter:blur(8px)}.language-dialog[hidden]{display:none}.language-card{width:min(100%,360px);padding:28px;border:1px solid rgba(255,255,255,.15);border-radius:24px;background:#151518;color:#fff;text-align:center;box-shadow:0 24px 60px rgba(0,0,0,.45)}.language-card h2{margin:0;font-size:22px}.language-card p{margin:10px 0 22px;color:var(--text-1);font-size:14px}.language-actions{display:grid;gap:10px}.language-actions button{padding:14px;border-radius:14px;background:var(--lime);color:var(--lime-ink);font-weight:800;font-size:15px}.language-actions button:last-child{background:#29292d;color:#fff}
+  #currencyOptions button{background:#29292d;color:#fff;}#currencyOptions button.active{background:var(--lime);color:var(--lime-ink);}
 </style>
 </head>
 <body>
@@ -686,12 +658,7 @@
 <div id="app">
 
   <!-- ================= TOPBAR ================= -->
-  <header class="topbar">
-    <span class="app-wordmark">Italy <b>Housing</b></span>
-    <button class="icon-btn currency-btn" id="currencyBtn" onclick="openCurrencySheet()" aria-label="Валюта цен">
-      <span id="currencyBtnLabel">€</span>
-    </button>
-  </header>
+  <header class="topbar" aria-hidden="true"></header>
 
   <div id="diagBanner" style="display:none; padding:0 20px;"></div>
 
@@ -714,19 +681,19 @@
           </div>
           <div class="sg-count-wrap">
             <b id="sgCount">0</b>
-            <span>активных</span>
+            <span>активно</span>
           </div>
         </div>
         <div class="stat-glance-bottom">
           <div class="sg-chip" onclick="openHomeMap()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="10" r="3"/><path d="M21 10c0 6-9 12-9 12s-9-6-9-12a9 9 0 0 1 18 0z"/></svg>Смотреть на карте</div>
-          <div class="sg-range" id="sgRange">€ — · —</div>
+          <div class="sg-range" id="sgRange">– · –</div>
         </div>
         <div class="home-city-picker" id="homeCityPicker"></div>
       </div>
 
       <div class="section-title">
         <h2>Все объявления</h2>
-        <span class="link" onclick="openHomeMap()">На карте →</span>
+        <span class="link" onclick="openHomeMap()">Карта →</span>
       </div>
       <div class="listing-grid" id="homeList"></div>
     </section>
@@ -738,20 +705,20 @@
         <div id="searchMap" style="height:100%;"></div>
 
         <div class="map-controls" aria-label="Управление картой">
-          <button class="map-control-btn" onclick="zoomMap(1)" aria-label="Приблизить карту"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></button>
-          <button class="map-control-btn" onclick="zoomMap(-1)" aria-label="Отдалить карту"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M5 12h14"/></svg></button>
+          <button class="map-control-btn" onclick="zoomMap(1)" aria-label="Приблизить"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></button>
+          <button class="map-control-btn" onclick="zoomMap(-1)" aria-label="Отдалить"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M5 12h14"/></svg></button>
           <button class="map-control-btn" id="nearMeBtn" onclick="toggleNearMe()" aria-label="Моё местоположение"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3"/></svg></button>
           <button class="map-control-btn" id="mapSettingsBtn" onclick="toggleMapSettings()" aria-label="Настройки карты"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .34 1.88l.06.06-2.2 2.2-.06-.06a1.7 1.7 0 0 0-1.88-.34 1.7 1.7 0 0 0-1.03 1.56v.1h-3.12v-.1A1.7 1.7 0 0 0 10.48 18.7a1.7 1.7 0 0 0-1.88.34l-.06.06-2.2-2.2.06-.06A1.7 1.7 0 0 0 6.74 15a1.7 1.7 0 0 0-1.56-1.03h-.1v-3.12h.1A1.7 1.7 0 0 0 6.74 9.8a1.7 1.7 0 0 0-.34-1.88l-.06-.06 2.2-2.2.06.06a1.7 1.7 0 0 0 1.88.34 1.7 1.7 0 0 0 1.03-1.56v-.1h3.12v.1a1.7 1.7 0 0 0 1.03 1.56 1.7 1.7 0 0 0 1.88-.34l.06-.06 2.2 2.2-.06.06a1.7 1.7 0 0 0-.34 1.88 1.7 1.7 0 0 0 1.56 1.03h.1v3.12h-.1A1.7 1.7 0 0 0 19.4 15Z"/></svg></button>
         </div>
         <div class="map-settings" id="mapSettings">
-          <div class="map-settings-head">Вид карты</div>
+          <div class="map-settings-head">Стиль карты</div>
           <div class="map-style-switch">
             <button class="map-style-btn active" data-style="dark" onclick="setMapStyle('dark')">Тёмная</button>
             <button class="map-style-btn" data-style="light" onclick="setMapStyle('light')">Светлая</button>
             <button class="map-style-btn" data-style="bright" onclick="setMapStyle('bright')">Яркая</button>
           </div>
           <button class="map-toggle-row" onclick="toggleUniversities()" aria-pressed="true">
-            <span><b>Университеты</b><br>Показать на карте</span>
+            <span><b>Университеты</b><br>Показывать на карте</span>
             <i class="mini-switch on" id="universitiesSwitch"></i>
           </button>
           <button class="map-settings-action" onclick="fitAllMarkers(); closeMapSettings()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M8 3H3v5M16 3h5v5M21 16v5h-5M3 16v5h5"/><path d="M3 8l6-5M21 8l-6-5M21 16l-6 5M3 16l6 5"/></svg>Показать все метки</button>
@@ -779,8 +746,8 @@
         </div>
         <p class="profile-bio" id="profileBio">Добавьте описание в профиле бота.</p>
         <div class="profile-details">
-          <div class="profile-detail"><span>Учусь в</span><b id="profileUniversity">Не указано</b></div>
-          <div class="profile-detail"><span>Родом из</span><b id="profileHometown">Не указано</b></div>
+          <div class="profile-detail"><span>Учится в</span><b id="profileUniversity">Не указано</b></div>
+          <div class="profile-detail"><span>Откуда</span><b id="profileHometown">Не указано</b></div>
         </div>
       </div>
       <div class="section-title" style="margin-top:20px;"><h2>Избранное</h2><span class="link" id="favCountLink"></span></div>
@@ -793,24 +760,35 @@
         <div class="profile-actions-head"><div><span>УПРАВЛЕНИЕ</span><h2>Профиль и помощь</h2></div></div>
         <button class="profile-edit-action" onclick="editProfileInBot()"><span class="profile-action-round">✎</span><span><b>Редактировать профиль</b><small>Страна, город, университет и описание</small></span><i>›</i></button>
         <div class="profile-action-grid">
-          <button onclick="publishPost()"><span>＋</span><b>Разместить жильё</b></button>
+          <button onclick="publishPost()"><span>＋</span><b>Разместить объявление</b></button>
           <button onclick="openTelegram('io_student_vrime_1')"><span>?</span><b>Поддержка</b></button>
           <button onclick="openTelegram('idkwhyton')"><span>●</span><b>Разработчик</b></button>
           <button onclick="openLanguageSelector()"><span>文</span><b>Сменить язык</b></button>
+          <button onclick="openCurrencySelector()"><span>€</span><b>Валюта</b></button>
         </div>
       </div>
     </section>
 
-</main>
+  </main>
 
   <div class="language-dialog" id="languageDialog" hidden role="dialog" aria-modal="true" aria-labelledby="languageTitle">
     <div class="language-card">
       <h2 id="languageTitle">Выберите язык</h2>
-      <p>Ваш выбор сохранится, его можно изменить в настройках.</p>
+      <p>Ваш выбор будет сохранён. Изменить его можно позже в настройках.</p>
       <div class="language-actions">
-        <button onclick="selectLanguage('ru')">Продолжить на русском</button>
         <button onclick="selectLanguage('en')">Continue in English</button>
+        <button onclick="selectLanguage('ru')">Продолжить на русском</button>
       </div>
+    </div>
+  </div>
+
+  <!-- ================= CURRENCY DIALOG (конвертер валют: € → UZS / RUB / USD) ================= -->
+  <div class="language-dialog" id="currencyDialog" hidden role="dialog" aria-modal="true" aria-labelledby="currencyTitle">
+    <div class="language-card">
+      <h2 id="currencyTitle">Валюта отображения цен</h2>
+      <p>Цены в объявлениях указаны в евро. Выберите валюту, в которой удобнее их видеть — мы пересчитаем автоматически.</p>
+      <div class="language-actions" id="currencyOptions"></div>
+      <button style="margin-top:10px;background:none;color:var(--text-1);font-weight:600;font-size:13px;" onclick="closeCurrencyDialog()">Закрыть</button>
     </div>
   </div>
 
@@ -865,7 +843,7 @@
 
       <div class="searchbar" style="margin-top:0;">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
-        <input id="searchInput" placeholder="Например: Rome, Studio…" oninput="applyFilters()" />
+        <input id="searchInput" placeholder="Например: Рим, студия…" oninput="applyFilters()" />
       </div>
 
       <div class="filter-block">
@@ -878,7 +856,7 @@
       </div>
 
       <div class="filter-block">
-        <span class="filter-label">Тип размещения · можно выбрать несколько</span>
+        <span class="filter-label">Тип жилья · можно выбрать несколько</span>
         <div class="segmented" id="fRoom" style="margin-top:10px;"></div>
       </div>
 
@@ -902,20 +880,6 @@
       </div>
 
       <button class="apply-btn" id="applyFilterBtn" onclick="closeFilterSheet()">Показать результаты</button>
-    </div>
-  </div>
-
-  <!-- ================= CURRENCY SHEET ================= -->
-  <div class="sheet-backdrop" id="currencySheetBackdrop" onclick="closeCurrencySheet()"></div>
-  <div class="sheet currency-sheet" id="currencySheet">
-    <button class="close-btn" onclick="closeCurrencySheet()">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
-    </button>
-    <div class="sheet-grip"></div>
-    <div class="sheet-scroll">
-      <div class="filter-sheet-title"><h2>Валюта цен</h2></div>
-      <p class="currency-hint">Цены в объявлениях указаны в евро. Выберите валюту, чтобы сразу видеть примерный пересчёт бюджета.</p>
-      <div class="currency-option-list" id="currencyOptionList"></div>
     </div>
   </div>
 
@@ -1047,33 +1011,26 @@ function photoBlockHTML(l){
 function listingCarouselHTML(l){
   const list = photoList(l);
   if (!list.length) return `<div class="lp-placeholder">${HOME_ICON_SVG}</div>`;
-  // Тап по фото должен открывать карточку жилья, а свайп между фото — листать галерею,
-  // не открывая её. Отличаем одно от другого по смещению пальца между pointerdown и click:
-  // если пользователь сдвинул палец больше чем на SWIPE_THRESHOLD px — это свайп, и клик
-  // гасится (stopPropagation) до того, как он всплывёт на .listing-card; если сдвига не
-  // было — это обычный тап, событие спокойно всплывает и открывает объявление.
+  // Отличаем тап (открыть карточку) от свайпа фото (пролистать, не открывая карточку):
+  // если палец/курсор сдвинулся больше чем на CAROUSEL_DRAG_THRESHOLD px — считаем это свайпом
+  // и гасим клик через stopPropagation именно в момент клика, а не всегда.
   return `<div class="listing-carousel" onpointerdown="carouselPointerDown(event)" onpointermove="carouselPointerMove(event)" onclick="carouselClick(event)">${list.map(src =>
     `<img src="${esc(src)}" loading="lazy" alt="Фото жилья" onerror="this.remove()">`).join("")}</div>`;
 }
-const SWIPE_THRESHOLD = 8; // px — минимальный сдвиг пальца, чтобы считать жест свайпом, а не тапом
+const CAROUSEL_DRAG_THRESHOLD = 8;
 function carouselPointerDown(e){
   const el = e.currentTarget;
-  el._swipeStartX = e.clientX;
-  el._swipeStartY = e.clientY;
-  el._swipeMoved = false;
+  el._startX = e.clientX; el._startY = e.clientY; el._dragged = false;
 }
 function carouselPointerMove(e){
   const el = e.currentTarget;
-  if (el._swipeStartX == null) return;
-  if (Math.abs(e.clientX - el._swipeStartX) > SWIPE_THRESHOLD || Math.abs(e.clientY - el._swipeStartY) > SWIPE_THRESHOLD){
-    el._swipeMoved = true;
-  }
+  if (el._startX == null) return;
+  if (Math.abs(e.clientX - el._startX) > CAROUSEL_DRAG_THRESHOLD || Math.abs(e.clientY - el._startY) > CAROUSEL_DRAG_THRESHOLD) el._dragged = true;
 }
 function carouselClick(e){
   const el = e.currentTarget;
-  if (el._swipeMoved) e.stopPropagation(); // был свайп — не даём карточке открыться
-  el._swipeStartX = null;
-  el._swipeMoved = false;
+  if (el._dragged) e.stopPropagation(); // был свайп — не открываем карточку
+  el._dragged = false; el._startX = null;
 }
 
 // ---------- 2. TELEGRAM WEBAPP ----------
@@ -1129,8 +1086,8 @@ function haptic(style){
 // ---------- 3. STATE ----------
 const CITIES = ["Rome","Milan","Naples","Turin","Bologna","Florence","Venice","Genoa","Verona","Bari","Palermo","Catania","Messina","Syracuse","Trapani","Agrigento","Taormina","Cagliari","Padua","Pisa","Siena","Perugia","Parma","Modena","Trieste","Lecce"];
 const ROOM_TYPES = ["Single","Double","Triple","Studio","Whole apartment","Bed place"];
-const ROOM_LABEL_RU = {Single:"Отдельная",Double:"Двухместная",Triple:"Трёхместная",Studio:"Студия",
-  "Whole apartment":"Вся квартира","Bed place":"Койко-место"};
+const ROOM_LABEL_RU = {Single:"Отдельная комната",Double:"Комната на двоих",Triple:"Комната на троих",Studio:"Студия",
+  "Whole apartment":"Целая квартира","Bed place":"Спальное место"};
 
 // Координаты городов — запасной вариант для карты, если у объявления нет собственных
 // address_lat/address_lng (бот их сохраняет при публикации, см. italy_housing_bot.py).
@@ -1202,6 +1159,56 @@ let allListings = [];         // все активные объявления (�
 let myListings = [];          // объявления текущего пользователя (любой статус)
 let filters = {city:"", rooms:[], min:"", max:"", q:"", gender:""};
 let settings = {notif:true, haptics:true};
+
+// ---------- CURRENCY (конвертер для аудитории из СНГ: экспаты и студенты) ----------
+// Курсы приблизительные и фиксированные в коде (без внешнего API), поэтому в интерфейсе
+// рядом с ценой в неевро-валюте всегда стоит значок "≈" — это ориентировочная сумма,
+// а не курс банка на сегодня.
+const CURRENCY_RATES = {EUR:1, USD:1.08, RUB:100, UZS:13700};
+const CURRENCY_LABEL = {EUR:"Евро (€)", USD:"Доллар США ($)", RUB:"Российский рубль (₽)", UZS:"Узбекский сум (UZS)"};
+let currentCurrency = "EUR";
+try { currentCurrency = localStorage.getItem("italyHousingCurrency") || "EUR"; } catch(e) {}
+
+function fmtPrice(amount){
+  if (amount === null || amount === undefined || amount === "") {
+    return currentCurrency === "EUR" ? "€–" : "–";
+  }
+  const value = Math.round(Number(amount) * (CURRENCY_RATES[currentCurrency] || 1));
+  const formatted = value.toLocaleString("ru-RU");
+  if (currentCurrency === "EUR") return `€${formatted}`;
+  if (currentCurrency === "USD") return `≈$${formatted}`;
+  if (currentCurrency === "RUB") return `≈${formatted} ₽`;
+  if (currentCurrency === "UZS") return `≈${formatted} UZS`;
+  return `€${formatted}`;
+}
+function openCurrencySelector(){
+  renderCurrencyDialog();
+  document.getElementById("currencyDialog")?.removeAttribute("hidden");
+}
+function renderCurrencyDialog(){
+  const wrap = document.getElementById("currencyOptions");
+  if (!wrap) return;
+  wrap.innerHTML = Object.keys(CURRENCY_LABEL).map(code =>
+    `<button class="${currentCurrency===code?"active":""}" onclick="selectCurrency('${code}')">${CURRENCY_LABEL[code]}</button>`
+  ).join("");
+}
+function selectCurrency(code){
+  currentCurrency = code;
+  try { localStorage.setItem("italyHousingCurrency", code); } catch(e) {}
+  renderCurrencyDialog();
+  haptic("light");
+  // Обновляем все места, где уже отрисована цена.
+  renderStatGlance();
+  renderHome();
+  applyFilters();
+  renderMyListings();
+  renderFavorites();
+  if (currentSheetId && !String(currentSheetId).startsWith("friend:")) openListing(currentSheetId);
+  document.getElementById("currencyDialog")?.setAttribute("hidden", "");
+}
+function closeCurrencyDialog(){
+  document.getElementById("currencyDialog")?.setAttribute("hidden", "");
+}
 let favorites = new Set();    // id избранных объявлений (синхронизировано с Firestore)
 let profileData = {};
 let friendProfiles = [];
@@ -1387,14 +1394,10 @@ function currentFilteredList(){
     if (filters.rooms.length && !filters.rooms.includes(l.room)) return false;
     if (filters.min && (l.price||0) < Number(filters.min)) return false;
     if (filters.max && (l.price||0) > Number(filters.max)) return false;
-    if (filters.gender){
-      // Объявления «для всех» (или без указания пола) показываем в обеих выборках —
-      // они подходят и парням, и девушкам, поэтому не должны выпадать из поиска.
-      const g = l.gender || "all";
-      if (g !== "all" && g !== filters.gender) return false;
-    }
+    if (filters.gender && !(l.gender === filters.gender || !l.gender || l.gender === "all")) return false;
     if (filters.q){
-      const hay = `${l.city||""} ${l.room||""} ${l.housing_type||""} ${l.address||""} ${l.description||""}`.toLowerCase();
+      const genderWords = l.gender === "male" ? "парням мужчинам парни мужчины" : l.gender === "female" ? "девушкам женщинам девушки женщины" : "";
+      const hay = `${l.city||""} ${l.room||""} ${l.housing_type||""} ${l.address||""} ${l.description||""} ${genderWords}`.toLowerCase();
       if (!hay.includes(filters.q)) return false;
     }
     return true;
@@ -1449,16 +1452,16 @@ function renderStatGlance(){
   countEl.textContent = inCity.length;
   if (inCity.length){
     const prices = inCity.map(l => l.price||0).filter(Boolean);
-    rangeEl.textContent = prices.length ? `€${Math.min(...prices)} – €${Math.max(...prices)}` : "€ —";
+    rangeEl.textContent = prices.length ? `${fmtPrice(Math.min(...prices))} – ${fmtPrice(Math.max(...prices))}` : fmtPrice(null);
   } else {
-    rangeEl.textContent = "€ —";
+    rangeEl.textContent = fmtPrice(null);
   }
 }
 function renderHomeCityPicker(){
   const el = document.getElementById("homeCityPicker");
   if (!el) return;
   const cities = [...new Set(allListings.map(l => l.city).filter(Boolean))].sort();
-  el.innerHTML = `<button class="${homeCity === "" ? "active" : ""}" onclick="setHomeCity('')">Все города</button>` +
+  el.innerHTML = `<button class="${homeCity === "" ? "active" : ""}" onclick="setHomeCity('')">All cities</button>` +
     cities.map(city => `<button class="${homeCity === city ? "active" : ""}" onclick="setHomeCity('${esc(city)}')">${esc(city)}</button>`).join("");
 }
 function toggleHomeCityPicker(){
@@ -1516,7 +1519,7 @@ function renderCityChips(){
   if (!wrap) return;
   const cities = [...new Set(allListings.map(l => l.city).filter(Boolean))];
   const list = cities.length ? cities : CITIES;
-  wrap.innerHTML = `<button class="chip ${filters.city===""?"active":""}" onclick="pickCity('')">Все города</button>` +
+  wrap.innerHTML = `<button class="chip ${filters.city===""?"active":""}" onclick="pickCity('')">All cities</button>` +
     list.map(c => `<button class="chip ${filters.city===c?"active":""}" onclick="pickCity('${c}')">${c}</button>`).join("");
 }
 function pickCity(c){
@@ -1534,7 +1537,7 @@ function renderHome(){
   const list = homeCity ? allListings.filter(l => l.city === homeCity) : allListings;
   document.getElementById("homeList").innerHTML = list.length
     ? list.slice(0,20).map(l => cardHTML(l)).join("")
-    : emptyHTML("Пока пусто", "По этому городу ещё нет объявлений — загляните позже.");
+    : emptyHTML("Пока пусто", "Для этого города пока нет объявлений. Загляните позже.");
 }
 
 // ---------- 6. FILTER SHEET ("расширенный поиск") ----------
@@ -1563,12 +1566,11 @@ function resetFilters(){
   applyFilters();
 }
 
-const GENDER_OPTIONS = [["", "Любой"], ["male", "Для парней"], ["female", "Для девушек"]];
 function renderFilterOptions(){
   const citySel = document.getElementById("fCity");
   const cities = [...new Set(allListings.map(l => l.city).filter(Boolean))];
   const list = cities.length ? cities : CITIES;
-  citySel.innerHTML = `<option value="">Любой</option>` + list.map(c => `<option value="${c}">${c}</option>`).join("");
+  citySel.innerHTML = `<option value="">Any</option>` + list.map(c => `<option value="${c}">${c}</option>`).join("");
   citySel.value = filters.city;
 
   const roomWrap = document.getElementById("fRoom");
@@ -1577,11 +1579,8 @@ function renderFilterOptions(){
 
   const genderWrap = document.getElementById("fGender");
   if (genderWrap){
-    genderWrap.innerHTML = GENDER_OPTIONS.map(([val,label]) => {
-      const active = filters.gender === val;
-      const colorClass = active && val === "male" ? "gender-active-male" : active && val === "female" ? "gender-active-female" : "";
-      return `<button class="${active?"active":""} ${colorClass}" onclick="pickGender('${val}')">${label}</button>`;
-    }).join("");
+    genderWrap.innerHTML = [["", "Любой"], ["male", "Парням"], ["female", "Девушкам"]]
+      .map(([val,label]) => `<button class="${filters.gender===val?"active":""}" onclick="pickGender('${val}')">${label}</button>`).join("");
   }
 }
 function pickRoom(r){
@@ -1593,7 +1592,7 @@ function pickRoom(r){
   applyFilters();
 }
 function pickGender(g){
-  filters.gender = (!g || filters.gender === g) ? "" : g;
+  filters.gender = filters.gender === g ? "" : g;
   haptic("light");
   renderFilterOptions();
   applyFilters();
@@ -1646,14 +1645,14 @@ function sortListings(list){
 
 const SORT_OPTIONS = [
   ["new", "Сначала новые"],
-  ["price_asc", "Дешевле"],
-  ["price_desc", "Дороже"],
+  ["price_asc", "Сначала дешевле"],
+  ["price_desc", "Сначала дороже"],
 ];
 function renderSortChips(){
   const wrap = document.getElementById("sortChips");
   if (!wrap) return;
   let opts = [...SORT_OPTIONS];
-  if (userLoc) opts.push(["near", "Ближе всего"]);
+  if (userLoc) opts.push(["near", "Сначала ближе"]);
   wrap.innerHTML = opts.map(([val,label]) => `
     <button class="sort-chip ${sortMode===val?"active":""}" onclick="pickSort('${val}')">${label}</button>
   `).join("");
@@ -1737,14 +1736,14 @@ function updateSearchMap(list){
     // MapLibre перемещает оболочку через transform. Анимация остаётся на вложенной плашке,
     // поэтому не может больше сбросить координаты дома в левый верхний угол карты.
     const el = document.createElement("div"); el.className = "map-marker-shell";
-    const pricePill = document.createElement("div"); pricePill.className = `price-marker ${mine?"mine":""} ${favorites.has(l.id)?"favorited":""}`; pricePill.textContent = `€${l.price ?? "–"}`;
+    const pricePill = document.createElement("div"); pricePill.className = `price-marker ${mine?"mine":""} ${favorites.has(l.id)?"favorited":""}`; pricePill.textContent = fmtPrice(l.price);
     el.append(pricePill);
     const popup = new maplibregl.Popup({offset:25, maxWidth:"220px"}).setHTML(`
       <div class="map-popup" onclick="closePopupAndOpen('${l.id}')">
         <div class="mp-photo">${photoBlockHTML(l)}</div>
         <div class="mp-body">
           <div class="mp-title">${esc(l.housing_type||"Жильё")}, ${esc(ROOM_LABEL_RU[l.room]||l.room||"")}</div>
-          <div class="mp-price">€${l.price ?? "–"}/мес · ${esc(l.city||"")}</div>
+          <div class="mp-price">${fmtPrice(l.price)}/мес · ${esc(l.city||"")}</div>
         </div>
       </div>`);
     listingMarkers.push(new maplibregl.Marker({element:el, anchor:"bottom"}).setLngLat([coords[1],coords[0]]).setPopup(popup).addTo(searchMap));
@@ -1810,7 +1809,7 @@ function renderProfileStats(){
   // Профиль намеренно содержит только два списка: избранное и свои объявления.
 }
 function renderProfileDetails(){
-  const university = profileData.university || profileData.study_city || profileData.study_place || "Не учусь";
+  const university = profileData.university || profileData.study_city || profileData.study_place || "Не указано";
   const hometown = profileData.hometown || [profileData.country, profileData.hometown_city].filter(Boolean).join(", ") || profileData.from_city || "Не указано";
   const bio = profileData.profile_description || profileData.bio || profileData.about || "Добавьте описание в профиле бота.";
   document.getElementById("profileUniversity").textContent = university;
@@ -1824,7 +1823,7 @@ function reviewInitials(name){
 }
 function reviewCardHTML(review){
   const name = review.name || "Пользователь";
-  const handle = review.username ? "@" + review.username : "Telegram user";
+  const handle = review.username ? "@" + review.username : "пользователь Telegram";
   const avatar = review.avatar_url
     ? `<img class="review-avatar" src="${esc(review.avatar_url)}" alt="" onerror="this.replaceWith(Object.assign(document.createElement('div'),{className:'review-avatar',textContent:'${reviewInitials(name)}'}))">`
     : `<div class="review-avatar">${reviewInitials(name)}</div>`;
@@ -1855,7 +1854,7 @@ function renderMyListings(){
   }
   el.innerHTML = myListings.length
     ? myListings.map(l => cardHTML(l, true)).join("")
-    : emptyHTML("Пока нет объявлений", "Разместить жильё можно через кнопку «+» в шапке приложения.");
+    : emptyHTML("Пока нет объявлений", "Нажмите «+» в приложении, чтобы разместить объявление.");
 }
 
 // ---------- 7b. FRIENDS / ROOMMATES ----------
@@ -1882,7 +1881,7 @@ function renderFriendCountries(){
   const el = document.getElementById("friendCountryFilters");
   if (!el) return;
   const countries = [...new Set(friendProfiles.map(p => p.country).filter(Boolean))].sort();
-  el.innerHTML = `<button class="friend-filter ${friendCountry === "all" ? "active" : ""}" onclick="setFriendCountry('all')">Все страны</button>` +
+  el.innerHTML = `<button class="friend-filter ${friendCountry === "all" ? "active" : ""}" onclick="setFriendCountry('all')">All countries</button>` +
     countries.map(country => `<button class="friend-filter ${friendCountry === country ? "active" : ""}" onclick="setFriendCountry('${country}')">${esc(COUNTRY_LABEL[country] || country)}</button>`).join("");
 }
 function setFriendCountry(value){
@@ -1912,12 +1911,12 @@ function openFriendProfile(id){
     : `<div class="friend-profile-avatar">${friendInitials(name)}</div>`;
   const country = COUNTRY_LABEL[person.country] || person.country || "—";
   const hometown = [country, person.hometown_city].filter(Boolean).join(", ") || "Не указано";
-  const university = person.university || person.study_city || "Не учусь";
+  const university = person.university || person.study_city || "Не указано";
   const description = person.profile_description || person.friend_description || "Описание пока не добавлено.";
   const contact = person.username
     ? `<button class="friend-contact" onclick="openTelegram('${person.username}')">Написать @${esc(person.username)}</button>`
-    : `<div class="friend-meta">Пользователь пока не добавил username для связи.</div>`;
-  document.getElementById("sheetContent").innerHTML = `<div class="friend-profile-header"><button onclick="closeSheet()" aria-label="Назад">‹</button><b>Профиль</b></div><div class="friend-profile-hero">${avatar}<h2>${esc(name)}</h2><div class="friend-profile-location">${esc(hometown)}</div></div><div class="friend-profile-facts"><div class="friend-profile-fact"><span>Родом из</span><b>${esc(hometown)}</b></div><div class="friend-profile-fact"><span>Учится в</span><b>${esc(university)}</b></div></div><div class="friend-profile-about"><span>О себе</span><p>${esc(description)}</p></div><div class="sheet-contact">${contact}</div>`;
+    : `<div class="friend-meta">Пользователь ещё не указал username для связи.</div>`;
+  document.getElementById("sheetContent").innerHTML = `<div class="friend-profile-header"><button onclick="closeSheet()" aria-label="Назад">‹</button><b>Профиль</b></div><div class="friend-profile-hero">${avatar}<h2>${esc(name)}</h2><div class="friend-profile-location">${esc(hometown)}</div></div><div class="friend-profile-facts"><div class="friend-profile-fact"><span>Откуда</span><b>${esc(hometown)}</b></div><div class="friend-profile-fact"><span>Учится в</span><b>${esc(university)}</b></div></div><div class="friend-profile-about"><span>О себе</span><p>${esc(description)}</p></div><div class="sheet-contact">${contact}</div>`;
   currentSheetId = `friend:${id}`;
   document.getElementById("sheet").classList.add("friend-profile-open");
   document.getElementById("sheetBackdrop").classList.add("open");
@@ -1939,7 +1938,7 @@ function renderFavorites(){
   const list = allListings.filter(l => favorites.has(l.id));
   el.innerHTML = list.length
     ? list.map(l => miniCardHTML(l)).join("")
-    : `<div class="empty" style="padding:32px 20px;"><div class="glyph"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21l7.8-7.6 1-1a5.5 5.5 0 0 0 0-7.8z"/></svg></div><h3>Пока пусто</h3><p>Нажмите на сердечко на карточке объявления, чтобы сохранить его сюда.</p></div>`;
+    : `<div class="empty" style="padding:32px 20px;"><div class="glyph"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21l7.8-7.6 1-1a5.5 5.5 0 0 0 0-7.8z"/></svg></div><h3>Пока ничего нет</h3><p>Нажмите на сердечко у объявления, чтобы сохранить его здесь.</p></div>`;
 }
 
 function toggleFavorite(id){
@@ -1962,7 +1961,7 @@ function refreshFavoriteUI(){
 }
 
 // ---------- 8. CARD TEMPLATES ----------
-const STATUS_RU = {pending:"На модерации", approved:"Опубликовано", rejected:"Отклонено"};
+const STATUS_RU = {pending:"На проверке", approved:"Опубликовано", rejected:"Отклонено"};
 const NEW_WINDOW_HOURS = 48;
 function isNewListing(l){
   const ts = l.created_at?.seconds;
@@ -1992,12 +1991,12 @@ function cardHTML(l, ownCard){
             <div class="listing-title">${esc(l.housing_type || "Жильё")}, ${esc(ROOM_LABEL_RU[l.room]||l.room||"")}</div>
             <div class="listing-sub">📍 ${esc(l.city||"—")}${l.address ? " · " + esc(l.address) : ""}</div>
           </div>
-          <div class="price-pill">€${l.price ?? "–"}${priceType}</div>
+          <div class="price-pill">${fmtPrice(l.price)}${priceType}</div>
         </div>
         <div class="listing-tags">
           ${l.contract ? `<span class="tag">${esc(l.contract)}</span>` : ""}
           ${l.included ? `<span class="tag">Всё включено</span>` : ""}
-          ${l.gender && l.gender!=="all" ? `<span class="tag">${l.gender==="male"?"Для парней":"Для девушек"}</span>` : ""}
+          ${l.gender && l.gender!=="all" ? `<span class="tag ${l.gender==="male"?"tag-male":"tag-female"}">${l.gender==="male"?"Для парней":"Для девушек"}</span>` : ""}
         </div>
       </div>
     </div>`;
@@ -2008,7 +2007,7 @@ function miniCardHTML(l){
       <div class="listing-photo">${photoBlockHTML(l)}</div>
       <div class="mc-body">
         <div class="mc-title">${esc(l.housing_type||"Жильё")} · ${esc(l.city||"")}</div>
-        <div class="mc-price">€${l.price ?? "–"}/мес</div>
+        <div class="mc-price">${fmtPrice(l.price)}/мес</div>
       </div>
     </div>`;
 }
@@ -2050,26 +2049,26 @@ function openListing(id){
     : `<div class="gallery-item" style="display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,.28);">${HOME_ICON_SVG}</div>`;
 
   const priceType = l.price_type === "person" ? "/чел" : l.price_type === "property" ? "/объект" : "";
-  const included = l.included ? "Всё включено" : (l.extra_costs ? `Отдельно: ${esc(l.extra_costs)}` : "Оплачивается отдельно");
+  const included = l.included ? "Всё включено" : (l.extra_costs ? `Доп. расходы: ${esc(l.extra_costs)}` : "Оплачивается отдельно");
   const audience = {all:"Для всех", male:"Только для парней", female:"Только для девушек"}[l.gender] || "Для всех";
   const coords = getCoords(l);
   const isFav = favorites.has(l.id);
   let distanceLine = "";
-  if (userLoc && coords) distanceLine = ` · ${haversineKm(userLoc, coords).toFixed(1)} км от вас`;
+  if (userLoc && coords) distanceLine = ` · ${haversineKm(userLoc, coords).toFixed(1)} km away`;
 
   document.getElementById("sheetContent").innerHTML = `
     <div class="sheet-gallery">${galleryHTML}</div>
-    <div class="sheet-price">€${l.price ?? "–"}<small>${priceType}/мес</small></div>
+    <div class="sheet-price">${fmtPrice(l.price)}<small>${priceType}/мес</small></div>
     <h2>${esc(l.housing_type||"Жильё")} · ${esc(ROOM_LABEL_RU[l.room]||l.room||"")}</h2>
     <div class="sheet-loc">📍 ${esc(l.city||"")}${l.address ? ", " + esc(l.address) : ""}${distanceLine}</div>
 
     <div class="sheet-facts">
-      <div class="fact"><span>Депозит</span><b>€${l.deposit ?? 0}</b></div>
-      <div class="fact"><span>Коммуналка</span><b>€${l.utilities ?? 0}</b></div>
+      <div class="fact"><span>Депозит</span><b>${fmtPrice(l.deposit ?? 0)}</b></div>
+      <div class="fact"><span>Коммунальные</span><b>${fmtPrice(l.utilities ?? 0)}</b></div>
       <div class="fact"><span>Доступно с</span><b>${esc(l.available_from||"—")}</b></div>
       <div class="fact"><span>Договор</span><b>${esc(l.contract||"—")}</b></div>
       <div class="fact"><span>Расходы</span><b>${included}</b></div>
-      <div class="fact"><span>Кому подходит</span><b>${audience}</b></div>
+      <div class="fact"><span>Подходит для</span><b class="${l.gender==="male"?"audience-male":l.gender==="female"?"audience-female":""}">${audience}</b></div>
     </div>
 
     ${l.description ? `<p class="sheet-desc">${esc(l.description)}</p>` : ""}
@@ -2079,7 +2078,7 @@ function openListing(id){
     <div class="sheet-secondary-actions">
       <button class="icon-action-btn ${isFav?"fav-active":""}" id="sheetFavBtn" onclick="toggleFavoriteInSheet('${l.id}')">
         <svg viewBox="0 0 24 24" fill="${isFav?"currentColor":"none"}" stroke="currentColor" stroke-width="2"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21l7.8-7.6 1-1a5.5 5.5 0 0 0 0-7.8z"/></svg>
-        ${isFav ? "В избранном" : "В избранное"}
+        ${isFav ? "Сохранено" : "Сохранить"}
       </button>
       <button class="icon-action-btn" onclick="shareListing('${l.id}')">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.6" y1="13.5" x2="15.4" y2="17.5"/><line x1="15.4" y1="6.5" x2="8.6" y2="10.5"/></svg>
@@ -2087,7 +2086,7 @@ function openListing(id){
       </button>
       ${coords ? `<a class="icon-action-btn" href="https://www.google.com/maps?q=${coords[0]},${coords[1]}" target="_blank">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 6-9 12-9 12s-9-6-9-12a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
-        В картах
+        Открыть на карте
       </a>` : ""}
     </div>
 
@@ -2109,7 +2108,7 @@ function openListing(id){
       sheetMapInstance = new maplibregl.Map({container:"sheetMap", style:MAP_STYLES[currentMapStyle], center:[coords[1],coords[0]], zoom:14, interactive:false, attributionControl:false});
       sheetMapInstance.on("load", () => {
         const pin = document.createElement("div"); pin.className = "map-marker-shell";
-        const pinPill = document.createElement("div"); pinPill.className = "price-marker"; pinPill.textContent = `€${l.price ?? "–"}`;
+        const pinPill = document.createElement("div"); pinPill.className = "price-marker"; pinPill.textContent = fmtPrice(l.price);
         pin.append(pinPill);
         new maplibregl.Marker({element:pin, anchor:"bottom"}).setLngLat([coords[1],coords[0]]).addTo(sheetMapInstance);
         sheetMapInstance.resize();
@@ -2123,15 +2122,58 @@ function toggleFavoriteInSheet(id){
   if (currentSheetId === id) openListing(id);
 }
 
-function shareListing(id){
+// Собирает подробный текст объявления для "поделиться": тип и город, цену, депозит,
+// коммунальные, договор, доступность, для кого жильё и описание — вместо одной строки,
+// как раньше.
+function shareListingText(l){
+  const priceType = l.price_type === "person" ? "/чел" : l.price_type === "property" ? "/объект" : "";
+  const included = l.included ? "всё включено" : (l.extra_costs ? `доп. расходы: ${l.extra_costs}` : "оплачивается отдельно");
+  const audience = {all:"для всех", male:"только для парней", female:"только для девушек"}[l.gender] || "для всех";
+  const photoCount = photoList(l).length;
+  const lines = [
+    `🏠 ${l.housing_type||"Жильё"}, ${ROOM_LABEL_RU[l.room]||l.room||""}`,
+    `📍 ${l.city||"—"}${l.address ? ", " + l.address : ""}`,
+    `💶 ${fmtPrice(l.price)}${priceType}/мес`,
+    `💰 Депозит: ${fmtPrice(l.deposit ?? 0)} · Коммунальные: ${fmtPrice(l.utilities ?? 0)} (${included})`,
+  ];
+  if (l.contract) lines.push(`📄 Договор: ${l.contract}`);
+  if (l.available_from) lines.push(`📅 Доступно с: ${l.available_from}`);
+  lines.push(`👤 Кому подходит: ${audience}`);
+  if (photoCount) lines.push(`📷 Фото: ${photoCount} шт.`);
+  if (l.description) lines.push(`\n${String(l.description).slice(0,220)}${l.description.length > 220 ? "…" : ""}`);
+  return lines.join("\n");
+}
+
+async function shareListing(id){
   const l = allListings.find(x => x.id===id) || myListings.find(x => x.id===id);
   if (!l) return;
-  const text = `${l.housing_type||"Жильё"}, ${ROOM_LABEL_RU[l.room]||l.room||""} · ${l.city||""} · €${l.price ?? "–"}/мес`;
+  const details = shareListingText(l);
   const miniAppUrl = `https://t.me/${BOT_USERNAME}?startapp=${encodeURIComponent(`listing_${l.id}`)}`;
-  const telegramShareUrl = `https://t.me/share/url?url=${encodeURIComponent(miniAppUrl)}&text=${encodeURIComponent(text)}`;
+  const photoUrl = photoList(l)[0] || null;
+
+  // Вариант с настоящим фото: Web Share API 2-го уровня умеет прикладывать файл
+  // изображения к системному диалогу «Поделиться» (работает не во всех обёртках
+  // Telegram — это ограничение платформы, а не мини-аппы). Если поддерживается —
+  // используем его первым, тогда фото уходит вместе с текстом и ссылкой.
+  if (photoUrl && navigator.canShare && navigator.share){
+    try{
+      const res = await fetch(photoUrl);
+      const blob = await res.blob();
+      const file = new File([blob], "listing.jpg", {type: blob.type || "image/jpeg"});
+      if (navigator.canShare({files:[file]})){
+        await navigator.share({title:"Italy Housing", text:`${details}\n\n${miniAppUrl}`, files:[file]});
+        return;
+      }
+    } catch(e){ /* фото недоступно/CORS — просто продолжаем без него */ }
+  }
+
+  // Основной путь внутри Telegram: ссылка передаётся отдельным параметром "url" —
+  // именно так Telegram сам строит красивую карточку-превью со ссылкой вместо
+  // «голого» текста URL внутри сообщения.
+  const telegramShareUrl = `https://t.me/share/url?url=${encodeURIComponent(miniAppUrl)}&text=${encodeURIComponent(details)}`;
   if (tg?.openTelegramLink) tg.openTelegramLink(telegramShareUrl);
-  else if (navigator.share) navigator.share({title:"Italy Housing", text, url:miniAppUrl}).catch(()=>{});
-  else if (navigator.clipboard) navigator.clipboard.writeText(`${text}\n${miniAppUrl}`).then(() => tg?.showAlert?.("Ссылка на Mini App скопирована"));
+  else if (navigator.share) navigator.share({title:"Italy Housing", text:details, url:miniAppUrl}).catch(()=>{});
+  else if (navigator.clipboard) navigator.clipboard.writeText(`${details}\n\n${miniAppUrl}`).then(() => tg?.showAlert?.("Текст объявления и ссылка скопированы"));
 }
 
 function closeSheet(){
