@@ -2,16 +2,16 @@
 <html lang="ru">
 <head>
 <meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover" />
-<title>Italy Housing</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>ItalyStudent — жизнь и учёба в Италии</title>
+<meta name="description" content="ItalyStudent — платформа для студентов в Италии: жильё, университеты, документы и сообщество." />
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='18' fill='%23d6ff54'/%3E%3Ctext x='32' y='42' font-size='28' font-weight='800' text-anchor='middle' font-family='Arial' fill='%23111'%3EIS%3C/text%3E%3C/svg%3E" />
 <meta name="theme-color" content="#04191e" />
 <meta name="mobile-web-app-capable" content="yes" />
 <meta name="apple-mobile-web-app-capable" content="yes" />
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
 <meta name="format-detection" content="telephone=no" />
 
-<!-- Telegram Mini Apps SDK -->
-<script src="https://telegram.org/js/telegram-web-app.js"></script>
 
 <!-- Firebase (compat build — без сборщика, всё через <script>) -->
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
@@ -658,13 +658,73 @@
   .language-dialog{position:fixed;inset:0;z-index:1000;display:grid;place-items:center;padding:24px;background:rgba(0,0,0,.72);backdrop-filter:blur(8px)}.language-dialog[hidden]{display:none}.language-card{width:min(100%,360px);padding:28px;border:1px solid rgba(255,255,255,.15);border-radius:24px;background:#151518;color:#fff;text-align:center;box-shadow:0 24px 60px rgba(0,0,0,.45)}.language-card h2{margin:0;font-size:22px}.language-card p{margin:10px 0 22px;color:var(--text-1);font-size:14px}.language-actions{display:grid;gap:10px}.language-actions button{padding:14px;border-radius:14px;background:var(--lime);color:var(--lime-ink);font-weight:800;font-size:15px}.language-actions button:last-child{background:#29292d;color:#fff}
   #currencyOptions button{background:#29292d;color:#fff;}#currencyOptions button.active{background:var(--lime);color:var(--lime-ink);}
 </style>
+<style>
+/* ===== ItalyStudent: шапка, главная, адаптив под ноутбуки ===== */
+:root{--hdr:56px}
+.topbar{position:sticky!important;top:0;z-index:60;display:block!important;height:calc(env(safe-area-inset-top) + var(--hdr))!important;min-height:0!important;padding:env(safe-area-inset-top) 0 0!important;pointer-events:auto!important;background:rgba(0,0,0,.8)!important;backdrop-filter:blur(16px);border-bottom:1px solid rgba(255,255,255,.08)}
+.tb-in{height:var(--hdr);display:flex;align-items:center;gap:10px;max-width:1120px;margin:0 auto;padding:0 16px}
+.tb-brand{display:flex;align-items:center;gap:9px;margin-right:auto}
+.tb-mark{width:30px;height:30px;border-radius:10px;background:var(--lime);color:var(--lime-ink);display:grid;place-items:center;font:800 13px var(--font-display)}
+.tb-brand .app-wordmark{margin:0;font-size:17px}
+.tb-nav{display:none;gap:4px;margin-right:auto}
+.tb-link{padding:8px 14px;border-radius:12px;font-weight:600;font-size:14px;color:var(--text-1);transition:background .15s,color .15s}
+.tb-link:hover{color:var(--text-0);background:rgba(255,255,255,.07)}
+.tb-link.active{color:var(--lime-ink);background:var(--lime)}
+.tb-actions{display:flex;align-items:center;gap:8px}
+.tb-pill{height:34px;padding:0 12px;border-radius:17px;border:1px solid var(--slate-border);background:var(--slate-700);font-size:12.5px;font-weight:700}
+.tb-avatar{width:34px;height:34px;border-radius:50%;background:var(--slate-500);border:1px solid var(--slate-border);font-weight:700;font-size:13px;color:var(--lime)}
+.map-mode #screen-search.active{top:calc(env(safe-area-inset-top) + var(--hdr))!important}
+main{padding-bottom:20px!important}
+.hero{padding:18px 2px 14px}.hero h1{font-size:28px;line-height:1.1}.hero p{color:var(--text-1);font-size:14.5px;margin-top:6px}
+.svc-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+.svc{text-align:left;display:flex;flex-direction:column;gap:3px;padding:14px;border-radius:18px;background:var(--slate-700);border:1px solid var(--slate-border);transition:transform .15s,border-color .15s}
+.svc:hover{transform:translateY(-2px);border-color:rgba(255,255,255,.3)}
+.svc i{font-style:normal;font-size:22px;margin-bottom:6px}.svc b{font-size:15px}.svc span{font-size:12px;color:var(--text-1)}
+.svc.on{border-color:var(--lime)}.svc.on span{color:var(--lime)}
+.site-footer{max-width:1120px;margin:0 auto;padding:28px 20px calc(var(--tabbar-h) + 36px);display:flex;flex-direction:column;gap:8px;color:var(--text-1);font-size:13px;border-top:1px solid var(--slate-border)}
+.site-footer b{font:800 17px var(--font-display);color:var(--text-0)}.site-footer i{font-style:normal;color:var(--lime)}
+.site-footer div{display:flex;gap:16px}.site-footer button{color:var(--text-0);font-weight:600;font-size:13px}.site-footer small{opacity:.7}
+.map-mode .site-footer{display:none}
+#toast{position:fixed;left:50%;bottom:calc(var(--tabbar-h) + 34px);transform:translate(-50%,16px);opacity:0;z-index:3000;background:#fff;color:#111;padding:12px 18px;border-radius:14px;font-weight:600;font-size:14px;pointer-events:none;transition:.25s;max-width:90vw;text-align:center}
+#toast.show{opacity:1;transform:translate(-50%,0)}
+:focus-visible{outline:2px solid var(--lime);outline-offset:2px}
+@media (min-width:600px){.svc-grid{grid-template-columns:repeat(3,1fr)}}
+@media (min-width:900px){
+  #app{max-width:1120px!important}
+  .tb-in{padding:0 32px}.tb-nav{display:flex}
+  .tabbar{display:none!important}
+  main{padding:0 32px 24px!important}
+  .listing-grid{display:grid!important;grid-template-columns:repeat(auto-fill,minmax(330px,1fr));gap:16px}
+  .svc-grid{grid-template-columns:repeat(6,1fr)}
+  .hero h1{font-size:38px}
+  .map-mode #screen-search.active{bottom:0!important;width:min(1120px,100%)!important;border-radius:24px 24px 0 0}
+  .site-footer{padding:32px 32px 40px}
+  #toast{bottom:32px}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style>
 </head>
 <body>
 
+<header class="topbar">
+  <div class="tb-in">
+    <button class="tb-brand" onclick="goTab('home')" aria-label="ItalyStudent"><span class="tb-mark">IS</span><span class="app-wordmark">Italy<b>Student</b></span></button>
+    <nav class="tb-nav" aria-label="Разделы">
+      <button class="tb-link active" data-tab="home" onclick="goTab('home')">Главная</button>
+      <button class="tb-link" data-tab="search" onclick="goTab('search')">Жильё на карте</button>
+      <button class="tb-link" data-tab="reviews" onclick="goTab('reviews')">Отзывы</button>
+      <button class="tb-link" data-tab="profile" onclick="goTab('profile')">Профиль</button>
+    </nav>
+    <div class="tb-actions">
+      <button class="tb-pill" onclick="openCurrencySelector()" aria-label="Валюта"><span id="tbCur">EUR</span></button>
+      <button class="tb-pill" onclick="openLanguageSelector()" aria-label="Язык">RU</button>
+      <button class="tb-avatar" id="tbAvatar" onclick="goTab('profile')" aria-label="Профиль">?</button>
+    </div>
+  </div>
+</header>
 <div id="app">
 
   <!-- ================= TOPBAR ================= -->
-  <header class="topbar" aria-hidden="true"></header>
 
   <div id="diagBanner" style="display:none; padding:0 20px;"></div>
 
@@ -672,6 +732,7 @@
 
     <!-- ================= HOME ================= -->
     <section class="screen active" id="screen-home">
+      <div class="hero"><h1 id="heroHi">Привет</h1><p>ItalyStudent — жильё, учёба и жизнь в Италии в одном месте.</p></div>
 
       <!-- Начинается сразу с "ближайшего города" — большого круга-счётчика нет -->
       <div class="stat-glance">
@@ -697,6 +758,15 @@
         <div class="home-city-picker" id="homeCityPicker"></div>
       </div>
 
+      <div class="section-title"><h2>Разделы</h2></div>
+      <div class="svc-grid">
+        <button class="svc on" onclick="goTab('search')"><i>🏠</i><b>Жильё</b><span>Комнаты и квартиры</span></button>
+        <button class="svc" onclick="soon('Документы')"><i>📄</i><b>Документы</b><span>Скоро</span></button>
+        <button class="svc" onclick="soon('Университеты')"><i>🎓</i><b>Университеты</b><span>Скоро</span></button>
+        <button class="svc" onclick="soon('Работа')"><i>💼</i><b>Работа</b><span>Скоро</span></button>
+        <button class="svc" onclick="soon('Сообщество')"><i>👥</i><b>Сообщество</b><span>Скоро</span></button>
+        <button class="svc" onclick="soon('Полезное')"><i>🧭</i><b>Гид</b><span>Скоро</span></button>
+      </div>
       <div class="section-title">
         <h2>Все объявления</h2>
         <span class="link" onclick="openHomeMap()">Карта →</span>
@@ -797,6 +867,13 @@
       <button style="margin-top:10px;background:none;color:var(--text-1);font-weight:600;font-size:13px;" onclick="closeCurrencyDialog()">Закрыть</button>
     </div>
   </div>
+
+  <footer class="site-footer">
+    <b>Italy<i>Student</i></b>
+    <span>Платформа для студентов в Италии</span>
+    <div><button onclick="openSupport()">Поддержка</button><button onclick="openBotChat()">Telegram-бот</button></div>
+    <small>© 2026 ItalyStudent</small>
+  </footer>
 
   <!-- ================= TABBAR ================= -->
   <nav class="tabbar">
@@ -961,7 +1038,7 @@ const firebaseConfig = {
 const BOT_USERNAME = "ItalyStudentsBot";
 const SUPPORT_USERNAME = "io_student_vrime_1";
 const PAGE_LANGUAGE = "ru";
-const LANGUAGE_PAGES = {ru:"index (24).html", en:"indexeng.html"};
+const LANGUAGE_PAGES = {ru:"index.html", en:"indexeng.html"};
 
 // ⚠️ ФОТО, вариант 2 (прокси через file_id) — см. подробное объяснение и код
 // Cloudflare Worker в комментарии выше. Оставьте пустым, если используете
@@ -1173,7 +1250,7 @@ let settings = {notif:true, haptics:true};
 const CURRENCY_RATES = {EUR:1, USD:1.08, RUB:100, UZS:13700};
 const CURRENCY_LABEL = {EUR:"Евро (€)", USD:"Доллар США ($)", RUB:"Российский рубль (₽)", UZS:"Узбекский сум (UZS)"};
 let currentCurrency = "EUR";
-try { currentCurrency = localStorage.getItem("italyHousingCurrency") || "EUR"; } catch(e) {}
+try { currentCurrency = localStorage.getItem("italyStudentCurrency") || "EUR"; } catch(e) {}
 
 function fmtPrice(amount){
   if (amount === null || amount === undefined || amount === "") {
@@ -1200,7 +1277,8 @@ function renderCurrencyDialog(){
 }
 function selectCurrency(code){
   currentCurrency = code;
-  try { localStorage.setItem("italyHousingCurrency", code); } catch(e) {}
+  try { localStorage.setItem("italyStudentCurrency", code); } catch(e) {}
+  { const c = document.getElementById("tbCur"); if (c) c.textContent = code; }
   renderCurrencyDialog();
   haptic("light");
   // Обновляем все места, где уже отрисована цена.
@@ -1501,7 +1579,7 @@ function mostCommonCity(){
 function detectNearestCity(){
   const btn = document.getElementById("sgLocateBtn");
   if (!navigator.geolocation){
-    tg?.showAlert?.("Геолокация недоступна в этом браузере.");
+    toast("Геолокация недоступна в этом браузере.");
     return;
   }
   btn.classList.add("loading");
@@ -1514,7 +1592,7 @@ function detectNearestCity(){
     },
     () => {
       btn.classList.remove("loading");
-      tg?.showAlert?.("Не удалось определить местоположение. Проверьте разрешения.");
+      toast("Не удалось определить местоположение. Проверьте разрешения.");
     },
     {enableHighAccuracy:true, timeout:12000, maximumAge:0}
   );
@@ -1784,7 +1862,7 @@ function toggleNearMe(){
     return;
   }
   if (!navigator.geolocation){
-    tg?.showAlert?.("Геолокация недоступна в этом браузере.");
+    toast("Геолокация недоступна в этом браузере.");
     return;
   }
   btn.classList.add("loading");
@@ -1804,7 +1882,7 @@ function toggleNearMe(){
     },
     () => {
       btn.classList.remove("loading");
-      tg?.showAlert?.("Не удалось определить местоположение. Проверьте разрешения.");
+      toast("Не удалось определить местоположение. Проверьте разрешения.");
     },
     {enableHighAccuracy:true, timeout:12000, maximumAge:0}
   );
@@ -1949,7 +2027,7 @@ function renderFavorites(){
 
 function toggleFavorite(id){
   if (!tgUser){
-    tg?.showAlert?.("Откройте мини-приложение из Telegram, чтобы сохранять избранное.");
+    toast("Откройте мини-приложение из Telegram, чтобы сохранять избранное.");
     return;
   }
   haptic("light");
@@ -2167,7 +2245,7 @@ async function shareListing(id){
       const blob = await res.blob();
       const file = new File([blob], "listing.jpg", {type: blob.type || "image/jpeg"});
       if (navigator.canShare({files:[file]})){
-        await navigator.share({title:"Italy Housing", text:`${details}\n\n${miniAppUrl}`, files:[file]});
+        await navigator.share({title:"ItalyStudent", text:`${details}\n\n${miniAppUrl}`, files:[file]});
         return;
       }
     } catch(e){ /* фото недоступно/CORS — просто продолжаем без него */ }
@@ -2178,8 +2256,8 @@ async function shareListing(id){
   // «голого» текста URL внутри сообщения.
   const telegramShareUrl = `https://t.me/share/url?url=${encodeURIComponent(miniAppUrl)}&text=${encodeURIComponent(details)}`;
   if (tg?.openTelegramLink) tg.openTelegramLink(telegramShareUrl);
-  else if (navigator.share) navigator.share({title:"Italy Housing", text:details, url:miniAppUrl}).catch(()=>{});
-  else if (navigator.clipboard) navigator.clipboard.writeText(`${details}\n\n${miniAppUrl}`).then(() => tg?.showAlert?.("Текст объявления и ссылка скопированы"));
+  else if (navigator.share) navigator.share({title:"ItalyStudent", text:details, url:miniAppUrl}).catch(()=>{});
+  else if (navigator.clipboard) navigator.clipboard.writeText(`${details}\n\n${miniAppUrl}`).then(() => toast("Текст объявления и ссылка скопированы"));
 }
 
 function closeSheet(){
@@ -2226,8 +2304,17 @@ function toggleSetting(key){
     }, {merge:true}).catch(()=>{});
   }
 }
-function openBotChat(){ tg?.openTelegramLink?.(`https://t.me/${BOT_USERNAME}`); }
-function openSupport(){ tg?.openTelegramLink?.(`https://t.me/${SUPPORT_USERNAME}`); }
+const openExt = u => (tg?.openTelegramLink ? tg.openTelegramLink(u) : window.open(u, "_blank", "noopener"));
+function openBotChat(){ openExt(`https://t.me/${BOT_USERNAME}`); }
+function openSupport(){ openExt(`https://t.me/${SUPPORT_USERNAME}`); }
+function toast(m){ let t = document.getElementById("toast"); if (!t){ t = document.createElement("div"); t.id = "toast"; document.body.appendChild(t); } t.textContent = m; t.className = "show"; clearTimeout(t._h); t._h = setTimeout(() => t.className = "", 2600); }
+function soon(n){ haptic("light"); toast(n + " — раздел скоро появится"); }
+function renderHeader(){
+  const n = (tgUser && tgUser.first_name) || "", a = document.getElementById("tbAvatar"), h = document.getElementById("heroHi"), c = document.getElementById("tbCur");
+  if (a) a.textContent = ((n[0] || "") + ((tgUser && tgUser.last_name || "")[0] || "")).toUpperCase() || "?";
+  if (h) h.textContent = n ? "Привет, " + n : "Привет";
+  if (c) c.textContent = currentCurrency;
+}
 function openTelegram(username){
   const url = `https://t.me/${String(username || "").replace(/^@/, "")}`;
   if (tg?.openTelegramLink) tg.openTelegramLink(url); else window.open(url, "_blank");
@@ -2236,14 +2323,14 @@ function openLanguageSelector(){
   document.getElementById("languageDialog")?.removeAttribute("hidden");
 }
 function selectLanguage(language){
-  try { localStorage.setItem("italyHousingLanguage", language); } catch(e) {}
+  try { localStorage.setItem("italyStudentLanguage", language); } catch(e) {}
   const destination = LANGUAGE_PAGES[language];
   if (destination && language !== PAGE_LANGUAGE) window.location.href = destination;
   else document.getElementById("languageDialog")?.setAttribute("hidden", "");
 }
 function restoreLanguage(){
   let language = "";
-  try { language = localStorage.getItem("italyHousingLanguage") || ""; } catch(e) {}
+  try { language = localStorage.getItem("italyStudentLanguage") || ""; } catch(e) {}
   if (!language) return openLanguageSelector();
   if (language !== PAGE_LANGUAGE && LANGUAGE_PAGES[language]) window.location.replace(LANGUAGE_PAGES[language]);
 }
@@ -2302,7 +2389,7 @@ function goTab(name){
   document.body.classList.toggle("map-mode", name === "search");
   document.querySelectorAll(".screen").forEach(s => s.classList.remove("active"));
   document.getElementById("screen-" + name).classList.add("active");
-  document.querySelectorAll(".tab-btn").forEach(b => b.classList.toggle("active", b.dataset.tab === name));
+  document.querySelectorAll(".tab-btn,.tb-link").forEach(b => b.classList.toggle("active", b.dataset.tab === name));
   haptic("light");
   window.scrollTo({top:0, behavior:"instant"});
   if (name === "search") { ensureSearchMap(); setTimeout(() => searchMap?.resize(), 80); }
@@ -2311,6 +2398,7 @@ function goTab(name){
 // ---------- 13. BOOT ----------
 initTelegram();
 function startApp(){
+  renderHeader();
   restoreLanguage();
   renderUser();
   loadListings();
@@ -2370,7 +2458,7 @@ const ISO = "AF AL DZ AD AO AG AR AM AU AT AZ BS BH BD BB BY BE BZ BJ BT BO BA B
 const dnEn = new Intl.DisplayNames(["en"],{type:"region"}), dnRu = new Intl.DisplayNames(["ru"],{type:"region"});
 const COUNTRIES = ISO.map(code => { let name = code, ru = code; try{ name = dnEn.of(code); ru = dnRu.of(code); }catch(e){} return {code, name, ru}; })
   .sort((a,b) => a.name.localeCompare(b.name));
-const UNI_RAW = "Sapienza University of Rome|Rome;Tor Vergata University of Rome|Rome;Roma Tre University|Rome;Foro Italico University of Rome|Rome;University of Bologna|Bologna;University of Milan|Milan;Milano-Bicocca University|Milan;Politecnico di Milano|Milan;University of Padua|Padua;University of Pavia|Pavia;IUSS Pavia|Pavia;University of Turin|Turin;Politecnico di Torino|Turin;University of Florence|Florence;University of Pisa|Pisa;Scuola Normale Superiore|Pisa;Sant'Anna School of Advanced Studies|Pisa;University of Siena|Siena;University for Foreigners of Siena|Siena;University of Naples Federico II|Naples;University of Naples L'Orientale|Naples;Parthenope University of Naples|Naples;University of Campania Luigi Vanvitelli|Caserta;University of Salerno|Salerno;University of Sannio|Benevento;University of Genoa|Genoa;University of Trieste|Trieste;SISSA|Trieste;University of Udine|Udine;Ca' Foscari University of Venice|Venice;IUAV University of Venice|Venice;University of Verona|Verona;University of Brescia|Brescia;University of Bergamo|Bergamo;University of Insubria|Varese;University of Parma|Parma;University of Modena and Reggio Emilia|Modena;University of Ferrara|Ferrara;University of Trento|Trento;Free University of Bozen-Bolzano|Bolzano;University of Piemonte Orientale|Vercelli;University of Valle d'Aosta|Aosta;University of Perugia|Perugia;University for Foreigners of Perugia|Perugia;University of Macerata|Macerata;University of Camerino|Camerino;Marche Polytechnic University|Ancona;University of Urbino Carlo Bo|Urbino;University of Tuscia|Viterbo;University of Cassino and Southern Lazio|Cassino;University of L'Aquila|L'Aquila;Gran Sasso Science Institute|L'Aquila;University of Teramo|Teramo;G. d'Annunzio University of Chieti-Pescara|Chieti;University of Molise|Campobasso;University of Bari Aldo Moro|Bari;Politecnico di Bari|Bari;University of Foggia|Foggia;University of Salento|Lecce;University of Basilicata|Potenza;University of Calabria|Cosenza;Magna Graecia University of Catanzaro|Catanzaro;Mediterranea University of Reggio Calabria|Reggio Calabria;University of Palermo|Palermo;University of Catania|Catania;University of Messina|Messina;Kore University of Enna|Enna;University of Cagliari|Cagliari;University of Sassari|Sassari;IMT School for Advanced Studies Lucca|Lucca;Bocconi University|Milan;Catholic University of the Sacred Heart|Milan;Humanitas University|Milan;Vita-Salute San Raffaele University|Milan;IULM University|Milan;NABA - Nuova Accademia di Belle Arti|Milan;Istituto Marangoni|Milan;LIUC - Carlo Cattaneo University|Castellanza;LUISS Guido Carli|Rome;LUMSA University|Rome;Campus Bio-Medico University of Rome|Rome;European University of Rome|Rome;UNINT - Italian University of Languages and Media|Rome;John Cabot University|Rome;Link Campus University|Rome;Suor Orsola Benincasa University|Naples;University of Gastronomic Sciences|Pollenzo;Other institution in Italy|";
+const UNI_RAW = "Sapienza University of Rome|Rome;Tor Vergata University of Rome|Rome;Roma Tre University|Rome;Foro Italico University of Rome|Rome;University of Bologna|Bologna;University of Milan|Milan;Milano-Bicocca University|Milan;Politecnico di Milano|Milan;University of Padua|Padua;University of Pavia|Pavia;IUSS Pavia|Pavia;University of Turin|Turin;Politecnico di Torino|Turin;University of Florence|Florence;University of Pisa|Pisa;Scuola Normale Superiore|Pisa;Sant'Anna School of Advanced Studies|Pisa;University of Siena|Siena;University for Foreigners of Siena|Siena;University of Naples Federico II|Naples;University of Naples L'Orientale|Naples;Parthenope University of Naples|Naples;University of Campania Luigi Vanvitelli|Caserta;University of Salerno|Salerno;University of Sannio|Benevento;University of Genoa|Genoa;University of Trieste|Trieste;SISSA|Trieste;University of Udine|Udine;Ca' Foscari University of Venice|Venice;IUAV University of Venice|Venice;University of Verona|Verona;University of Brescia|Brescia;University of Bergamo|Bergamo;University of Insubria|Varese;University of Parma|Parma;University of Modena and Reggio Emilia|Modena;University of Ferrara|Ferrara;University of Trento|Trento;Free University of Bozen-Bolzano|Bolzano;University of Piemonte Orientale|Vercelli;University of Valle d'Aosta|Aosta;University of Perugia|Perugia;University for Foreigners of Perugia|Perugia;University of Macerata|Macerata;University of Camerino|Camerino;Marche Polytechnic University|Ancona;University of Urbino Carlo Bo|Urbino;University of Tuscia|Viterbo;University of Cassino and Southern Lazio|Cassino;University of L'Aquila|L'Aquila;Gran Sasso Science Institute|L'Aquila;University of Teramo|Teramo;G. d'Annunzio University of Chieti-Pescara|Chieti;University of Molise|Campobasso;University of Bari Aldo Moro|Bari;Politecnico di Bari|Bari;University of Foggia|Foggia;University of Salento|Lecce;University of Basilicata|Potenza;University of Calabria|Cosenza;Magna Graecia University of Catanzaro|Catanzaro;Mediterranea University of Reggio Calabria|Reggio Calabria;University of Palermo|Palermo;University of Catania|Catania;University of Messina|Messina;Kore University of Enna|Enna;University of Cagliari|Cagliari;University of Sassari|Sassari;IMT School for Advanced Studies Lucca|Lucca;Bocconi University|Milan;Catholic University of the Sacred Heart|Milan;Humanitas University|Milan;Vita-Salute San Raffaele University|Milan;IULM University|Milan;NABA - Nuova Accademia di Belle Arti|Milan;Istituto Marangoni|Milan;LIUC - Carlo Cattaneo University|Castellanza;LUISS Guido Carli|Rome;LUMSA University|Rome;Campus Bio-Medico University of Rome|Rome;European University of Rome|Rome;UNINT - Italian University of Languages and Media|Rome;John Cabot University|Rome;Link Campus University|Rome;Suor Orsola Benincasa University|Naples;University of Gastronomic Sciences|Pollenzo;Dante Alighieri University for Foreigners|Reggio Calabria;Scuola Superiore Meridionale|Naples;Saint Camillus International University of Health Sciences|Rome;LUM Giuseppe Degennaro University|Casamassima;Niccolò Cusano University|Rome;Pegaso Telematic University|Naples;eCampus University|Novedrate;Mercatorum University|Rome;Unitelma Sapienza|Rome;Guglielmo Marconi University|Rome;Giustino Fortunato University|Benevento;Italian University Line (IUL)|Florence;UniNettuno International Telematic University|Rome;Leonardo da Vinci Telematic University|Chieti;San Raffaele Rome Open University|Rome;Other institution in Italy|";
 const UNIS = UNI_RAW.split(";").map(s => { const [university, city] = s.split("|"); return {university, city, university_id: university.toLowerCase().replace(/[^a-z0-9]+/g,"-").replace(/^-|-$/g,"")}; });
 
 const norm = s => (s||"").trim().replace(/\s+/g," ").toLowerCase().replace(/(^|[\s\-'])(\p{L})/gu, (m,a,b) => a + b.toUpperCase());
@@ -2404,8 +2492,8 @@ function picker(host, ph, search, render, pick, clear){
 
 /* ---------- экраны входа ---------- */
 function welcome(){
-  view(`<div class="ag-logo">Italy<b>Housing</b></div><h1>Жильё в Италии для студентов</h1>
-    <p class="sub">Войдите или создайте аккаунт: искать жильё, сохранять избранное и знакомиться с соседями.</p>
+  view(`<div class="ag-logo">Italy<b>Student</b></div><h1>Всё для студентов в Италии</h1>
+    <p class="sub">Жильё, университеты, документы и сообщество. Войдите или создайте аккаунт.</p>
     <button class="ag-btn" id="aLogin">Войти</button><button class="ag-btn sec" id="aReg">Создать аккаунт</button>
     <div class="ag-or">или</div><button class="ag-btn tg" id="aTg">${TG_ICON} Войти через Telegram</button>`);
   $("#aLogin").onclick = () => emailForm(false); $("#aReg").onclick = () => emailForm(true); $("#aTg").onclick = tgLogin;
@@ -2414,7 +2502,7 @@ function emailForm(reg){
   view(`<h1>${reg ? "Создать аккаунт" : "С возвращением"}</h1><p class="sub">${reg ? "Сначала почта и пароль, потом пара вопросов о вас." : "Войдите по почте и паролю."}</p>
     <input class="ag-in" id="e" type="email" inputmode="email" autocomplete="email" placeholder="Email">
     <input class="ag-in" id="p" type="password" autocomplete="${reg ? "new-password" : "current-password"}" placeholder="Пароль (минимум 6 символов)">
-    <div class="ag-err" id="err"></div><button class="ag-btn" id="go">${reg ? "Продолжить" : "Войти"}</button>
+    <button type="button" class="ag-link" id="sp" style="margin:-2px 0 8px">Показать пароль</button><div class="ag-err" id="err"></div><button class="ag-btn" id="go">${reg ? "Продолжить" : "Войти"}</button>
     ${reg ? "" : '<button class="ag-link" id="fg">Забыли пароль?</button>'}`, {back: welcome, prog: reg ? .25 : 0});
   const go = async () => {
     const e = $("#e").value.trim(), p = $("#p").value; if (!e || !p) return err("Заполните почту и пароль");
@@ -2422,7 +2510,11 @@ function emailForm(reg){
     try{ reg ? await auth.createUserWithEmailAndPassword(e,p) : await auth.signInWithEmailAndPassword(e,p); }
     catch(x){ err(ERR[x.code] || "Не удалось войти: " + x.code); busy(false); }
   };
-  $("#go").onclick = go; $("#p").onkeydown = ev => ev.key === "Enter" && go();
+  $("#go").onclick = go;
+  $("#p").addEventListener("keydown", ev => { if (ev.key === "Enter") go(); });
+  $("#e").addEventListener("keydown", ev => { if (ev.key === "Enter"){ ev.preventDefault(); $("#p").focus(); } });
+  $("#sp").onclick = () => { const i = $("#p"), h = i.type === "password"; i.type = h ? "text" : "password"; $("#sp").textContent = h ? "Скрыть пароль" : "Показать пароль"; };
+  if (matchMedia("(pointer:fine)").matches) $("#e").focus();
   if (!reg) $("#fg").onclick = async () => {
     const e = $("#e").value.trim(); if (!e) return err("Введите email, и мы отправим письмо для сброса");
     try{ await auth.sendPasswordResetEmail(e); err(""); $("#fg").textContent = "Письмо отправлено — проверьте почту"; }catch(x){ err(ERR[x.code] || "Не удалось отправить письмо"); }
