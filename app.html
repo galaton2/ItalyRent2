@@ -955,7 +955,6 @@ const firebaseConfig = {
   messagingSenderId: "712654556706",
   appId: "1:712654556706:web:6a1bf74096c5110129847b"
 };
-
 // ⚠️ Юзернейм бота (без @) и поддержки — используются кнопками ниже.
 // Бот должен иметь настроенный Main Mini App: тогда ссылки вида t.me/бот?startapp=…
 // открывают Mini App, а не обычную веб-страницу.
@@ -1816,8 +1815,8 @@ function renderProfileStats(){
   // Профиль намеренно содержит только два списка: избранное и свои объявления.
 }
 function renderProfileDetails(){
-  const university = (profileData.study ? (profileData.study.university || "Не учусь") : "") || profileData.university || profileData.study_city || profileData.study_place || "Не указано";
-  const hometown = [profileData.birth_city?.name, profileData.birth_country?.name].filter(Boolean).join(", ") || profileData.hometown || [profileData.country, profileData.hometown_city].filter(Boolean).join(", ") || profileData.from_city || "Не указано";
+  const university = profileData.university || profileData.study_city || profileData.study_place || "Не указано";
+  const hometown = profileData.hometown || [profileData.country, profileData.hometown_city].filter(Boolean).join(", ") || profileData.from_city || "Не указано";
   const bio = profileData.profile_description || profileData.bio || profileData.about || "Добавьте описание в профиле бота.";
   document.getElementById("profileUniversity").textContent = university;
   document.getElementById("profileHometown").textContent = hometown;
@@ -2430,22 +2429,27 @@ function emailForm(reg){
   };
 }
 
-/* ---------- вход через Telegram ---------- */
-function tgSess(){ const u = tg.initDataUnsafe.user; return {id:u.id, first_name:u.first_name||"", last_name:u.last_name||"", username:u.username||"", photo_url:u.photo_url||"", email:"", provider:"telegram"}; }
+/* ---------- вход через Telegram (через бота: и на сайте, и внутри Mini App) ---------- */
+const tgUrl = t => `https://t.me/${BOT_USERNAME}?start=auth_${t}`;
 function tgLogin(){
-  if (inTg){ localStorage.agTg = "1"; return enter(tgSess()); }            // внутри Telegram — в один клик
-  const t = (crypto.randomUUID ? crypto.randomUUID() : Date.now() + Math.random().toString(36).slice(2)), ref = db.collection("tgAuth").doc(t);
-  const url = `https://t.me/${BOT_USERNAME}?start=auth_${t}`;
-  ref.set({status:"pending", created_at:firebase.firestore.FieldValue.serverTimestamp()}).catch(() => {});
-  window.open(url, "_blank");
-  view(`<div class="ag-spin"></div><h1>Подтвердите вход в Telegram</h1><p class="sub">Откройте бота и нажмите «Да, войти». После этого вы автоматически вернётесь сюда.</p>
-    <a class="ag-btn tg" href="${url}" target="_blank" rel="noopener">${TG_ICON} Открыть Telegram</a><div class="ag-err" id="err"></div><button class="ag-btn sec" id="cx">Отмена</button>`);
-  const stop = () => { unsub && unsub(); unsub = null; ref.delete().catch(() => {}); };
+  const t = (crypto.randomUUID ? crypto.randomUUID() : Date.now() + Math.random().toString(36).slice(2));
+  localStorage.agPending = t;
+  db.collection("tgAuth").doc(t).set({status:"pending", created_at:firebase.firestore.FieldValue.serverTimestamp()}).catch(() => {});
+  if (inTg && tg.openTelegramLink) tg.openTelegramLink(tgUrl(t)); else window.open(tgUrl(t), "_blank");
+  watch(t);
+}
+function watch(t){
+  const ref = db.collection("tgAuth").doc(t), url = tgUrl(t);
+  view(`<div class="ag-spin"></div><h1>Подтвердите вход в Telegram</h1><p class="sub">Откройте бота и нажмите «Да, войти». После этого вы вернётесь сюда уже авторизованным.</p>
+    <a class="ag-btn tg" id="op" href="${url}" target="_blank" rel="noopener">${TG_ICON} Открыть Telegram</a><div class="ag-err" id="err"></div><button class="ag-btn sec" id="cx">Отмена</button>`);
+  const stop = () => { unsub && unsub(); unsub = null; localStorage.removeItem("agPending"); ref.delete().catch(() => {}); };
+  $("#op").onclick = e => { if (inTg && tg.openTelegramLink){ e.preventDefault(); tg.openTelegramLink(url); } };
   $("#cx").onclick = () => { stop(); welcome(); };
-  unsub = ref.onSnapshot(s => { const d = s.data(); if (d && d.status === "confirmed" && d.customToken){
-    unsub(); unsub = null; ref.delete().catch(() => {});
-    auth.signInWithCustomToken(d.customToken).catch(() => err("Не удалось войти. Попробуйте ещё раз"));
-  }});
+  unsub = ref.onSnapshot(s => {
+    if (!s.exists){ stop(); return welcome(); }
+    const d = s.data();
+    if (d.status === "confirmed" && d.customToken){ stop(); auth.signInWithCustomToken(d.customToken).catch(() => { welcome(); }); }
+  }, () => { stop(); welcome(); });
   setTimeout(() => { if (unsub){ stop(); welcome(); } }, 300000);
 }
 
@@ -2506,27 +2510,35 @@ function sStudy(prog, back){
 }
 
 /* ---------- сохранение и запуск приложения ---------- */
+// Схема users/{id} общая с ботом: country, hometown_city, hometown, university, study_city, profile_completed, name, username, id.
+const NONE = "Не учусь";
 async function save(){
   view('<div class="ag-spin"></div><h1>Сохраняем профиль…</h1>');
-  const s = S.sess, d = S.d, name = [d.city && d.city.name, d.country.name].filter(Boolean).join(", ");
-  const doc = {first_name:d.first_name, last_name:d.last_name, email:s.email||"", tg_id:s.provider === "telegram" ? s.id : null, tg_username:s.username||"", photo_url:s.photo_url||"",
-    auth_provider:s.provider, birth_country:d.country, birth_city:d.city||null, study:d.study,
-    university:d.study.university||"", hometown:name, profile_complete:true, updated_at:firebase.firestore.FieldValue.serverTimestamp()};
+  const s = S.sess, d = S.d, uni = d.study.status === "none" ? NONE : d.study.university;
+  const doc = {first_name:d.first_name, last_name:d.last_name, name:d.first_name + " " + d.last_name, email:s.email||"", auth_provider:s.provider,
+    country:d.country.name, country_code:d.country.code, hometown_city:d.city ? d.city.name : "", birth_city_meta:d.city||null,
+    hometown:[d.country.name, d.city && d.city.name].filter(Boolean).join(", "),
+    university:uni, study_city:uni, profile_completed:true, updated_at:firebase.firestore.FieldValue.serverTimestamp()};
+  if (s.provider === "telegram"){ doc.id = s.id; doc.username = s.username || ""; }
   try{ await db.collection("users").doc(String(s.id)).set(doc, {merge:true}); }
   catch(e){ view(`<h1>Не удалось сохранить</h1><p class="sub">Проверьте интернет и повторите.</p><button class="ag-btn" id="go">Повторить</button>`); $("#go").onclick = save; return; }
   finish(doc);
 }
 function finish(doc){
   const s = S.sess;
-  tgUser = {id:s.id, first_name:doc.first_name, last_name:doc.last_name, username:doc.tg_username||s.username||"", photo_url:doc.photo_url||s.photo_url||"", email:s.email||""};
+  tgUser = {id:s.id, first_name:doc.first_name, last_name:doc.last_name, username:doc.username||s.username||"", photo_url:"", email:s.email||""};
   gate.hidden = true;
   if (!started){ started = true; startApp(); }
 }
 async function enter(sess){
   S.sess = sess; S.mode = S.mode || "login";
   let doc = {}; try{ const snap = await db.collection("users").doc(String(sess.id)).get(); doc = snap.exists ? snap.data() : {}; }catch(e){}
-  sess.username = doc.tg_username || sess.username; sess.photo_url = doc.photo_url || sess.photo_url;
-  S.d = {first_name:doc.first_name||sess.first_name, last_name:doc.last_name||sess.last_name, country:doc.birth_country||null, city:doc.birth_city||null, study:doc.study||null};
+  sess.username = doc.username || sess.username;
+  const parts = (doc.name||"").trim().split(/\s+/), cn = COUNTRIES.find(c => c.name === doc.country);
+  S.d = {first_name:doc.first_name || sess.first_name || (parts.length > 1 ? parts[0] : ""), last_name:doc.last_name || sess.last_name || parts.slice(1).join(" "),
+    country:cn ? {code:cn.code, name:cn.name} : null,
+    city:doc.hometown_city ? (doc.birth_city_meta || {name:doc.hometown_city}) : null,
+    study:doc.university === NONE ? {status:"none"} : (UNIS.some(u => u.university === doc.university) ? {status:"student", university:doc.university} : null)};
   S.steps = []; S.i = 0;
   if (!S.d.first_name || !S.d.last_name) S.steps.push("name");
   if (!S.d.country) S.steps.push("origin");
@@ -2539,11 +2551,11 @@ auth.onAuthStateChanged(u => {
   if (u){
     if (entering) return; entering = true;
     const tgAcc = u.uid.startsWith("tg_");
-    enter({id:tgAcc ? Number(u.uid.slice(3)) : u.uid, email:u.email||"", provider:tgAcc ? "telegram" : "email", first_name:"", last_name:"", username:"", photo_url:u.photoURL||""}).finally(() => entering = false);
-  } else if (inTg && localStorage.agTg === "1") enter(tgSess());
+    enter({id:tgAcc ? Number(u.uid.slice(3)) : u.uid, email:u.email||"", provider:tgAcc ? "telegram" : "email", first_name:"", last_name:"", username:"", photo_url:""}).finally(() => entering = false);
+  } else if (localStorage.agPending) watch(localStorage.agPending);
   else welcome();
 });
-window.agLogout = async () => { localStorage.removeItem("agTg"); try{ await auth.signOut(); }catch(e){} location.reload(); };
+window.agLogout = async () => { try{ await auth.signOut(); }catch(e){} location.reload(); };
 const prof = document.getElementById("screen-profile");
 if (prof) prof.insertAdjacentHTML("beforeend", '<button class="ag-btn sec" style="margin:24px 0 8px" onclick="agLogout()">Выйти из аккаунта</button>');
 })();
