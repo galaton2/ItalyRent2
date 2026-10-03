@@ -11,7 +11,6 @@
 <!-- Firebase (compat build — без сборщика, всё через <script>) -->
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
 
 <!-- MapLibre GL JS + OpenFreeMap: без ключа и без привязки к Mapbox -->
 <link href="https://unpkg.com/maplibre-gl@5/dist/maplibre-gl.css" rel="stylesheet" />
@@ -680,14 +679,47 @@
   .own-actions button.d{color:var(--coral)}
   .uid-chip{margin:10px 0 0;font-size:11px;color:var(--text-1);word-break:break-all;opacity:.85}
   .ed-toast{position:fixed;left:16px;right:16px;bottom:calc(env(safe-area-inset-bottom) + 90px);z-index:1100;padding:13px 16px;border-radius:14px;background:var(--lime);color:var(--lime-ink);font-weight:700;text-align:center}
+
+/* ===== v2: компактная шапка, загрузки, анимации ===== */
+.topbar{height:auto;min-height:0;padding:calc(env(safe-area-inset-top) + 10px) 20px 12px;gap:8px;pointer-events:none;backdrop-filter:blur(14px)}
+.topbar .app-wordmark{margin:0;font-size:17px}
+.live-dot{width:7px;height:7px;border-radius:50%;background:var(--lime);box-shadow:0 0 0 0 var(--lime);animation:ping 2s ease-out infinite}
+@keyframes ping{70%{box-shadow:0 0 0 9px transparent}100%{box-shadow:0 0 0 0 transparent}}
+#splash{position:fixed;inset:0;z-index:2000;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px;background:#0b0717;transition:opacity .5s,visibility .5s,transform .6s cubic-bezier(.7,0,.3,1)}
+#splash.out{opacity:0;visibility:hidden;transform:scale(1.06)}
+#splash svg{width:64px;height:64px;color:var(--lime);stroke-dasharray:140;stroke-dashoffset:140;animation:draw 1.1s ease forwards,float 2.4s ease-in-out 1.1s infinite}
+#splash b{font-family:var(--font-display);font-size:22px;letter-spacing:-.04em;opacity:0;animation:fadeUp .6s .4s forwards}
+#splash i{display:block;width:120px;height:3px;border-radius:3px;background:rgba(255,255,255,.1);overflow:hidden}
+#splash i::after{content:"";display:block;width:40%;height:100%;border-radius:3px;background:var(--lime);animation:bar 1.1s ease-in-out infinite}
+@keyframes draw{to{stroke-dashoffset:0}}
+@keyframes float{50%{transform:translateY(-6px)}}
+@keyframes bar{from{transform:translateX(-100%)}to{transform:translateX(300%)}}
+.listing-grid.skeleton .listing-card,.skeleton-card{background:linear-gradient(100deg,var(--slate-700) 30%,var(--slate-600) 50%,var(--slate-700) 70%)!important;background-size:220% 100%;animation:shim 1.3s linear infinite}
+@keyframes shim{to{background-position:-220% 0}}
+.lp-placeholder{animation:pulse 1.6s ease-in-out infinite}
+@keyframes pulse{50%{opacity:.55}}
+.lp-img{filter:blur(14px);transform:scale(1.08);transition:filter .6s,transform .8s cubic-bezier(.2,.8,.2,1),opacity .4s}
+.lp-img.loaded{filter:none;transform:none}
+.listing-card,.friend-card,.review-card{animation:cardIn .55s cubic-bezier(.2,.8,.2,1) both;transition:transform .2s,box-shadow .2s}
+.listing-grid>:nth-child(2),.fav-scroll>:nth-child(2){animation-delay:.06s}.listing-grid>:nth-child(3),.fav-scroll>:nth-child(3){animation-delay:.12s}.listing-grid>:nth-child(4),.fav-scroll>:nth-child(4){animation-delay:.18s}.listing-grid>:nth-child(5){animation-delay:.24s}.listing-grid>:nth-child(n+6){animation-delay:.3s}
+@keyframes cardIn{from{opacity:0;transform:translateY(18px) scale(.97)}to{opacity:1;transform:none}}
+.listing-card:active,.sg-chip:active,.icon-btn:active,.map-control-btn:active,.profile-action-grid button:active,.chip:active{transform:scale(.95)}
+.sg-chip,.chip,.icon-btn,.map-control-btn,.profile-action-grid button{transition:transform .18s,background .25s,box-shadow .25s}
+.tab-btn{transition:transform .25s,background .3s,color .3s}.tab-btn.active{animation:pop .4s cubic-bezier(.3,1.6,.5,1)}
+@keyframes pop{0%{transform:scale(.8)}100%{transform:scale(1)}}
+.stat-glance::after{animation:glow 5s ease-in-out infinite alternate}
+@keyframes glow{to{transform:translate(-20px,16px) scale(1.25);opacity:.7}}
+.ed-toast{animation:cardIn .35s cubic-bezier(.2,.8,.2,1) both}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}}
 </style>
 </head>
 <body>
 
+<div id="splash" aria-live="polite"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11 12 3l9 8M5 10v10h14V10M10 20v-6h4v6"/></svg><b>Italy Housing</b><i></i></div>
 <div id="app">
 
   <!-- ================= TOPBAR ================= -->
-  <header class="topbar" aria-hidden="true"></header>
+  <header class="topbar"><span class="app-wordmark">Italy<b>Housing</b></span><span class="live-dot"></span></header>
 
   <div id="diagBanner" style="display:none; padding:0 20px;"></div>
 
@@ -773,7 +805,6 @@
           <div class="profile-avatar-sm" id="profileAvatarFallback">?</div>
           <div><b id="profileName">Профиль</b><span id="profileHandle">@user</span></div>
         </div>
-        <div class="uid-chip" id="profileUid" hidden></div>
         <p class="profile-bio" id="profileBio">Добавьте описание в профиле бота.</p>
         <div class="profile-details">
           <div class="profile-detail"><span>Учится в</span><b id="profileUniversity">Не указано</b></div>
@@ -788,9 +819,7 @@
 
       <div class="profile-actions-card">
         <div class="profile-actions-head"><div><span>УПРАВЛЕНИЕ</span><h2>Профиль и помощь</h2></div></div>
-        <button class="profile-edit-action" onclick="editProfileInBot()"><span class="profile-action-round">✎</span><span><b>Редактировать профиль</b><small>Страна, город, университет и описание</small></span><i>›</i></button>
         <div class="profile-action-grid">
-          <button onclick="publishPost()"><span>＋</span><b>Разместить объявление</b></button>
           <button onclick="openTelegram('io_student_vrime_1')"><span>?</span><b>Поддержка</b></button>
           <button onclick="openTelegram('idkwhyton')"><span>●</span><b>Разработчик</b></button>
           <button onclick="openLanguageSelector()"><span>文</span><b>Сменить язык</b></button>
@@ -849,11 +878,7 @@
   </nav>
 
   <!-- ================= LISTING DETAIL SHEET ================= -->
-    <div class="ed-overlay" id="editor" hidden role="dialog" aria-modal="true">
-    <div class="ed-head"><button onclick="closeEditor()" aria-label="Back">‹</button><b id="edTitle"></b></div>
-    <div class="ed-body" id="edBody"></div>
-    <div class="ed-foot" id="edFoot"></div>
-  </div>
+    
 
   <div class="sheet-backdrop" id="sheetBackdrop" onclick="closeSheet()"></div>
   <div class="sheet" id="sheet">
@@ -1267,7 +1292,7 @@ function loadListings(){
 
   db.collection("listings").where("active","==",true)
     .onSnapshot(snap => {
-      allListings = snap.docs.map(d => ({id:d.id, ...d.data()}));
+      allListings = snap.docs.map(d => ({id:d.id, ...d.data()})); hideSplash();
       hideDiagBanner();
       renderCityChips();
       renderFilterOptions();
@@ -1278,7 +1303,7 @@ function loadListings(){
       openSharedListingFromHash();
       geocodeMissingListings();
     }, err => {
-      console.error("listings snapshot error", err);
+      console.error("listings snapshot error", err); hideSplash();
       showDiagBanner(err);
       grids.forEach(g => g.innerHTML = emptyHTML(
         "Не удалось загрузить объявления",
@@ -1412,7 +1437,6 @@ async function geocodeOne(l){
   if (!data || !data[0]) return null;
   const coords = [parseFloat(data[0].lat), parseFloat(data[0].lon)];
   if (!FIREBASE_NOT_CONFIGURED){
-    db.collection("geocache").doc(cacheKey).set({lat:coords[0], lng:coords[1], q: `${l.address}, ${l.city}`}).catch(()=>{});
   }
   return coords;
 }
@@ -1978,16 +2002,10 @@ function renderFavorites(){
 }
 
 function toggleFavorite(id){
-  if (!tgUser){
-    tg?.showAlert?.("Откройте мини-приложение из Telegram, чтобы сохранять избранное.");
-    return;
-  }
   haptic("light");
   if (favorites.has(id)) favorites.delete(id); else favorites.add(id);
+  try{ localStorage.setItem("ih_fav", JSON.stringify([...favorites])); }catch(e){}
   refreshFavoriteUI();
-  db.collection("users").doc(String(tgUser.id)).set({
-    favorites: Array.from(favorites),
-  }, {merge:true}).catch(()=>{});
 }
 function refreshFavoriteUI(){
   renderHome();
@@ -2040,7 +2058,7 @@ function _cardHTMLBase(l, ownCard){
 function cardHTML(l, ownCard){
   const html = _cardHTMLBase(l, ownCard);
   if (!ownCard) return html;
-  const actions = `<div class="own-actions"><button onclick="event.stopPropagation();openListingEditor('${l.id}')">✎ ${T.edit}</button><button class="d" onclick="event.stopPropagation();deleteListing('${l.id}')">${T.remove}</button></div>`;
+  const actions = "";
   return html.replace(/<\/div>\s*$/, actions + "</div>");
 }
 function miniCardHTML(l){
@@ -2256,11 +2274,7 @@ function toggleSetting(key){
   settings[key] = !settings[key];
   document.getElementById(key === "notif" ? "switchNotif" : "switchHaptics").classList.toggle("on", settings[key]);
   haptic("light");
-  if (tgUser){
-    db.collection("users").doc(String(tgUser.id)).set({
-      [`mini_app_${key}`]: settings[key],
-    }, {merge:true}).catch(()=>{});
-  }
+  try{ localStorage.setItem("ih_"+key, settings[key]?"1":"0"); }catch(e){}
 }
 function openBotChat(){ tg?.openTelegramLink?.(`https://t.me/${BOT_USERNAME}`); }
 function openSupport(){ tg?.openTelegramLink?.(`https://t.me/${SUPPORT_USERNAME}`); }
@@ -2307,12 +2321,14 @@ function loadUserDoc(){
     const data = doc.data() || {};
     if (typeof data.mini_app_notif === "boolean") settings.notif = data.mini_app_notif;
     if (typeof data.mini_app_haptics === "boolean") settings.haptics = data.mini_app_haptics;
+    ["notif","haptics"].forEach(k=>{ try{ const v=localStorage.getItem("ih_"+k); if(v!==null) settings[k]=v==="1"; }catch(e){} });
     document.getElementById("switchNotif")?.classList.toggle("on", settings.notif);
     document.getElementById("switchHaptics")?.classList.toggle("on", settings.haptics);
 
     profileData = data;
     renderProfileDetails();
-    favorites = new Set(data.favorites || []);
+    let loc=null; try{ loc=JSON.parse(localStorage.getItem("ih_fav")||"null"); }catch(e){}
+    favorites = new Set(loc || data.favorites || []);
     refreshFavoriteUI();
   }, err => {
     console.error("user doc error", err);
@@ -2344,191 +2360,20 @@ function goTab(name){
 }
 
 
-// ---------- 12b. FIREBASE AUTH + IN-APP EDITORS ----------
-// Адрес бэкенда (ваш сервер через Cloudflare Tunnel) — тот же, что PHOTO_BASE_URL в .env бота.
-const API_BASE = "https://bot.bekhruz.online";
-const EDITOR_CITIES = [...new Set([...CITIES, "Cassino", "Rieti"])].sort();
-const HOUSING_TYPES = ["Комната", "Квартира", "Студия", "Койко-место"];
-const CONTRACTS = ["С контрактом", "Без контракта", "Возможны оба варианта"];
-const T = {"needTg": "Откройте мини-приложение из Telegram, чтобы создавать и редактировать объявления.", "newListing": "Новое объявление", "editListing": "Редактирование", "city": "Город", "housing": "Тип жилья", "room": "Размещение", "address": "Адрес", "addressHint": "Улица и номер дома — по адресу поставим точку на карте", "price": "Аренда в месяц, €", "priceType": "Цена указана", "ptProperty": "за всю недвижимость", "ptPerson": "за человека", "deposit": "Депозит, €", "utilities": "Коммунальные услуги", "utNo": "Нет", "utYes": "Есть, уточнять лично", "utAmt": "Указать сумму", "utAmtLabel": "Сумма, €", "available": "Доступно с", "included": "Расходы включены в цену", "extra": "Какие расходы оплачиваются отдельно", "contract": "Аренда", "audience": "Кому подходит", "gAll": "Для всех", "gMale": "Только для парней", "gFemale": "Только для девушек", "description": "Описание", "phone": "Телефон", "whatsapp": "WhatsApp (если отличается)", "photos": "Фото (до 10)", "save": "Сохранить", "saving": "Сохраняю…", "delBtn": "Удалить объявление", "confirmDelete": "Удалить объявление навсегда?", "savedMod": "Отправлено на модерацию — сообщим, когда опубликуем.", "deleted": "Объявление удалено", "fillAll": "Заполните все обязательные поля и добавьте хотя бы одно фото.", "errGeneric": "Не удалось сохранить", "uploading": "Загружаю фото…", "photoErr": "Не удалось загрузить фото", "edit": "Изменить", "remove": "Удалить", "editProfile": "Мой профиль", "country": "Страна", "hometown": "Город, откуда вы", "university": "Университет", "about": "О себе", "profileSaved": "Профиль сохранён", "uid": "Ваш Firebase UID"};
-let authReady = Promise.resolve(null);
-let editorState = null;
-const q = s => String(s ?? "").replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
-
-// Мини-апп отдаёт серверу подписанный Telegram initData -> сервер проверяет подпись и выдаёт
-// Firebase custom token. UID пользователя в Firebase Auth = "tg_<telegram_id>".
-function initAuth(){
-  if (!tg?.initData) return;
-  authReady = (async () => {
-    try {
-      const r = await fetch(API_BASE + "/api/auth", {method:"POST", headers:{"Content-Type":"application/json"}, body: JSON.stringify({initData: tg.initData})});
-      const j = await r.json();
-      if (!r.ok) throw new Error(j.error || r.status);
-      await firebase.auth().signInWithCustomToken(j.token);
-      const el = document.getElementById("profileUid");
-      if (el) { el.textContent = T.uid + ": " + j.uid; el.hidden = false; }
-      return j.uid;
-    } catch (e) { console.error("auth failed", e); return null; }
-  })();
-}
-async function api(path, body){
-  const user = firebase.auth().currentUser;
-  if (!user) throw new Error("auth");
-  const r = await fetch(API_BASE + path, {method:"POST", headers:{"Content-Type":"application/json", Authorization:"Bearer " + await user.getIdToken()}, body: JSON.stringify(body)});
-  const j = await r.json().catch(() => ({}));
-  if (!r.ok || j.error) throw new Error(j.error || r.status);
-  return j;
-}
-function toast(msg){
-  const t = document.createElement("div"); t.className = "ed-toast"; t.textContent = msg;
-  document.body.appendChild(t); setTimeout(() => t.remove(), 3200);
-}
-async function requireAuth(){
-  await authReady;
-  if (tgUser && firebase.auth().currentUser) return true;
-  if (tg?.showAlert) tg.showAlert(T.needTg); else alert(T.needTg);
-  return false;
-}
-const fld = (label, inner, hint) => `<label class="ed-f"><span>${label}</span>${inner}${hint ? `<small>${hint}</small>` : ""}</label>`;
-const sel = (id, opts, val) => `<select id="${id}">${opts.map(([v, l]) => `<option value="${q(v)}"${String(v) === String(val) ? " selected" : ""}>${q(l)}</option>`).join("")}</select>`;
-const val = id => (document.getElementById(id)?.value || "").trim();
-
-function openEditorShell(title, bodyHTML, footHTML){
-  document.getElementById("edTitle").textContent = title;
-  document.getElementById("edBody").innerHTML = bodyHTML;
-  document.getElementById("edFoot").innerHTML = footHTML;
-  document.getElementById("editor").hidden = false;
-  document.getElementById("edBody").scrollTop = 0;
-  tg?.BackButton?.show();
-}
-function closeEditor(){
-  editorState = null;
-  document.getElementById("editor").hidden = true;
-  tg?.BackButton?.hide();
-}
-
-// ----- listing editor -----
-const toIso = s => { const m = /^(\d\d)\.(\d\d)\.(\d{4})$/.exec(s || ""); return m ? `${m[3]}-${m[2]}-${m[1]}` : ""; };
-async function openListingEditor(id){
-  if (!await requireAuth()) return;
-  const l = id ? (myListings.find(x => x.id === id) || {}) : {};
-  editorState = {id: id || null, photos: [...(l.photo_urls || l.photos || [])].filter(u => /^https?:/.test(u)), busy: false};
-  const ut = l.utilities === true ? "yes" : (typeof l.utilities === "number" && l.utilities > 0 ? "amt" : "no");
-  const body = [
-    fld(T.city, sel("ed_city", EDITOR_CITIES.map(c => [c, c]), l.city || "Rome")),
-    fld(T.housing, sel("ed_ht", HOUSING_TYPES.map(c => [c, c]), l.housing_type || HOUSING_TYPES[0])),
-    fld(T.room, sel("ed_room", ROOM_TYPES.map(r => [r, ROOM_LABEL_RU[r] || r]), l.room || "Single")),
-    fld(T.address, `<input id="ed_addr" value="${q(l.address)}" maxlength="200">`, T.addressHint),
-    `<div class="ed-row">${fld(T.price, `<input id="ed_price" type="number" inputmode="decimal" min="1" value="${q(l.price)}">`)}${fld(T.deposit, `<input id="ed_dep" type="number" inputmode="decimal" min="0" value="${q(l.deposit ?? 0)}">`)}</div>`,
-    fld(T.priceType, sel("ed_pt", [["property", T.ptProperty], ["person", T.ptPerson]], l.price_type || "property")),
-    `<div class="ed-row">${fld(T.utilities, sel("ed_ut", [["no", T.utNo], ["yes", T.utYes], ["amt", T.utAmt]], ut))}${fld(T.utAmtLabel, `<input id="ed_utamt" type="number" inputmode="decimal" min="0" value="${q(ut === "amt" ? l.utilities : "")}">`)}</div>`,
-    fld(T.available, `<input id="ed_date" type="date" value="${toIso(l.available_from)}">`),
-    `<label class="ed-check"><input id="ed_inc" type="checkbox"${l.included ? " checked" : ""}> ${T.included}</label>`,
-    fld(T.extra, `<input id="ed_extra" value="${q(l.extra_costs)}" maxlength="200">`),
-    fld(T.contract, sel("ed_ct", CONTRACTS.map(c => [c, c]), l.contract || CONTRACTS[0])),
-    fld(T.audience, sel("ed_g", [["all", T.gAll], ["male", T.gMale], ["female", T.gFemale]], l.gender || "all")),
-    fld(T.description, `<textarea id="ed_desc" maxlength="2000">${q(l.description)}</textarea>`),
-    `<div class="ed-row">${fld(T.phone, `<input id="ed_phone" type="tel" value="${q(l.phone)}">`)}${fld(T.whatsapp, `<input id="ed_wa" type="tel" value="${q(l.whatsapp && l.whatsapp !== l.phone ? l.whatsapp : "")}">`)}</div>`,
-    `<div class="ed-f"><span>${T.photos}</span><div class="ed-photos" id="edPhotos"></div></div>`,
-  ].join("");
-  const foot = `<button class="ed-primary" id="edSave" onclick="saveListing()">${T.save}</button>` +
-    (id ? `<button class="ed-danger" onclick="deleteListing('${q(id)}')">${T.delBtn}</button>` : "");
-  openEditorShell(id ? T.editListing : T.newListing, body, foot);
-  renderEdPhotos();
-}
-function renderEdPhotos(){
-  const box = document.getElementById("edPhotos"); if (!box || !editorState) return;
-  box.innerHTML = editorState.photos.map((u, i) => `<div class="ed-ph"><img src="${q(u)}" alt=""><button onclick="edRemovePhoto(${i})" aria-label="${T.remove}">✕</button></div>`).join("") +
-    (editorState.photos.length < 10 ? `<label class="ed-add">＋<input type="file" accept="image/*" multiple hidden onchange="edAddPhotos(this)"></label>` : "");
-}
-function edRemovePhoto(i){ editorState.photos.splice(i, 1); renderEdPhotos(); }
-async function compressImage(file){
-  const bmp = await createImageBitmap(file);
-  const s = Math.min(1, 1600 / Math.max(bmp.width, bmp.height));
-  const c = document.createElement("canvas"); c.width = Math.round(bmp.width * s); c.height = Math.round(bmp.height * s);
-  c.getContext("2d").drawImage(bmp, 0, 0, c.width, c.height);
-  return new Promise((ok, no) => c.toBlob(b => b ? ok(b) : no(new Error("encode")), "image/jpeg", .85));
-}
-async function edAddPhotos(input){
-  const files = [...input.files].slice(0, 10 - editorState.photos.length); input.value = "";
-  if (!files.length) return;
-  const btn = document.getElementById("edSave"); btn.disabled = true; btn.textContent = T.uploading;
-  const token = await firebase.auth().currentUser.getIdToken();
-  for (const f of files) {
-    try {
-      const blob = await compressImage(f);
-      const r = await fetch(API_BASE + "/api/photo", {method:"POST", headers:{Authorization:"Bearer " + token, "Content-Type":"image/jpeg"}, body: blob});
-      const j = await r.json(); if (!r.ok) throw new Error(j.error);
-      editorState?.photos.push(j.url); renderEdPhotos();
-    } catch (e) { console.error(e); toast(T.photoErr); }
-  }
-  btn.disabled = false; btn.textContent = T.save;
-}
-async function saveListing(){
-  if (!editorState || editorState.busy) return;
-  const iso = val("ed_date"), ut = val("ed_ut");
-  const data = {
-    city: val("ed_city"), housing_type: val("ed_ht"), room: val("ed_room"), address: val("ed_addr"),
-    price: Number(val("ed_price")), price_type: val("ed_pt"), deposit: Number(val("ed_dep") || 0),
-    utilities: ut === "yes" ? true : ut === "amt" ? Number(val("ed_utamt") || 0) : false,
-    available_from: iso ? iso.split("-").reverse().join(".") : "",
-    included: document.getElementById("ed_inc").checked, extra_costs: val("ed_extra"),
-    contract: val("ed_ct"), gender: val("ed_g"), description: val("ed_desc"),
-    phone: val("ed_phone"), whatsapp: val("ed_wa"), photo_urls: editorState.photos,
-  };
-  if (!data.address || !(data.price > 0) || !iso || !data.description || !data.phone || !data.photo_urls.length) return toast(T.fillAll);
-  const btn = document.getElementById("edSave"); editorState.busy = true; btn.disabled = true; btn.textContent = T.saving;
-  try {
-    await api("/api/listing", {id: editorState.id, data});
-    closeEditor(); toast(T.savedMod); goTab("profile");
-  } catch (e) {
-    console.error(e); toast(T.errGeneric + " (" + e.message + ")");
-    editorState.busy = false; btn.disabled = false; btn.textContent = T.save;
-  }
-}
-function deleteListing(id){
-  const run = async ok => {
-    if (!ok) return;
-    try { await api("/api/listing/delete", {id}); closeEditor(); toast(T.deleted); }
-    catch (e) { toast(T.errGeneric + " (" + e.message + ")"); }
-  };
-  if (tg?.showConfirm) tg.showConfirm(T.confirmDelete, run); else run(confirm(T.confirmDelete));
-}
-async function manageListingInBot(id, action){ return action === "delete" ? deleteListing(id) : openListingEditor(id); }
-async function publishPost(){ return openListingEditor(null); }
-
-// ----- profile editor -----
-async function editProfileInBot(){
-  if (!await requireAuth()) return;
-  const p = profileData || {};
-  editorState = {profile: true};
-  const body = [
-    fld(T.country, sel("pf_country", Object.entries(COUNTRY_LABEL), p.country || "Italy")),
-    fld(T.hometown, `<input id="pf_city" value="${q(p.hometown_city)}" maxlength="80">`),
-    fld(T.university, `<input id="pf_uni" value="${q(p.university || p.study_city)}" maxlength="120">`),
-    fld(T.about, `<textarea id="pf_about" maxlength="600">${q(p.profile_description || p.bio)}</textarea>`),
-  ].join("");
-  openEditorShell(T.editProfile, body, `<button class="ed-primary" id="edSave" onclick="saveProfile()">${T.save}</button>`);
-}
-async function saveProfile(){
-  const data = {country: val("pf_country"), hometown_city: val("pf_city"), university: val("pf_uni"), profile_description: val("pf_about")};
-  if (!data.hometown_city || !data.university || !data.profile_description) return toast(T.fillAll.split(".")[0] + ".");
-  const btn = document.getElementById("edSave"); btn.disabled = true; btn.textContent = T.saving;
-  try { await api("/api/profile", {data}); closeEditor(); toast(T.profileSaved); }
-  catch (e) { toast(T.errGeneric + " (" + e.message + ")"); btn.disabled = false; btn.textContent = T.save; }
-}
-tg?.BackButton?.onClick(() => { if (editorState) closeEditor(); });
+// ---------- 12b. HELPERS (только чтение) ----------
+function toast(msg){ const t=document.createElement("div"); t.className="ed-toast"; t.textContent=msg; document.body.appendChild(t); setTimeout(()=>t.remove(),3200); }
+window.hideSplash=()=>{const e=document.getElementById("splash"); if(e){e.classList.add("out"); setTimeout(()=>e.remove(),700);}};
+setTimeout(hideSplash,6000);
 
 // ---------- 13. BOOT ----------
 (function boot(){
   initTelegram();
   restoreLanguage();
   renderUser();
-  initAuth();
   loadListings();
   loadReviews();
-  // приватные данные (мои объявления, профиль, избранное) читаем только после входа в Firebase Auth
-  authReady.then(() => { loadMyListings(); loadUserDoc(); });
+  // данные пользователя (по Telegram id) только читаем из Firestore
+  loadMyListings(); loadUserDoc();
 })();
 </script>
 </body>
