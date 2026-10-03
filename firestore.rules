@@ -1,0 +1,87 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function signedIn() { return request.auth != null; }
+    function telegramId() { return request.auth.token.telegram_id; }
+    function ownsUser(userId) { return signedIn() && userId == request.auth.uid && request.auth.token.telegram_id is int; }
+    function ownsListing(data) { return signedIn() && data.owner_id == telegramId(); }
+
+    match /listings/{listingId} {
+      allow get, list: if resource.data.active == true || ownsListing(resource.data);
+      allow create, delete: if false;
+      allow update: if ownsListing(resource.data)
+        && request.resource.data.diff(resource.data).affectedKeys().hasOnly([
+          'price', 'utilities', 'deposit', 'address', 'available_from', 'phone',
+          'whatsapp', 'extra_costs', 'description', 'address_lat', 'address_lng',
+          'active', 'status', 'web_edit_pending'
+        ])
+        && request.resource.data.get('owner_id', null) == resource.data.owner_id
+        && request.resource.data.get('active', false) == false
+        && request.resource.data.get('status', '') == 'pending'
+        && request.resource.data.get('web_edit_pending', false) == true;
+    }
+
+    match /users/{userId} {
+      allow get: if ownsUser(userId);
+      allow list: if false;
+      allow create: if ownsUser(userId)
+        && request.resource.data.keys().hasOnly([
+          'first_name', 'last_name', 'name', 'country', 'country_code',
+          'hometown_city', 'birth_city_meta', 'hometown', 'university',
+          'university_id', 'study_city', 'profile_description', 'bio',
+          'profile_completed', 'updated_at', 'favorites', 'mini_app_notif',
+          'mini_app_haptics'
+        ]);
+      allow update: if ownsUser(userId)
+        && request.resource.data.diff(resource.data).affectedKeys().hasOnly([
+          'first_name', 'last_name', 'name', 'country', 'country_code',
+          'hometown_city', 'birth_city_meta', 'hometown', 'university',
+          'university_id', 'study_city', 'profile_description', 'bio',
+          'profile_completed', 'updated_at', 'favorites', 'mini_app_notif',
+          'mini_app_haptics'
+        ]);
+      allow delete: if false;
+    }
+
+    match /friend_profiles/{userId} {
+      allow get, list: if resource.data.active == true;
+      allow create, delete: if false;
+      allow update: if ownsUser(userId)
+        && resource.data.active == true
+        && request.resource.data.diff(resource.data).affectedKeys().hasOnly([
+          'name', 'country', 'country_code', 'hometown_city', 'university',
+          'university_id', 'profile_description', 'friend_updated_at'
+        ])
+        && request.resource.data.get('active', false) == true
+        && request.resource.data.get('id', null) == resource.data.id
+        && request.resource.data.get('username', null) == resource.data.username;
+    }
+
+    match /notifications/{notificationId} {
+      allow get, list: if signedIn() && resource.data.user_id == telegramId();
+      allow create, update, delete: if false;
+    }
+
+    match /reviews/{reviewId} {
+      allow get, list: if true;
+      allow create, update, delete: if false;
+    }
+
+    match /geocache/{cacheKey} {
+      allow get, list: if signedIn();
+      allow create, update: if signedIn()
+        && request.resource.data.keys().hasOnly(['lat', 'lng', 'q'])
+        && request.resource.data.get('lat', 999) is number
+        && request.resource.data.get('lat', 999) >= -90
+        && request.resource.data.get('lat', 999) <= 90
+        && request.resource.data.get('lng', 999) is number
+        && request.resource.data.get('lng', 999) >= -180
+        && request.resource.data.get('lng', 999) <= 180
+        && request.resource.data.get('q', '') is string
+        && request.resource.data.get('q', '').size() <= 300;
+      allow delete: if false;
+    }
+
+    match /{document=**} { allow read, write: if false; }
+  }
+}
