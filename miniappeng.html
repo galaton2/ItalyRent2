@@ -3,7 +3,8 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover" />
-<title>Italy Housing</title>
+<meta name="theme-color" content="#000000" />
+<title>Italia Hub</title>
 
 <!-- Telegram Mini Apps SDK -->
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
@@ -11,7 +12,6 @@
 <!-- Firebase (compat build — без сборщика, всё через <script>) -->
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
 
 <!-- MapLibre GL JS + OpenFreeMap: без ключа и без привязки к Mapbox -->
 <link href="https://unpkg.com/maplibre-gl@5/dist/maplibre-gl.css" rel="stylesheet" />
@@ -680,14 +680,71 @@
   .own-actions button.d{color:var(--coral)}
   .uid-chip{margin:10px 0 0;font-size:11px;color:var(--text-1);word-break:break-all;opacity:.85}
   .ed-toast{position:fixed;left:16px;right:16px;bottom:calc(env(safe-area-inset-bottom) + 90px);z-index:1100;padding:13px 16px;border-radius:14px;background:var(--lime);color:var(--lime-ink);font-weight:700;text-align:center}
+
+/* ===== Italia Hub additions ===== */
+:root{--it-g:#009246;--it-w:#f4f5f0;--it-r:#ce2b37}
+body{background:radial-gradient(110% 55% at 50% -10%,#0f4d58 0%,transparent 58%),#02090b}
+body::before{content:"";position:fixed;inset:-20%;z-index:-1;background:radial-gradient(40% 30% at 20% 30%,rgba(53,217,239,.12),transparent 70%),radial-gradient(35% 28% at 85% 70%,rgba(0,146,70,.12),transparent 70%);animation:drift 16s ease-in-out infinite alternate}
+@keyframes drift{to{transform:translate(4%,3%) scale(1.12)}}
+.topbar{min-height:0;height:auto;padding:calc(env(safe-area-inset-top) + 8px) 16px 8px;background:#000;border-bottom:1px solid rgba(53,217,239,.14);backdrop-filter:none}
+.brand-mark{display:flex;width:22px;height:16px;border-radius:4px;overflow:hidden;flex:none;animation:wave 3s ease-in-out infinite}
+.brand-mark i{flex:1}.brand-mark i:nth-child(1){background:var(--it-g)}.brand-mark i:nth-child(2){background:var(--it-w)}.brand-mark i:nth-child(3){background:var(--it-r)}
+@keyframes wave{50%{transform:skewX(-8deg) scale(1.06)}}
+.brand-name{font-family:var(--font-display);font-weight:700;font-size:16px;letter-spacing:-.03em}.brand-name b,#splash h1 b{color:var(--lime);font-weight:800}
+/* splash 5s */
+#splash{position:fixed;inset:0;z-index:9999;background:#000;display:flex;align-items:center;justify-content:center;transition:opacity .6s,transform .6s}
+#splash.out{opacity:0;transform:scale(1.06);pointer-events:none}
+.sp-in{display:flex;flex-direction:column;align-items:center;gap:14px;width:min(280px,76vw)}
+.sp-logo{width:110px;height:110px;transform:rotate(-90deg)}
+.sp-ring{fill:none;stroke-width:5;stroke-linecap:round;stroke-dasharray:320;stroke-dashoffset:320;animation:draw 2.4s cubic-bezier(.6,0,.2,1) forwards,pulse 2s 2.4s ease-in-out infinite}
+.r1{stroke:var(--it-g)}.r2{stroke:var(--it-w);animation-delay:.25s,2.6s}.r3{stroke:var(--it-r);animation-delay:.5s,2.8s}
+@keyframes draw{to{stroke-dashoffset:0}}@keyframes pulse{50%{opacity:.45}}
+#splash h1{font-size:34px;animation:rise .8s .3s both}
+.sp-tips{position:relative;height:20px;width:100%;text-align:center;font-size:13px;color:var(--text-1)}
+.sp-tip{position:absolute;inset:0;opacity:0;transform:translateY(8px);transition:.45s}.sp-tip.on{opacity:1;transform:none}
+.sp-bar{width:100%;height:4px;border-radius:4px;background:#12262a;overflow:hidden}
+.sp-bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--it-g),var(--lime),var(--it-r));animation:fill 5s linear forwards}
+@keyframes fill{to{width:100%}}
+#splash .flag{position:absolute;bottom:0;left:0;right:0;height:5px;display:flex}#splash .flag i{flex:1}
+#splash .flag i:nth-child(1){background:var(--it-g)}#splash .flag i:nth-child(2){background:var(--it-w)}#splash .flag i:nth-child(3){background:var(--it-r)}
+/* hub */
+.hub-hero{margin:14px 2px 14px;animation:rise .6s both}.hub-hero h2{font-size:26px}.hub-hero p{color:var(--text-1);font-size:14px;margin-top:6px;line-height:1.4}
+.hub-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:18px}
+.hub-tile{position:relative;overflow:hidden;text-align:left;padding:14px;border-radius:var(--radius-l);background:linear-gradient(155deg,rgba(18,65,74,.9),rgba(8,38,45,.9));border:1px solid rgba(78,206,219,.2);display:flex;flex-direction:column;gap:4px;animation:rise .6s calc(var(--i)*80ms + .1s) both;transition:transform .2s}
+.hub-tile::after{content:"";position:absolute;inset:0;background:linear-gradient(110deg,transparent 30%,rgba(255,255,255,.09) 50%,transparent 70%);transform:translateX(-120%);animation:shine 5s calc(var(--i)*.6s) infinite}
+@keyframes shine{30%,100%{transform:translateX(120%)}}
+.hub-tile b{font-family:var(--font-display);font-size:15px}.hub-tile small{color:var(--text-1);font-size:12px}
+.ht-ic{width:38px;height:38px;border-radius:12px;background:rgba(53,217,239,.12);display:flex;align-items:center;justify-content:center;font-size:20px;flex:none;animation:float 3.6s ease-in-out infinite}
+@keyframes float{50%{transform:translateY(-3px)}}
+.sub-note{color:var(--text-1);font-size:13px;margin:-2px 2px 14px;line-height:1.4}
+/* docs accordion + events */
+.acc-item{margin-bottom:10px;border-radius:var(--radius-l);background:rgba(12,48,55,.8);border:1px solid rgba(78,206,219,.16);animation:rise .5s calc(var(--i)*60ms) both;overflow:hidden}
+.acc-head{width:100%;display:flex;align-items:center;gap:12px;padding:12px 14px;text-align:left}.acc-head b{flex:1;font-family:var(--font-display);font-size:15px}
+.acc-head i{font-style:normal;font-size:22px;color:var(--lime);transition:transform .3s}.acc-item.open .acc-head i{transform:rotate(90deg)}
+.acc-body{display:grid;grid-template-rows:0fr;transition:grid-template-rows .35s ease}.acc-item.open .acc-body{grid-template-rows:1fr}
+.acc-body ol{overflow:hidden;margin:0;padding:0 16px 0 36px;color:var(--text-1);font-size:13.5px;line-height:1.5}.acc-item.open .acc-body ol{padding-bottom:14px}.acc-body li{margin-top:6px}
+.ev-card{display:flex;gap:12px;padding:12px;margin-bottom:10px;border-radius:var(--radius-l);background:rgba(12,48,55,.8);border:1px solid rgba(78,206,219,.16);animation:rise .5s calc(var(--i)*60ms) both}
+.ev-date{min-width:58px;height:58px;border-radius:14px;background:linear-gradient(145deg,#3ee4f4,#20b7cd);color:var(--lime-ink);font-weight:800;font-size:13px;display:flex;align-items:center;justify-content:center;text-align:center;padding:4px}
+.ev-main{display:flex;flex-direction:column;gap:3px}.ev-main span,.ev-main p{color:var(--text-1);font-size:13px}.ev-main a{color:var(--lime);font-size:13px;font-weight:600;text-decoration:none}
+/* motion */
+@keyframes rise{from{opacity:0;transform:translateY(16px) scale(.97)}to{opacity:1;transform:none}}
+.listing-grid>*:nth-child(1),.reviews-list>*:nth-child(1),.fav-scroll>*:nth-child(1){--i:0}.listing-grid>*:nth-child(2),.reviews-list>*:nth-child(2),.fav-scroll>*:nth-child(2){--i:1}.listing-grid>*:nth-child(3),.reviews-list>*:nth-child(3),.fav-scroll>*:nth-child(3){--i:2}.listing-grid>*:nth-child(4),.reviews-list>*:nth-child(4),.fav-scroll>*:nth-child(4){--i:3}.listing-grid>*:nth-child(5),.reviews-list>*:nth-child(5),.fav-scroll>*:nth-child(5){--i:4}.listing-grid>*:nth-child(6),.reviews-list>*:nth-child(6),.fav-scroll>*:nth-child(6){--i:5}.listing-grid>*:nth-child(7),.reviews-list>*:nth-child(7),.fav-scroll>*:nth-child(7){--i:6}.listing-grid>*:nth-child(8),.reviews-list>*:nth-child(8),.fav-scroll>*:nth-child(8){--i:7}.listing-grid>*:nth-child(9),.reviews-list>*:nth-child(9),.fav-scroll>*:nth-child(9){--i:8}.listing-grid>*:nth-child(10),.reviews-list>*:nth-child(10),.fav-scroll>*:nth-child(10){--i:9}
+.listing-grid>*,.reviews-list>*,.fav-scroll>*{animation:rise .55s cubic-bezier(.2,.8,.2,1) calc(var(--i,0)*55ms) both}
+.screen.active{animation:rise .45s cubic-bezier(.2,.8,.2,1) both}
+button{transition:transform .15s,opacity .15s}button:active{transform:scale(.95)}
+.listing-card{transition:transform .25s,box-shadow .25s}.listing-card:active{transform:scale(.985)}
+.tab-btn.active svg{animation:pop .45s cubic-bezier(.3,1.6,.5,1)}@keyframes pop{from{transform:scale(.6)}to{transform:none}}
+.sheet,.filter-sheet{transition-timing-function:cubic-bezier(.2,.9,.25,1.05)}
+@media (prefers-reduced-motion:reduce){*,*::before{animation-duration:.01ms!important;animation-delay:0s!important}.sp-bar i{animation:none;width:100%}}
 </style>
 </head>
 <body>
+<div id="splash"><div class="sp-in"><svg class="sp-logo" viewBox="0 0 120 120"><circle class="sp-ring r1" cx="60" cy="60" r="50"/><circle class="sp-ring r2" cx="60" cy="60" r="38"/><circle class="sp-ring r3" cx="60" cy="60" r="26"/></svg><h1>Italia<b>Hub</b></h1><div class="sp-tips"><span class="sp-tip on">Putting Italy together…</span><span class="sp-tip">Paperwork without panic</span><span class="sp-tip">Finding homes and people</span><span class="sp-tip">Buon viaggio! 🇮🇹</span></div><div class="sp-bar"><i></i></div></div><div class="flag"><i></i><i></i><i></i></div></div>
 
 <div id="app">
 
   <!-- ================= TOPBAR ================= -->
-  <header class="topbar" aria-hidden="true"></header>
+  <header class="topbar"><span class="brand-mark"><i></i><i></i><i></i></span><span class="brand-name">Italia<b>Hub</b></span></header>
 
   <div id="diagBanner" style="display:none; padding:0 20px;"></div>
 
@@ -695,6 +752,7 @@
 
     <!-- ================= HOME ================= -->
     <section class="screen active" id="screen-home">
+<div class="hub-hero"><h2>Italia Hub</h2><p>Everything about Italy in one place: documents, housing, events and people nearby.</p></div><div class="hub-grid"><button class="hub-tile" style="--i:0" onclick="goTab('docs')"><span class="ht-ic">📄</span><b>Documents</b><small>Step-by-step guides</small></button><button class="hub-tile" style="--i:1" onclick="goTab('events')"><span class="ht-ic">🎉</span><b>Events</b><small>What is happening nearby</small></button><button class="hub-tile" style="--i:2" onclick="goTab('search')"><span class="ht-ic">🏠</span><b>Housing</b><small>Map and listings</small></button><button class="hub-tile" style="--i:3" onclick="goTab('reviews')"><span class="ht-ic">💬</span><b>Reviews</b><small>Other people’s experience</small></button></div>
 
       <!-- Начинается сразу с "ближайшего города" — большого круга-счётчика нет -->
       <div class="stat-glance">
@@ -759,6 +817,8 @@
       </div>
     </section>
 
+    <section class="screen" id="screen-docs"><div class="section-title" style="margin-top:20px"><h2>Documents in Italy</h2></div><p class="sub-note">Short checklists. Rules change — check official websites and your Questura/Comune.</p><div class="acc" id="docsList"></div></section>
+    <section class="screen" id="screen-events"><div class="section-title" style="margin-top:20px"><h2>Events</h2></div><p class="sub-note">Meetups, festivals and community events</p><div class="ev-list" id="eventsList"></div></section>
     <!-- ================= REVIEWS ================= -->
     <section class="screen" id="screen-reviews">
       <div class="section-title" style="margin-top:20px;"><h2>Reviews</h2></div>
@@ -773,7 +833,6 @@
           <div class="profile-avatar-sm" id="profileAvatarFallback">?</div>
           <div><b id="profileName">Profile</b><span id="profileHandle">@user</span></div>
         </div>
-        <div class="uid-chip" id="profileUid" hidden></div>
         <p class="profile-bio" id="profileBio">Add a description in your bot profile.</p>
         <div class="profile-details">
           <div class="profile-detail"><span>Studies at</span><b id="profileUniversity">Not specified</b></div>
@@ -788,9 +847,9 @@
 
       <div class="profile-actions-card">
         <div class="profile-actions-head"><div><span>MANAGE</span><h2>Profile and help</h2></div></div>
-        <button class="profile-edit-action" onclick="editProfileInBot()"><span class="profile-action-round">✎</span><span><b>Edit profile</b><small>Country, city, university and description</small></span><i>›</i></button>
+        
         <div class="profile-action-grid">
-          <button onclick="publishPost()"><span>＋</span><b>Post a listing</b></button>
+          
           <button onclick="openTelegram('io_student_vrime_1')"><span>?</span><b>Support</b></button>
           <button onclick="openTelegram('idkwhyton')"><span>●</span><b>Developer</b></button>
           <button onclick="openLanguageSelector()"><span>文</span><b>Change language</b></button>
@@ -824,37 +883,10 @@
 
   <!-- ================= TABBAR ================= -->
   <nav class="tabbar">
-    <div class="tabbar-inner">
-      <button class="tab-btn active" data-tab="home" onclick="goTab('home')">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><path d="M9 22V12h6v10"/></svg>
-        <span>Home</span>
-      </button>
-      <button class="tab-btn" data-tab="search" onclick="goTab('search')">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
-        <span>Search</span>
-      </button>
-      <button class="tab-btn" data-tab="profile" onclick="goTab('profile')">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c1.6-4 5-6 8-6s6.4 2 8 6"/></svg>
-        <span>Profile</span>
-      </button>
-      <button class="tab-btn" data-tab="reviews" onclick="goTab('reviews')">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.4 8.4 0 0 1-9 8.4A8.4 8.4 0 0 1 3 11.5 8.4 8.4 0 0 1 12 3a8.4 8.4 0 0 1 9 8.5Z"/><path d="M8 11h.01M12 11h.01M16 11h.01"/></svg>
-        <span>Reviews</span>
-      </button>
-      <button class="tab-btn" data-tab="settings" onclick="goTab('settings')" style="display:none">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .34 1.88l.06.06-2.2 2.2-.06-.06a1.7 1.7 0 0 0-1.88-.34 1.7 1.7 0 0 0-1.03 1.56v.1h-3.12v-.1A1.7 1.7 0 0 0 10.48 18.7a1.7 1.7 0 0 0-1.88.34l-.06.06-2.2-2.2.06-.06A1.7 1.7 0 0 0 6.74 15a1.7 1.7 0 0 0-1.56-1.03h-.1v-3.12h.1A1.7 1.7 0 0 0 6.74 9.8a1.7 1.7 0 0 0-.34-1.88l-.06-.06 2.2-2.2.06.06a1.7 1.7 0 0 0 1.88.34 1.7 1.7 0 0 0 1.03-1.56v-.1h3.12v.1a1.7 1.7 0 0 0 1.03 1.56 1.7 1.7 0 0 0 1.88-.34l.06-.06 2.2 2.2-.06.06A1.7 1.7 0 0 0 19.4 15Z"/></svg>
-        <span>Settings</span>
-      </button>
-    </div>
+    <div class="tabbar-inner"><button class="tab-btn active" data-tab="home" onclick="goTab('home')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><path d="M9 22V12h6v10"/></svg><span>Home</span></button><button class="tab-btn" data-tab="docs" onclick="goTab('docs')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5M9 13h6M9 17h6"/></svg><span>Documents</span></button><button class="tab-btn" data-tab="events" onclick="goTab('events')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="16" rx="3"/><path d="M8 3v4M16 3v4M3 11h18"/></svg><span>Events</span></button><button class="tab-btn" data-tab="search" onclick="goTab('search')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="10" r="3"/><path d="M21 10c0 6-9 12-9 12s-9-6-9-12a9 9 0 0 1 18 0z"/></svg><span>Housing</span></button><button class="tab-btn" data-tab="profile" onclick="goTab('profile')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c1.6-4 5-6 8-6s6.4 2 8 6"/></svg><span>Profile</span></button></div>
   </nav>
 
   <!-- ================= LISTING DETAIL SHEET ================= -->
-    <div class="ed-overlay" id="editor" hidden role="dialog" aria-modal="true">
-    <div class="ed-head"><button onclick="closeEditor()" aria-label="Back">‹</button><b id="edTitle"></b></div>
-    <div class="ed-body" id="edBody"></div>
-    <div class="ed-foot" id="edFoot"></div>
-  </div>
-
   <div class="sheet-backdrop" id="sheetBackdrop" onclick="closeSheet()"></div>
   <div class="sheet" id="sheet">
     <button class="close-btn" onclick="closeSheet()">
@@ -1079,9 +1111,9 @@ function initTelegram(){
   tg.expand();
   // На iPhone блокируем системный свайп Telegram вниз: он закрывал Mini App при прокрутке.
   try { tg.disableVerticalSwipes?.(); } catch(e){}
-  try { tg.requestFullscreen?.(); } catch(e){}
-  try { tg.setHeaderColor?.("#141b24"); } catch(e){}
-  try { tg.setBackgroundColor?.("#141b24"); } catch(e){}
+  try { tg.setHeaderColor?.("#000000"); } catch(e){}
+  try { tg.setBackgroundColor?.("#000000"); } catch(e){}
+  try { tg.setBottomBarColor?.("#000000"); } catch(e){}
   tg.BackButton?.onClick(() => {
     if (filterSheetOpenState) return closeFilterSheet();
     if (document.getElementById("sheet").classList.contains("open")) return closeSheet();
@@ -1412,7 +1444,7 @@ async function geocodeOne(l){
   if (!data || !data[0]) return null;
   const coords = [parseFloat(data[0].lat), parseFloat(data[0].lon)];
   if (!FIREBASE_NOT_CONFIGURED){
-    db.collection("geocache").doc(cacheKey).set({lat:coords[0], lng:coords[1], q: `${l.address}, ${l.city}`}).catch(()=>{});
+    
   }
   return coords;
 }
@@ -1985,9 +2017,7 @@ function toggleFavorite(id){
   haptic("light");
   if (favorites.has(id)) favorites.delete(id); else favorites.add(id);
   refreshFavoriteUI();
-  db.collection("users").doc(String(tgUser.id)).set({
-    favorites: Array.from(favorites),
-  }, {merge:true}).catch(()=>{});
+  try{localStorage.setItem("ih_fav",JSON.stringify([...favorites]))}catch(e){}
 }
 function refreshFavoriteUI(){
   renderHome();
@@ -2037,12 +2067,7 @@ function _cardHTMLBase(l, ownCard){
       </div>
     </div>`;
 }
-function cardHTML(l, ownCard){
-  const html = _cardHTMLBase(l, ownCard);
-  if (!ownCard) return html;
-  const actions = `<div class="own-actions"><button onclick="event.stopPropagation();openListingEditor('${l.id}')">✎ ${T.edit}</button><button class="d" onclick="event.stopPropagation();deleteListing('${l.id}')">${T.remove}</button></div>`;
-  return html.replace(/<\/div>\s*$/, actions + "</div>");
-}
+function cardHTML(l, ownCard){ return _cardHTMLBase(l, ownCard); }
 function miniCardHTML(l){
   return `
     <div class="mini-card" onclick="openListing('${l.id}')">
@@ -2256,11 +2281,7 @@ function toggleSetting(key){
   settings[key] = !settings[key];
   document.getElementById(key === "notif" ? "switchNotif" : "switchHaptics").classList.toggle("on", settings[key]);
   haptic("light");
-  if (tgUser){
-    db.collection("users").doc(String(tgUser.id)).set({
-      [`mini_app_${key}`]: settings[key],
-    }, {merge:true}).catch(()=>{});
-  }
+  try{localStorage.setItem("ih_set",JSON.stringify(settings))}catch(e){}
 }
 function openBotChat(){ tg?.openTelegramLink?.(`https://t.me/${BOT_USERNAME}`); }
 function openSupport(){ tg?.openTelegramLink?.(`https://t.me/${SUPPORT_USERNAME}`); }
@@ -2312,7 +2333,7 @@ function loadUserDoc(){
 
     profileData = data;
     renderProfileDetails();
-    favorites = new Set(data.favorites || []);
+    let lf=null;try{lf=JSON.parse(localStorage.getItem("ih_fav"))}catch(e){} favorites = new Set(lf || data.favorites || []);
     refreshFavoriteUI();
   }, err => {
     console.error("user doc error", err);
@@ -2334,6 +2355,7 @@ function openSharedListingFromHash(){
 
 // ---------- 12. TABS ----------
 function goTab(name){
+  if (name==="docs") renderDocs(); if (name==="events") renderEvents();
   document.body.classList.toggle("map-mode", name === "search");
   document.querySelectorAll(".screen").forEach(s => s.classList.remove("active"));
   document.getElementById("screen-" + name).classList.add("active");
@@ -2344,191 +2366,31 @@ function goTab(name){
 }
 
 
-// ---------- 12b. FIREBASE AUTH + IN-APP EDITORS ----------
-// Адрес бэкенда (ваш сервер через Cloudflare Tunnel) — тот же, что PHOTO_BASE_URL в .env бота.
-const API_BASE = "https://bot.bekhruz.online";
-const EDITOR_CITIES = [...new Set([...CITIES, "Cassino", "Rieti"])].sort();
-const HOUSING_TYPES = ["Room", "Apartment", "Studio", "Bed space"];
-const CONTRACTS = ["With contract", "Without contract", "Both options possible"];
-const T = {"needTg": "Open the mini app from Telegram to create and edit listings.", "newListing": "New listing", "editListing": "Edit listing", "city": "City", "housing": "Housing type", "room": "Accommodation", "address": "Address", "addressHint": "Street and number — we'll pin it on the map", "price": "Monthly rent, €", "priceType": "Price is", "ptProperty": "for the entire property", "ptPerson": "per person", "deposit": "Deposit, €", "utilities": "Utilities", "utNo": "No", "utYes": "Yes — ask privately", "utAmt": "Specify amount", "utAmtLabel": "Amount, €", "available": "Available from", "included": "Costs included in the price", "extra": "Which costs are paid separately", "contract": "Contract", "audience": "Suitable for", "gAll": "Everyone", "gMale": "Men only", "gFemale": "Women only", "description": "Description", "phone": "Phone", "whatsapp": "WhatsApp (if different)", "photos": "Photos (up to 10)", "save": "Save", "saving": "Saving…", "delBtn": "Delete listing", "confirmDelete": "Delete this listing permanently?", "savedMod": "Sent for moderation — we'll tell you once it's published.", "deleted": "Listing deleted", "fillAll": "Fill in all required fields and add at least one photo.", "errGeneric": "Could not save", "uploading": "Uploading photos…", "photoErr": "Could not upload photo", "edit": "Edit", "remove": "Delete", "editProfile": "My profile", "country": "Country", "hometown": "Your hometown", "university": "University", "about": "About you", "profileSaved": "Profile saved", "uid": "Your Firebase UID"};
-let authReady = Promise.resolve(null);
-let editorState = null;
 const q = s => String(s ?? "").replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
-
-// Мини-апп отдаёт серверу подписанный Telegram initData -> сервер проверяет подпись и выдаёт
-// Firebase custom token. UID пользователя в Firebase Auth = "tg_<telegram_id>".
-function initAuth(){
-  if (!tg?.initData) return;
-  authReady = (async () => {
-    try {
-      const r = await fetch(API_BASE + "/api/auth", {method:"POST", headers:{"Content-Type":"application/json"}, body: JSON.stringify({initData: tg.initData})});
-      const j = await r.json();
-      if (!r.ok) throw new Error(j.error || r.status);
-      await firebase.auth().signInWithCustomToken(j.token);
-      const el = document.getElementById("profileUid");
-      if (el) { el.textContent = T.uid + ": " + j.uid; el.hidden = false; }
-      return j.uid;
-    } catch (e) { console.error("auth failed", e); return null; }
-  })();
-}
-async function api(path, body){
-  const user = firebase.auth().currentUser;
-  if (!user) throw new Error("auth");
-  const r = await fetch(API_BASE + path, {method:"POST", headers:{"Content-Type":"application/json", Authorization:"Bearer " + await user.getIdToken()}, body: JSON.stringify(body)});
-  const j = await r.json().catch(() => ({}));
-  if (!r.ok || j.error) throw new Error(j.error || r.status);
-  return j;
-}
-function toast(msg){
-  const t = document.createElement("div"); t.className = "ed-toast"; t.textContent = msg;
-  document.body.appendChild(t); setTimeout(() => t.remove(), 3200);
-}
-async function requireAuth(){
-  await authReady;
-  if (tgUser && firebase.auth().currentUser) return true;
-  if (tg?.showAlert) tg.showAlert(T.needTg); else alert(T.needTg);
-  return false;
-}
-const fld = (label, inner, hint) => `<label class="ed-f"><span>${label}</span>${inner}${hint ? `<small>${hint}</small>` : ""}</label>`;
-const sel = (id, opts, val) => `<select id="${id}">${opts.map(([v, l]) => `<option value="${q(v)}"${String(v) === String(val) ? " selected" : ""}>${q(l)}</option>`).join("")}</select>`;
-const val = id => (document.getElementById(id)?.value || "").trim();
-
-function openEditorShell(title, bodyHTML, footHTML){
-  document.getElementById("edTitle").textContent = title;
-  document.getElementById("edBody").innerHTML = bodyHTML;
-  document.getElementById("edFoot").innerHTML = footHTML;
-  document.getElementById("editor").hidden = false;
-  document.getElementById("edBody").scrollTop = 0;
-  tg?.BackButton?.show();
-}
-function closeEditor(){
-  editorState = null;
-  document.getElementById("editor").hidden = true;
-  tg?.BackButton?.hide();
-}
-
-// ----- listing editor -----
-const toIso = s => { const m = /^(\d\d)\.(\d\d)\.(\d{4})$/.exec(s || ""); return m ? `${m[3]}-${m[2]}-${m[1]}` : ""; };
-async function openListingEditor(id){
-  if (!await requireAuth()) return;
-  const l = id ? (myListings.find(x => x.id === id) || {}) : {};
-  editorState = {id: id || null, photos: [...(l.photo_urls || l.photos || [])].filter(u => /^https?:/.test(u)), busy: false};
-  const ut = l.utilities === true ? "yes" : (typeof l.utilities === "number" && l.utilities > 0 ? "amt" : "no");
-  const body = [
-    fld(T.city, sel("ed_city", EDITOR_CITIES.map(c => [c, c]), l.city || "Rome")),
-    fld(T.housing, sel("ed_ht", HOUSING_TYPES.map(c => [c, c]), l.housing_type || HOUSING_TYPES[0])),
-    fld(T.room, sel("ed_room", ROOM_TYPES.map(r => [r, ROOM_LABEL_RU[r] || r]), l.room || "Single")),
-    fld(T.address, `<input id="ed_addr" value="${q(l.address)}" maxlength="200">`, T.addressHint),
-    `<div class="ed-row">${fld(T.price, `<input id="ed_price" type="number" inputmode="decimal" min="1" value="${q(l.price)}">`)}${fld(T.deposit, `<input id="ed_dep" type="number" inputmode="decimal" min="0" value="${q(l.deposit ?? 0)}">`)}</div>`,
-    fld(T.priceType, sel("ed_pt", [["property", T.ptProperty], ["person", T.ptPerson]], l.price_type || "property")),
-    `<div class="ed-row">${fld(T.utilities, sel("ed_ut", [["no", T.utNo], ["yes", T.utYes], ["amt", T.utAmt]], ut))}${fld(T.utAmtLabel, `<input id="ed_utamt" type="number" inputmode="decimal" min="0" value="${q(ut === "amt" ? l.utilities : "")}">`)}</div>`,
-    fld(T.available, `<input id="ed_date" type="date" value="${toIso(l.available_from)}">`),
-    `<label class="ed-check"><input id="ed_inc" type="checkbox"${l.included ? " checked" : ""}> ${T.included}</label>`,
-    fld(T.extra, `<input id="ed_extra" value="${q(l.extra_costs)}" maxlength="200">`),
-    fld(T.contract, sel("ed_ct", CONTRACTS.map(c => [c, c]), l.contract || CONTRACTS[0])),
-    fld(T.audience, sel("ed_g", [["all", T.gAll], ["male", T.gMale], ["female", T.gFemale]], l.gender || "all")),
-    fld(T.description, `<textarea id="ed_desc" maxlength="2000">${q(l.description)}</textarea>`),
-    `<div class="ed-row">${fld(T.phone, `<input id="ed_phone" type="tel" value="${q(l.phone)}">`)}${fld(T.whatsapp, `<input id="ed_wa" type="tel" value="${q(l.whatsapp && l.whatsapp !== l.phone ? l.whatsapp : "")}">`)}</div>`,
-    `<div class="ed-f"><span>${T.photos}</span><div class="ed-photos" id="edPhotos"></div></div>`,
-  ].join("");
-  const foot = `<button class="ed-primary" id="edSave" onclick="saveListing()">${T.save}</button>` +
-    (id ? `<button class="ed-danger" onclick="deleteListing('${q(id)}')">${T.delBtn}</button>` : "");
-  openEditorShell(id ? T.editListing : T.newListing, body, foot);
-  renderEdPhotos();
-}
-function renderEdPhotos(){
-  const box = document.getElementById("edPhotos"); if (!box || !editorState) return;
-  box.innerHTML = editorState.photos.map((u, i) => `<div class="ed-ph"><img src="${q(u)}" alt=""><button onclick="edRemovePhoto(${i})" aria-label="${T.remove}">✕</button></div>`).join("") +
-    (editorState.photos.length < 10 ? `<label class="ed-add">＋<input type="file" accept="image/*" multiple hidden onchange="edAddPhotos(this)"></label>` : "");
-}
-function edRemovePhoto(i){ editorState.photos.splice(i, 1); renderEdPhotos(); }
-async function compressImage(file){
-  const bmp = await createImageBitmap(file);
-  const s = Math.min(1, 1600 / Math.max(bmp.width, bmp.height));
-  const c = document.createElement("canvas"); c.width = Math.round(bmp.width * s); c.height = Math.round(bmp.height * s);
-  c.getContext("2d").drawImage(bmp, 0, 0, c.width, c.height);
-  return new Promise((ok, no) => c.toBlob(b => b ? ok(b) : no(new Error("encode")), "image/jpeg", .85));
-}
-async function edAddPhotos(input){
-  const files = [...input.files].slice(0, 10 - editorState.photos.length); input.value = "";
-  if (!files.length) return;
-  const btn = document.getElementById("edSave"); btn.disabled = true; btn.textContent = T.uploading;
-  const token = await firebase.auth().currentUser.getIdToken();
-  for (const f of files) {
-    try {
-      const blob = await compressImage(f);
-      const r = await fetch(API_BASE + "/api/photo", {method:"POST", headers:{Authorization:"Bearer " + token, "Content-Type":"image/jpeg"}, body: blob});
-      const j = await r.json(); if (!r.ok) throw new Error(j.error);
-      editorState?.photos.push(j.url); renderEdPhotos();
-    } catch (e) { console.error(e); toast(T.photoErr); }
-  }
-  btn.disabled = false; btn.textContent = T.save;
-}
-async function saveListing(){
-  if (!editorState || editorState.busy) return;
-  const iso = val("ed_date"), ut = val("ed_ut");
-  const data = {
-    city: val("ed_city"), housing_type: val("ed_ht"), room: val("ed_room"), address: val("ed_addr"),
-    price: Number(val("ed_price")), price_type: val("ed_pt"), deposit: Number(val("ed_dep") || 0),
-    utilities: ut === "yes" ? true : ut === "amt" ? Number(val("ed_utamt") || 0) : false,
-    available_from: iso ? iso.split("-").reverse().join(".") : "",
-    included: document.getElementById("ed_inc").checked, extra_costs: val("ed_extra"),
-    contract: val("ed_ct"), gender: val("ed_g"), description: val("ed_desc"),
-    phone: val("ed_phone"), whatsapp: val("ed_wa"), photo_urls: editorState.photos,
-  };
-  if (!data.address || !(data.price > 0) || !iso || !data.description || !data.phone || !data.photo_urls.length) return toast(T.fillAll);
-  const btn = document.getElementById("edSave"); editorState.busy = true; btn.disabled = true; btn.textContent = T.saving;
-  try {
-    await api("/api/listing", {id: editorState.id, data});
-    closeEditor(); toast(T.savedMod); goTab("profile");
-  } catch (e) {
-    console.error(e); toast(T.errGeneric + " (" + e.message + ")");
-    editorState.busy = false; btn.disabled = false; btn.textContent = T.save;
-  }
-}
-function deleteListing(id){
-  const run = async ok => {
-    if (!ok) return;
-    try { await api("/api/listing/delete", {id}); closeEditor(); toast(T.deleted); }
-    catch (e) { toast(T.errGeneric + " (" + e.message + ")"); }
-  };
-  if (tg?.showConfirm) tg.showConfirm(T.confirmDelete, run); else run(confirm(T.confirmDelete));
-}
-async function manageListingInBot(id, action){ return action === "delete" ? deleteListing(id) : openListingEditor(id); }
-async function publishPost(){ return openListingEditor(null); }
-
-// ----- profile editor -----
-async function editProfileInBot(){
-  if (!await requireAuth()) return;
-  const p = profileData || {};
-  editorState = {profile: true};
-  const body = [
-    fld(T.country, sel("pf_country", Object.entries(COUNTRY_LABEL), p.country || "Italy")),
-    fld(T.hometown, `<input id="pf_city" value="${q(p.hometown_city)}" maxlength="80">`),
-    fld(T.university, `<input id="pf_uni" value="${q(p.university || p.study_city)}" maxlength="120">`),
-    fld(T.about, `<textarea id="pf_about" maxlength="600">${q(p.profile_description || p.bio)}</textarea>`),
-  ].join("");
-  openEditorShell(T.editProfile, body, `<button class="ed-primary" id="edSave" onclick="saveProfile()">${T.save}</button>`);
-}
-async function saveProfile(){
-  const data = {country: val("pf_country"), hometown_city: val("pf_city"), university: val("pf_uni"), profile_description: val("pf_about")};
-  if (!data.hometown_city || !data.university || !data.profile_description) return toast(T.fillAll.split(".")[0] + ".");
-  const btn = document.getElementById("edSave"); btn.disabled = true; btn.textContent = T.saving;
-  try { await api("/api/profile", {data}); closeEditor(); toast(T.profileSaved); }
-  catch (e) { toast(T.errGeneric + " (" + e.message + ")"); btn.disabled = false; btn.textContent = T.save; }
-}
-tg?.BackButton?.onClick(() => { if (editorState) closeEditor(); });
+function toast(msg){ const t=document.createElement("div"); t.className="ed-toast"; t.textContent=msg; document.body.appendChild(t); setTimeout(()=>t.remove(),3200); }
+const DOCS=[["🧾", "Codice fiscale", ["The tax code is needed for a lease, bank account, SIM and university.", "Issued free at an Agenzia delle Entrate office with passport and visa.", "Students can sometimes get it in advance via the consulate."]], ["🛂", "Permesso di soggiorno", ["Non-EU citizens: apply with the “kit postale” at a post office within 8 working days of arrival.", "Then the Questura invites you for fingerprints.", "Keep the receipt: it proves your right to stay. Check status on the Portale Immigrazione."]], ["🏥", "Health card and doctor", ["Register with the SSN at your local ASL: codice fiscale, permesso (or receipt) and address.", "You also pick a family doctor (medico di base) there.", "Students often have a voluntary annual option."]], ["🏛️", "Residenza", ["Apply at the Comune (anagrafe) once you have housing and a contract.", "Needed for the ID card and many services.", "Local police usually check the address after you apply — stay reachable."]], ["📝", "Registering a lease", ["A rental contract must be registered with Agenzia delle Entrate within 30 days.", "The landlord usually does it — ask for the registration receipt.", "Without it, residenza and tax deductions get harder."]], ["🔐", "SPID and ISEE", ["SPID is a digital identity for government services: ID, codice fiscale, Italian phone and email.", "ISEE is a household income certificate for scholarships and tuition discounts; done through a CAF."]]];
+function renderDocs(){const b=document.getElementById("docsList");if(!b||b.dataset.ok)return;b.dataset.ok=1;
+ b.innerHTML=DOCS.map((x,i)=>`<div class="acc-item" style="--i:${i}"><button class="acc-head" onclick="this.parentNode.classList.toggle('open');haptic('light')"><span class="ht-ic">${x[0]}</span><b>${esc(x[1])}</b><i>›</i></button><div class="acc-body"><ol>${x[2].map(t=>`<li>${esc(t)}</li>`).join("")}</ol></div></div>`).join("");}
+let allEvents=[];
+function evDate(e){const v=e.date||e.start_date||e.datetime;if(!v)return null;const d=v.toDate?v.toDate():new Date(v);return isNaN(d)?null:d;}
+function loadEvents(){try{db.collection("events").onSnapshot(sn=>{allEvents=sn.docs.map(d=>({id:d.id,...d.data()})).filter(e=>e.active!==false);allEvents.sort((a,b)=>(evDate(a)||0)-(evDate(b)||0));renderEvents();},()=>renderEvents());}catch(e){renderEvents();}}
+function renderEvents(){const b=document.getElementById("eventsList");if(!b)return;
+ if(!allEvents.length){b.innerHTML=emptyHTML("No events yet","New events will appear here automatically.");return;}
+ b.innerHTML=allEvents.map((e,i)=>{const d=evDate(e);const ds=d?d.toLocaleDateString(PAGE_LANGUAGE==="ru"?"ru-RU":"en-GB",{day:"numeric",month:"short"}):"";
+  return `<div class="ev-card" style="--i:${i}"><div class="ev-date">${esc(ds)||"•"}</div><div class="ev-main"><b>${esc(e.title||e.name||"")}</b><span>${esc([e.city,e.place||e.address].filter(Boolean).join(" · "))}</span>${e.description?`<p>${esc(e.description)}</p>`:""}${e.link?`<a href="#" onclick="event.preventDefault();(tg?.openLink?tg.openLink('${q(e.link)}'):window.open('${q(e.link)}'))">Details ›</a>`:""}</div></div>`}).join("");}
+document.body.dataset.ready=1;
+(function(){const sp=document.getElementById("splash");if(!sp)return;const t=sp.querySelectorAll(".sp-tip");let i=0;const iv=setInterval(()=>{t[i].classList.remove("on");i=(i+1)%t.length;t[i].classList.add("on")},1250);
+ setTimeout(()=>{clearInterval(iv);sp.classList.add("out");setTimeout(()=>sp.remove(),700)},5000);})();
 
 // ---------- 13. BOOT ----------
 (function boot(){
   initTelegram();
   restoreLanguage();
   renderUser();
-  initAuth();
   loadListings();
   loadReviews();
   // приватные данные (мои объявления, профиль, избранное) читаем только после входа в Firebase Auth
-  authReady.then(() => { loadMyListings(); loadUserDoc(); });
+  loadMyListings(); loadUserDoc(); loadEvents();
 })();
 </script>
 </body>
