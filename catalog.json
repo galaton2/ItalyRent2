@@ -1,0 +1,1227 @@
+{
+  "version": 1,
+  "countries": [
+    {
+      "country_code": "AF"
+    },
+    {
+      "country_code": "AL"
+    },
+    {
+      "country_code": "DZ"
+    },
+    {
+      "country_code": "AD"
+    },
+    {
+      "country_code": "AO"
+    },
+    {
+      "country_code": "AG"
+    },
+    {
+      "country_code": "AR"
+    },
+    {
+      "country_code": "AM"
+    },
+    {
+      "country_code": "AU"
+    },
+    {
+      "country_code": "AT"
+    },
+    {
+      "country_code": "AZ"
+    },
+    {
+      "country_code": "BS"
+    },
+    {
+      "country_code": "BH"
+    },
+    {
+      "country_code": "BD"
+    },
+    {
+      "country_code": "BB"
+    },
+    {
+      "country_code": "BY"
+    },
+    {
+      "country_code": "BE"
+    },
+    {
+      "country_code": "BZ"
+    },
+    {
+      "country_code": "BJ"
+    },
+    {
+      "country_code": "BT"
+    },
+    {
+      "country_code": "BO"
+    },
+    {
+      "country_code": "BA"
+    },
+    {
+      "country_code": "BW"
+    },
+    {
+      "country_code": "BR"
+    },
+    {
+      "country_code": "BN"
+    },
+    {
+      "country_code": "BG"
+    },
+    {
+      "country_code": "BF"
+    },
+    {
+      "country_code": "BI"
+    },
+    {
+      "country_code": "CV"
+    },
+    {
+      "country_code": "KH"
+    },
+    {
+      "country_code": "CM"
+    },
+    {
+      "country_code": "CA"
+    },
+    {
+      "country_code": "CF"
+    },
+    {
+      "country_code": "TD"
+    },
+    {
+      "country_code": "CL"
+    },
+    {
+      "country_code": "CN"
+    },
+    {
+      "country_code": "CO"
+    },
+    {
+      "country_code": "KM"
+    },
+    {
+      "country_code": "CG"
+    },
+    {
+      "country_code": "CD"
+    },
+    {
+      "country_code": "CR"
+    },
+    {
+      "country_code": "CI"
+    },
+    {
+      "country_code": "HR"
+    },
+    {
+      "country_code": "CU"
+    },
+    {
+      "country_code": "CY"
+    },
+    {
+      "country_code": "CZ"
+    },
+    {
+      "country_code": "DK"
+    },
+    {
+      "country_code": "DJ"
+    },
+    {
+      "country_code": "DM"
+    },
+    {
+      "country_code": "DO"
+    },
+    {
+      "country_code": "EC"
+    },
+    {
+      "country_code": "EG"
+    },
+    {
+      "country_code": "SV"
+    },
+    {
+      "country_code": "GQ"
+    },
+    {
+      "country_code": "ER"
+    },
+    {
+      "country_code": "EE"
+    },
+    {
+      "country_code": "SZ"
+    },
+    {
+      "country_code": "ET"
+    },
+    {
+      "country_code": "FJ"
+    },
+    {
+      "country_code": "FI"
+    },
+    {
+      "country_code": "FR"
+    },
+    {
+      "country_code": "GA"
+    },
+    {
+      "country_code": "GM"
+    },
+    {
+      "country_code": "GE"
+    },
+    {
+      "country_code": "DE"
+    },
+    {
+      "country_code": "GH"
+    },
+    {
+      "country_code": "GR"
+    },
+    {
+      "country_code": "GD"
+    },
+    {
+      "country_code": "GT"
+    },
+    {
+      "country_code": "GN"
+    },
+    {
+      "country_code": "GW"
+    },
+    {
+      "country_code": "GY"
+    },
+    {
+      "country_code": "HT"
+    },
+    {
+      "country_code": "HN"
+    },
+    {
+      "country_code": "HU"
+    },
+    {
+      "country_code": "IS"
+    },
+    {
+      "country_code": "IN"
+    },
+    {
+      "country_code": "ID"
+    },
+    {
+      "country_code": "IR"
+    },
+    {
+      "country_code": "IQ"
+    },
+    {
+      "country_code": "IE"
+    },
+    {
+      "country_code": "IL"
+    },
+    {
+      "country_code": "IT"
+    },
+    {
+      "country_code": "JM"
+    },
+    {
+      "country_code": "JP"
+    },
+    {
+      "country_code": "JO"
+    },
+    {
+      "country_code": "KZ"
+    },
+    {
+      "country_code": "KE"
+    },
+    {
+      "country_code": "KI"
+    },
+    {
+      "country_code": "KP"
+    },
+    {
+      "country_code": "KR"
+    },
+    {
+      "country_code": "XK"
+    },
+    {
+      "country_code": "KW"
+    },
+    {
+      "country_code": "KG"
+    },
+    {
+      "country_code": "LA"
+    },
+    {
+      "country_code": "LV"
+    },
+    {
+      "country_code": "LB"
+    },
+    {
+      "country_code": "LS"
+    },
+    {
+      "country_code": "LR"
+    },
+    {
+      "country_code": "LY"
+    },
+    {
+      "country_code": "LI"
+    },
+    {
+      "country_code": "LT"
+    },
+    {
+      "country_code": "LU"
+    },
+    {
+      "country_code": "MG"
+    },
+    {
+      "country_code": "MW"
+    },
+    {
+      "country_code": "MY"
+    },
+    {
+      "country_code": "MV"
+    },
+    {
+      "country_code": "ML"
+    },
+    {
+      "country_code": "MT"
+    },
+    {
+      "country_code": "MH"
+    },
+    {
+      "country_code": "MR"
+    },
+    {
+      "country_code": "MU"
+    },
+    {
+      "country_code": "MX"
+    },
+    {
+      "country_code": "FM"
+    },
+    {
+      "country_code": "MD"
+    },
+    {
+      "country_code": "MC"
+    },
+    {
+      "country_code": "MN"
+    },
+    {
+      "country_code": "ME"
+    },
+    {
+      "country_code": "MA"
+    },
+    {
+      "country_code": "MZ"
+    },
+    {
+      "country_code": "MM"
+    },
+    {
+      "country_code": "NA"
+    },
+    {
+      "country_code": "NR"
+    },
+    {
+      "country_code": "NP"
+    },
+    {
+      "country_code": "NL"
+    },
+    {
+      "country_code": "NZ"
+    },
+    {
+      "country_code": "NI"
+    },
+    {
+      "country_code": "NE"
+    },
+    {
+      "country_code": "NG"
+    },
+    {
+      "country_code": "MK"
+    },
+    {
+      "country_code": "NO"
+    },
+    {
+      "country_code": "OM"
+    },
+    {
+      "country_code": "PK"
+    },
+    {
+      "country_code": "PW"
+    },
+    {
+      "country_code": "PS"
+    },
+    {
+      "country_code": "PA"
+    },
+    {
+      "country_code": "PG"
+    },
+    {
+      "country_code": "PY"
+    },
+    {
+      "country_code": "PE"
+    },
+    {
+      "country_code": "PH"
+    },
+    {
+      "country_code": "PL"
+    },
+    {
+      "country_code": "PT"
+    },
+    {
+      "country_code": "QA"
+    },
+    {
+      "country_code": "RO"
+    },
+    {
+      "country_code": "RU"
+    },
+    {
+      "country_code": "RW"
+    },
+    {
+      "country_code": "KN"
+    },
+    {
+      "country_code": "LC"
+    },
+    {
+      "country_code": "VC"
+    },
+    {
+      "country_code": "WS"
+    },
+    {
+      "country_code": "SM"
+    },
+    {
+      "country_code": "ST"
+    },
+    {
+      "country_code": "SA"
+    },
+    {
+      "country_code": "SN"
+    },
+    {
+      "country_code": "RS"
+    },
+    {
+      "country_code": "SC"
+    },
+    {
+      "country_code": "SL"
+    },
+    {
+      "country_code": "SG"
+    },
+    {
+      "country_code": "SK"
+    },
+    {
+      "country_code": "SI"
+    },
+    {
+      "country_code": "SB"
+    },
+    {
+      "country_code": "SO"
+    },
+    {
+      "country_code": "ZA"
+    },
+    {
+      "country_code": "SS"
+    },
+    {
+      "country_code": "ES"
+    },
+    {
+      "country_code": "LK"
+    },
+    {
+      "country_code": "SD"
+    },
+    {
+      "country_code": "SR"
+    },
+    {
+      "country_code": "SE"
+    },
+    {
+      "country_code": "CH"
+    },
+    {
+      "country_code": "SY"
+    },
+    {
+      "country_code": "TW"
+    },
+    {
+      "country_code": "TJ"
+    },
+    {
+      "country_code": "TZ"
+    },
+    {
+      "country_code": "TH"
+    },
+    {
+      "country_code": "TL"
+    },
+    {
+      "country_code": "TG"
+    },
+    {
+      "country_code": "TO"
+    },
+    {
+      "country_code": "TT"
+    },
+    {
+      "country_code": "TN"
+    },
+    {
+      "country_code": "TR"
+    },
+    {
+      "country_code": "TM"
+    },
+    {
+      "country_code": "TV"
+    },
+    {
+      "country_code": "UG"
+    },
+    {
+      "country_code": "UA"
+    },
+    {
+      "country_code": "AE"
+    },
+    {
+      "country_code": "GB"
+    },
+    {
+      "country_code": "US"
+    },
+    {
+      "country_code": "UY"
+    },
+    {
+      "country_code": "UZ"
+    },
+    {
+      "country_code": "VU"
+    },
+    {
+      "country_code": "VA"
+    },
+    {
+      "country_code": "VE"
+    },
+    {
+      "country_code": "VN"
+    },
+    {
+      "country_code": "YE"
+    },
+    {
+      "country_code": "ZM"
+    },
+    {
+      "country_code": "ZW"
+    },
+    {
+      "country_code": "ZZ"
+    }
+  ],
+  "universities": [
+    {
+      "university_id": "sapienza-university-of-rome",
+      "name": "Sapienza University of Rome",
+      "city": "Rome",
+      "country_code": "IT"
+    },
+    {
+      "university_id": "tor-vergata-university-of-rome",
+      "name": "Tor Vergata University of Rome",
+      "city": "Rome",
+      "country_code": "IT"
+    },
+    {
+      "university_id": "roma-tre-university",
+      "name": "Roma Tre University",
+      "city": "Rome",
+      "country_code": "IT"
+    },
+    {
+      "university_id": "foro-italico-university-of-rome",
+      "name": "Foro Italico University of Rome",
+      "city": "Rome",
+      "country_code": "IT"
+    },
+    {
+      "university_id": "university-of-bologna",
+      "name": "University of Bologna",
+      "city": "Bologna",
+      "country_code": "IT"
+    },
+    {
+      "university_id": "university-of-milan",
+      "name": "University of Milan",
+      "city": "Milan",
+      "country_code": "IT"
+    },
+    {
+      "university_id": "milano-bicocca-university",
+      "name": "Milano-Bicocca University",
+      "city": "Milan",
+      "country_code": "IT"
+    },
+    {
+      "university_id": "politecnico-di-milano",
+      "name": "Politecnico di Milano",
+      "city": "Milan",
+      "country_code": "IT"
+    },
+    {
+      "university_id": "university-of-padua",
+      "name": "University of Padua",
+      "city": "Padua",
+      "country_code": "IT"
+    },
+    {
+      "university_id": "university-of-pavia",
+      "name": "University of Pavia",
+      "city": "Pavia",
+      "country_code": "IT"
+    },
+    {
+      "university_id": "iuss-pavia",
+      "name": "IUSS Pavia",
+      "city": "Pavia",
+      "country_code": "IT"
+    },
+    {
+      "university_id": "university-of-turin",
+      "name": "University of Turin",
+      "city": "Turin",
+      "country_code": "IT"
+    },
+    {
+      "university_id": "politecnico-di-torino",
+      "name": "Politecnico di Torino",
+      "city": "Turin",
+      "country_code": "IT"
+    },
+    {
+      "university_id": "university-of-florence",
+      "name": "University of Florence",
+      "city": "Florence",
+      "country_code": "IT"
+    },
+    {
+      "university_id": "university-of-pisa",
+      "name": "University of Pisa",
+      "city": "Pisa",
+      "country_code": "IT"
+    },
+    {
+      "university_id": "scuola-normale-superiore",
+      "name": "Scuola Normale Superiore",
+      "city": "Pisa",
+      "country_code": "IT"
+    },
+    {
+      "university_id": "sant-anna-school-of-advanced-studies",
+      "name": "Sant'Anna School of Advanced Studies",
+      "city": "Pisa",
+      "country_code": "IT"
+    },
+    {
+      "university_id": "university-of-siena",
+      "name": "University of Siena",
+      "city": "Siena",
+      "country_code": "IT"
+    },
+    {
+      "university_id": "university-for-foreigners-of-siena",
+      "name": "University for Foreigners of Siena",
+      "city": "Siena",
+      "country_code": "IT"
+    },
+    {
+      "university_id": "university-of-naples-federico-ii",
+      "name": "University of Naples Federico II",
+      "city": "Naples",
+      "country_code": "IT"
+    },
+    {
+      "university_id": "university-of-naples-l-orientale",
+      "name": "University of Naples L'Orientale",
+      "city": "Naples",
+      "country_code": "IT"
+    },
+    {
+      "university_id": "parthenope-university-of-naples",
+      "name": "Parthenope University of Naples",
+      "city": "Naples",
+      "country_code": "IT"
+    },
+    {
+      "university_id": "university-of-campania-luigi-vanvitelli",
+      "name": "University of Campania Luigi Vanvitelli",
+      "city": "Caserta",
+      "country_code": "IT"
+    },
+    {
+      "university_id": "university-of-salerno",
+      "name": "University of Salerno",
+      "city": "Salerno",
+      "country_code": "IT"
+    },
+    {
+      "university_id": "university-of-sannio",
+      "name": "University of Sannio",
+      "city": "Benevento",
+      "country_code": "IT"
+    },
+    {
+      "university_id": "university-of-genoa",
+      "name": "University of Genoa",
+      "city": "Genoa",
+      "country_code": "IT"
+    },
+    {
+      "university_id": "university-of-trieste",
+      "name": "University of Trieste",
+      "city": "Trieste",
+      "country_code": "IT"
+    },
+    {
+      "university_id": "sissa",
+      "name": "SISSA",
+      "city": "Trieste",
+      "country_code": "IT"
+    },
+    {
+      "university_id": "university-of-udine",
+      "name": "University of Udine",
+      "city": "Udine",
+      "country_code": "IT"
+    },
+    {
+      "university_id": "ca-foscari-university-of-venice",
+      "name": "Ca' Foscari University of Venice",
+      "city": "Venice",
+      "country_code": "IT"
+    },
+    {
+      "university_id": "iuav-university-of-venice",
+      "name": "IUAV University of Venice",
+      "city": "Venice",
+      "country_code": "IT"
+    },
+    {
+      "university_id": "university-of-verona",
+      "name": "University of Verona",
+      "city": "Verona",
+      "country_code": "IT"
+    },
+    {
+      "university_id": "university-of-brescia",
+      "name": "University of Brescia",
+      "city": "Brescia",
+      "country_code": "IT"
+    },
+    {
+      "university_id": "university-of-bergamo",
+      "name": "University of Bergamo",
+      "city": "Bergamo",
+      "country_code": "IT"
+    },
+    {
+      "university_id": "university-of-insubria",
+      "name": "University of Insubria",
+      "city": "Varese",
+      "country_code": "IT"
+    },
+    {
+      "university_id": "university-of-parma",
+      "name": "University of Parma",
+      "city": "Parma",
+      "country_code": "IT"
+    },
+    {
+      "university_id": "university-of-modena-and-reggio-emilia",
+      "name": "University of Modena and Reggio Emilia",
+      "city": "Modena",
+      "country_code": "IT"
+    },
+    {
+      "university_id": "university-of-ferrara",
+      "name": "University of Ferrara",
+      "city": "Ferrara",
+      "country_code": "IT"
+    },
+    {
+      "university_id": "university-of-trento",
+      "name": "University of Trento",
+      "city": "Trento",
+      "country_code": "IT"
+    },
+    {
+      "university_id": "free-university-of-bozen-bolzano",
+      "name": "Free University of Bozen-Bolzano",
+      "city": "Bolzano",
+      "country_code": "IT"
+    },
+    {
+      "university_id": "university-of-piemonte-orientale",
+      "name": "University of Piemonte Orientale",
+      "city": "Vercelli",
+      "country_code": "IT"
+    },
+    {
+      "university_id": "university-of-valle-d-aosta",
+      "name": "University of Valle d'Aosta",
+      "city": "Aosta",
+      "country_code": "IT"
+    },
+    {
+      "university_id": "university-of-perugia",
+      "name": "University of Perugia",
+      "city": "Perugia",
+      "country_code": "IT"
+    },
+    {
+      "university_id": "university-for-foreigners-of-perugia",
+      "name": "University for Foreigners of Perugia",
+      "city": "Perugia",
+      "country_code": "IT"
+    },
+    {
+      "university_id": "university-of-macerata",
+      "name": "University of Macerata",
+      "city": "Macerata",
+      "country_code": "IT"
+    },
+    {
+      "university_id": "university-of-camerino",
+      "name": "University of Camerino",
+      "city": "Camerino",
+      "country_code": "IT"
+    },
+    {
+      "university_id": "marche-polytechnic-university",
+      "name": "Marche Polytechnic University",
+      "city": "Ancona",
+      "country_code": "IT"
+    },
+    {
+      "university_id": "university-of-urbino-carlo-bo",
+      "name": "University of Urbino Carlo Bo",
+      "city": "Urbino",
+      "country_code": "IT"
+    },
+    {
+      "university_id": "university-of-tuscia",
+      "name": "University of Tuscia",
+      "city": "Viterbo",
+      "country_code": "IT"
+    },
+    {
+      "university_id": "university-of-cassino-and-southern-lazio",
+      "name": "University of Cassino and Southern Lazio",
+      "city": "Cassino",
+      "country_code": "IT"
+    },
+    {
+      "university_id": "university-of-l-aquila",
+      "name": "University of L'Aquila",
+      "city": "L'Aquila",
+      "country_code": "IT"
+    },
+    {
+      "university_id": "gran-sasso-science-institute",
+      "name": "Gran Sasso Science Institute",
+      "city": "L'Aquila",
+      "country_code": "IT"
+    },
+    {
+      "university_id": "university-of-teramo",
+      "name": "University of Teramo",
+      "city": "Teramo",
+      "country_code": "IT"
+    },
+    {
+      "university_id": "g-d-annunzio-university-of-chieti-pescara",
+      "name": "G. d'Annunzio University of Chieti-Pescara",
+      "city": "Chieti",
+      "country_code": "IT"
+    },
+    {
+      "university_id": "university-of-molise",
+      "name": "University of Molise",
+      "city": "Campobasso",
+      "country_code": "IT"
+    },
+    {
+      "university_id": "university-of-bari-aldo-moro",
+      "name": "University of Bari Aldo Moro",
+      "city": "Bari",
+      "country_code": "IT"
+    },
+    {
+      "university_id": "politecnico-di-bari",
+      "name": "Politecnico di Bari",
+      "city": "Bari",
+      "country_code": "IT"
+    },
+    {
+      "university_id": "university-of-foggia",
+      "name": "University of Foggia",
+      "city": "Foggia",
+      "country_code": "IT"
+    },
+    {
+      "university_id": "university-of-salento",
+      "name": "University of Salento",
+      "city": "Lecce",
+      "country_code": "IT"
+    },
+    {
+      "university_id": "university-of-basilicata",
+      "name": "University of Basilicata",
+      "city": "Potenza",
+      "country_code": "IT"
+    },
+    {
+      "university_id": "university-of-calabria",
+      "name": "University of Calabria",
+      "city": "Cosenza",
+      "country_code": "IT"
+    },
+    {
+      "university_id": "magna-graecia-university-of-catanzaro",
+      "name": "Magna Graecia University of Catanzaro",
+      "city": "Catanzaro",
+      "country_code": "IT"
+    },
+    {
+      "university_id": "mediterranea-university-of-reggio-calabria",
+      "name": "Mediterranea University of Reggio Calabria",
+      "city": "Reggio Calabria",
+      "country_code": "IT"
+    },
+    {
+      "university_id": "university-of-palermo",
+      "name": "University of Palermo",
+      "city": "Palermo",
+      "country_code": "IT"
+    },
+    {
+      "university_id": "university-of-catania",
+      "name": "University of Catania",
+      "city": "Catania",
+      "country_code": "IT"
+    },
+    {
+      "university_id": "university-of-messina",
+      "name": "University of Messina",
+      "city": "Messina",
+      "country_code": "IT"
+    },
+    {
+      "university_id": "kore-university-of-enna",
+      "name": "Kore University of Enna",
+      "city": "Enna",
+      "country_code": "IT"
+    },
+    {
+      "university_id": "university-of-cagliari",
+      "name": "University of Cagliari",
+      "city": "Cagliari",
+      "country_code": "IT"
+    },
+    {
+      "university_id": "university-of-sassari",
+      "name": "University of Sassari",
+      "city": "Sassari",
+      "country_code": "IT"
+    },
+    {
+      "university_id": "imt-school-for-advanced-studies-lucca",
+      "name": "IMT School for Advanced Studies Lucca",
+      "city": "Lucca",
+      "country_code": "IT"
+    },
+    {
+      "university_id": "bocconi-university",
+      "name": "Bocconi University",
+      "city": "Milan",
+      "country_code": "IT"
+    },
+    {
+      "university_id": "catholic-university-of-the-sacred-heart",
+      "name": "Catholic University of the Sacred Heart",
+      "city": "Milan",
+      "country_code": "IT"
+    },
+    {
+      "university_id": "humanitas-university",
+      "name": "Humanitas University",
+      "city": "Milan",
+      "country_code": "IT"
+    },
+    {
+      "university_id": "vita-salute-san-raffaele-university",
+      "name": "Vita-Salute San Raffaele University",
+      "city": "Milan",
+      "country_code": "IT"
+    },
+    {
+      "university_id": "iulm-university",
+      "name": "IULM University",
+      "city": "Milan",
+      "country_code": "IT"
+    },
+    {
+      "university_id": "naba-nuova-accademia-di-belle-arti",
+      "name": "NABA - Nuova Accademia di Belle Arti",
+      "city": "Milan",
+      "country_code": "IT"
+    },
+    {
+      "university_id": "istituto-marangoni",
+      "name": "Istituto Marangoni",
+      "city": "Milan",
+      "country_code": "IT"
+    },
+    {
+      "university_id": "liuc-carlo-cattaneo-university",
+      "name": "LIUC - Carlo Cattaneo University",
+      "city": "Castellanza",
+      "country_code": "IT"
+    },
+    {
+      "university_id": "luiss-guido-carli",
+      "name": "LUISS Guido Carli",
+      "city": "Rome",
+      "country_code": "IT"
+    },
+    {
+      "university_id": "lumsa-university",
+      "name": "LUMSA University",
+      "city": "Rome",
+      "country_code": "IT"
+    },
+    {
+      "university_id": "campus-bio-medico-university-of-rome",
+      "name": "Campus Bio-Medico University of Rome",
+      "city": "Rome",
+      "country_code": "IT"
+    },
+    {
+      "university_id": "european-university-of-rome",
+      "name": "European University of Rome",
+      "city": "Rome",
+      "country_code": "IT"
+    },
+    {
+      "university_id": "unint-italian-university-of-languages-and-media",
+      "name": "UNINT - Italian University of Languages and Media",
+      "city": "Rome",
+      "country_code": "IT"
+    },
+    {
+      "university_id": "john-cabot-university",
+      "name": "John Cabot University",
+      "city": "Rome",
+      "country_code": "IT"
+    },
+    {
+      "university_id": "link-campus-university",
+      "name": "Link Campus University",
+      "city": "Rome",
+      "country_code": "IT"
+    },
+    {
+      "university_id": "suor-orsola-benincasa-university",
+      "name": "Suor Orsola Benincasa University",
+      "city": "Naples",
+      "country_code": "IT"
+    },
+    {
+      "university_id": "university-of-gastronomic-sciences",
+      "name": "University of Gastronomic Sciences",
+      "city": "Pollenzo",
+      "country_code": "IT"
+    },
+    {
+      "university_id": "dante-alighieri-university-for-foreigners",
+      "name": "Dante Alighieri University for Foreigners",
+      "city": "Reggio Calabria",
+      "country_code": "IT"
+    },
+    {
+      "university_id": "scuola-superiore-meridionale",
+      "name": "Scuola Superiore Meridionale",
+      "city": "Naples",
+      "country_code": "IT"
+    },
+    {
+      "university_id": "saint-camillus-international-university-of-health-sciences",
+      "name": "Saint Camillus International University of Health Sciences",
+      "city": "Rome",
+      "country_code": "IT"
+    },
+    {
+      "university_id": "lum-giuseppe-degennaro-university",
+      "name": "LUM Giuseppe Degennaro University",
+      "city": "Casamassima",
+      "country_code": "IT"
+    },
+    {
+      "university_id": "niccolo-cusano-university",
+      "name": "Niccolò Cusano University",
+      "city": "Rome",
+      "country_code": "IT"
+    },
+    {
+      "university_id": "pegaso-telematic-university",
+      "name": "Pegaso Telematic University",
+      "city": "Naples",
+      "country_code": "IT"
+    },
+    {
+      "university_id": "ecampus-university",
+      "name": "eCampus University",
+      "city": "Novedrate",
+      "country_code": "IT"
+    },
+    {
+      "university_id": "mercatorum-university",
+      "name": "Mercatorum University",
+      "city": "Rome",
+      "country_code": "IT"
+    },
+    {
+      "university_id": "unitelma-sapienza",
+      "name": "Unitelma Sapienza",
+      "city": "Rome",
+      "country_code": "IT"
+    },
+    {
+      "university_id": "guglielmo-marconi-university",
+      "name": "Guglielmo Marconi University",
+      "city": "Rome",
+      "country_code": "IT"
+    },
+    {
+      "university_id": "giustino-fortunato-university",
+      "name": "Giustino Fortunato University",
+      "city": "Benevento",
+      "country_code": "IT"
+    },
+    {
+      "university_id": "italian-university-line-iul",
+      "name": "Italian University Line (IUL)",
+      "city": "Florence",
+      "country_code": "IT"
+    },
+    {
+      "university_id": "uninettuno-international-telematic-university",
+      "name": "UniNettuno International Telematic University",
+      "city": "Rome",
+      "country_code": "IT"
+    },
+    {
+      "university_id": "leonardo-da-vinci-telematic-university",
+      "name": "Leonardo da Vinci Telematic University",
+      "city": "Chieti",
+      "country_code": "IT"
+    },
+    {
+      "university_id": "san-raffaele-rome-open-university",
+      "name": "San Raffaele Rome Open University",
+      "city": "Rome",
+      "country_code": "IT"
+    },
+    {
+      "university_id": "other-institution-in-italy",
+      "name": "Other institution in Italy",
+      "city": "",
+      "country_code": "IT"
+    }
+  ],
+  "university_aliases": {
+    "la sapienza": "sapienza-university-of-rome",
+    "sapienza": "sapienza-university-of-rome",
+    "universita di bologna": "university-of-bologna",
+    "unibo": "university-of-bologna",
+    "politecnico milano": "politecnico-di-milano",
+    "polimi": "politecnico-di-milano"
+  }
+}
