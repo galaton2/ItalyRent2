@@ -1,0 +1,1870 @@
+{
+ "version": 1,
+ "countries": [
+  {
+   "country_code": "AD"
+  },
+  {
+   "country_code": "AE"
+  },
+  {
+   "country_code": "AF"
+  },
+  {
+   "country_code": "AG"
+  },
+  {
+   "country_code": "AI"
+  },
+  {
+   "country_code": "AL"
+  },
+  {
+   "country_code": "AM"
+  },
+  {
+   "country_code": "AO"
+  },
+  {
+   "country_code": "AQ"
+  },
+  {
+   "country_code": "AR"
+  },
+  {
+   "country_code": "AS"
+  },
+  {
+   "country_code": "AT"
+  },
+  {
+   "country_code": "AU"
+  },
+  {
+   "country_code": "AW"
+  },
+  {
+   "country_code": "AX"
+  },
+  {
+   "country_code": "AZ"
+  },
+  {
+   "country_code": "BA"
+  },
+  {
+   "country_code": "BB"
+  },
+  {
+   "country_code": "BD"
+  },
+  {
+   "country_code": "BE"
+  },
+  {
+   "country_code": "BF"
+  },
+  {
+   "country_code": "BG"
+  },
+  {
+   "country_code": "BH"
+  },
+  {
+   "country_code": "BI"
+  },
+  {
+   "country_code": "BJ"
+  },
+  {
+   "country_code": "BL"
+  },
+  {
+   "country_code": "BM"
+  },
+  {
+   "country_code": "BN"
+  },
+  {
+   "country_code": "BO"
+  },
+  {
+   "country_code": "BQ"
+  },
+  {
+   "country_code": "BR"
+  },
+  {
+   "country_code": "BS"
+  },
+  {
+   "country_code": "BT"
+  },
+  {
+   "country_code": "BV"
+  },
+  {
+   "country_code": "BW"
+  },
+  {
+   "country_code": "BY"
+  },
+  {
+   "country_code": "BZ"
+  },
+  {
+   "country_code": "CA"
+  },
+  {
+   "country_code": "CC"
+  },
+  {
+   "country_code": "CD"
+  },
+  {
+   "country_code": "CF"
+  },
+  {
+   "country_code": "CG"
+  },
+  {
+   "country_code": "CH"
+  },
+  {
+   "country_code": "CI"
+  },
+  {
+   "country_code": "CK"
+  },
+  {
+   "country_code": "CL"
+  },
+  {
+   "country_code": "CM"
+  },
+  {
+   "country_code": "CN"
+  },
+  {
+   "country_code": "CO"
+  },
+  {
+   "country_code": "CR"
+  },
+  {
+   "country_code": "CU"
+  },
+  {
+   "country_code": "CV"
+  },
+  {
+   "country_code": "CW"
+  },
+  {
+   "country_code": "CX"
+  },
+  {
+   "country_code": "CY"
+  },
+  {
+   "country_code": "CZ"
+  },
+  {
+   "country_code": "DE"
+  },
+  {
+   "country_code": "DJ"
+  },
+  {
+   "country_code": "DK"
+  },
+  {
+   "country_code": "DM"
+  },
+  {
+   "country_code": "DO"
+  },
+  {
+   "country_code": "DZ"
+  },
+  {
+   "country_code": "EC"
+  },
+  {
+   "country_code": "EE"
+  },
+  {
+   "country_code": "EG"
+  },
+  {
+   "country_code": "EH"
+  },
+  {
+   "country_code": "ER"
+  },
+  {
+   "country_code": "ES"
+  },
+  {
+   "country_code": "ET"
+  },
+  {
+   "country_code": "FI"
+  },
+  {
+   "country_code": "FJ"
+  },
+  {
+   "country_code": "FK"
+  },
+  {
+   "country_code": "FM"
+  },
+  {
+   "country_code": "FO"
+  },
+  {
+   "country_code": "FR"
+  },
+  {
+   "country_code": "GA"
+  },
+  {
+   "country_code": "GB"
+  },
+  {
+   "country_code": "GD"
+  },
+  {
+   "country_code": "GE"
+  },
+  {
+   "country_code": "GF"
+  },
+  {
+   "country_code": "GG"
+  },
+  {
+   "country_code": "GH"
+  },
+  {
+   "country_code": "GI"
+  },
+  {
+   "country_code": "GL"
+  },
+  {
+   "country_code": "GM"
+  },
+  {
+   "country_code": "GN"
+  },
+  {
+   "country_code": "GP"
+  },
+  {
+   "country_code": "GQ"
+  },
+  {
+   "country_code": "GR"
+  },
+  {
+   "country_code": "GS"
+  },
+  {
+   "country_code": "GT"
+  },
+  {
+   "country_code": "GU"
+  },
+  {
+   "country_code": "GW"
+  },
+  {
+   "country_code": "GY"
+  },
+  {
+   "country_code": "HK"
+  },
+  {
+   "country_code": "HM"
+  },
+  {
+   "country_code": "HN"
+  },
+  {
+   "country_code": "HR"
+  },
+  {
+   "country_code": "HT"
+  },
+  {
+   "country_code": "HU"
+  },
+  {
+   "country_code": "ID"
+  },
+  {
+   "country_code": "IE"
+  },
+  {
+   "country_code": "IL"
+  },
+  {
+   "country_code": "IM"
+  },
+  {
+   "country_code": "IN"
+  },
+  {
+   "country_code": "IO"
+  },
+  {
+   "country_code": "IQ"
+  },
+  {
+   "country_code": "IR"
+  },
+  {
+   "country_code": "IS"
+  },
+  {
+   "country_code": "IT"
+  },
+  {
+   "country_code": "JE"
+  },
+  {
+   "country_code": "JM"
+  },
+  {
+   "country_code": "JO"
+  },
+  {
+   "country_code": "JP"
+  },
+  {
+   "country_code": "KE"
+  },
+  {
+   "country_code": "KG"
+  },
+  {
+   "country_code": "KH"
+  },
+  {
+   "country_code": "KI"
+  },
+  {
+   "country_code": "KM"
+  },
+  {
+   "country_code": "KN"
+  },
+  {
+   "country_code": "KP"
+  },
+  {
+   "country_code": "KR"
+  },
+  {
+   "country_code": "KW"
+  },
+  {
+   "country_code": "KY"
+  },
+  {
+   "country_code": "KZ"
+  },
+  {
+   "country_code": "LA"
+  },
+  {
+   "country_code": "LB"
+  },
+  {
+   "country_code": "LC"
+  },
+  {
+   "country_code": "LI"
+  },
+  {
+   "country_code": "LK"
+  },
+  {
+   "country_code": "LR"
+  },
+  {
+   "country_code": "LS"
+  },
+  {
+   "country_code": "LT"
+  },
+  {
+   "country_code": "LU"
+  },
+  {
+   "country_code": "LV"
+  },
+  {
+   "country_code": "LY"
+  },
+  {
+   "country_code": "MA"
+  },
+  {
+   "country_code": "MC"
+  },
+  {
+   "country_code": "MD"
+  },
+  {
+   "country_code": "ME"
+  },
+  {
+   "country_code": "MF"
+  },
+  {
+   "country_code": "MG"
+  },
+  {
+   "country_code": "MH"
+  },
+  {
+   "country_code": "MK"
+  },
+  {
+   "country_code": "ML"
+  },
+  {
+   "country_code": "MM"
+  },
+  {
+   "country_code": "MN"
+  },
+  {
+   "country_code": "MO"
+  },
+  {
+   "country_code": "MP"
+  },
+  {
+   "country_code": "MQ"
+  },
+  {
+   "country_code": "MR"
+  },
+  {
+   "country_code": "MS"
+  },
+  {
+   "country_code": "MT"
+  },
+  {
+   "country_code": "MU"
+  },
+  {
+   "country_code": "MV"
+  },
+  {
+   "country_code": "MW"
+  },
+  {
+   "country_code": "MX"
+  },
+  {
+   "country_code": "MY"
+  },
+  {
+   "country_code": "MZ"
+  },
+  {
+   "country_code": "NA"
+  },
+  {
+   "country_code": "NC"
+  },
+  {
+   "country_code": "NE"
+  },
+  {
+   "country_code": "NF"
+  },
+  {
+   "country_code": "NG"
+  },
+  {
+   "country_code": "NI"
+  },
+  {
+   "country_code": "NL"
+  },
+  {
+   "country_code": "NO"
+  },
+  {
+   "country_code": "NP"
+  },
+  {
+   "country_code": "NR"
+  },
+  {
+   "country_code": "NU"
+  },
+  {
+   "country_code": "NZ"
+  },
+  {
+   "country_code": "OM"
+  },
+  {
+   "country_code": "PA"
+  },
+  {
+   "country_code": "PE"
+  },
+  {
+   "country_code": "PF"
+  },
+  {
+   "country_code": "PG"
+  },
+  {
+   "country_code": "PH"
+  },
+  {
+   "country_code": "PK"
+  },
+  {
+   "country_code": "PL"
+  },
+  {
+   "country_code": "PM"
+  },
+  {
+   "country_code": "PN"
+  },
+  {
+   "country_code": "PR"
+  },
+  {
+   "country_code": "PS"
+  },
+  {
+   "country_code": "PT"
+  },
+  {
+   "country_code": "PW"
+  },
+  {
+   "country_code": "PY"
+  },
+  {
+   "country_code": "QA"
+  },
+  {
+   "country_code": "RE"
+  },
+  {
+   "country_code": "RO"
+  },
+  {
+   "country_code": "RS"
+  },
+  {
+   "country_code": "RU"
+  },
+  {
+   "country_code": "RW"
+  },
+  {
+   "country_code": "SA"
+  },
+  {
+   "country_code": "SB"
+  },
+  {
+   "country_code": "SC"
+  },
+  {
+   "country_code": "SD"
+  },
+  {
+   "country_code": "SE"
+  },
+  {
+   "country_code": "SG"
+  },
+  {
+   "country_code": "SH"
+  },
+  {
+   "country_code": "SI"
+  },
+  {
+   "country_code": "SJ"
+  },
+  {
+   "country_code": "SK"
+  },
+  {
+   "country_code": "SL"
+  },
+  {
+   "country_code": "SM"
+  },
+  {
+   "country_code": "SN"
+  },
+  {
+   "country_code": "SO"
+  },
+  {
+   "country_code": "SR"
+  },
+  {
+   "country_code": "SS"
+  },
+  {
+   "country_code": "ST"
+  },
+  {
+   "country_code": "SV"
+  },
+  {
+   "country_code": "SX"
+  },
+  {
+   "country_code": "SY"
+  },
+  {
+   "country_code": "SZ"
+  },
+  {
+   "country_code": "TC"
+  },
+  {
+   "country_code": "TD"
+  },
+  {
+   "country_code": "TF"
+  },
+  {
+   "country_code": "TG"
+  },
+  {
+   "country_code": "TH"
+  },
+  {
+   "country_code": "TJ"
+  },
+  {
+   "country_code": "TK"
+  },
+  {
+   "country_code": "TL"
+  },
+  {
+   "country_code": "TM"
+  },
+  {
+   "country_code": "TN"
+  },
+  {
+   "country_code": "TO"
+  },
+  {
+   "country_code": "TR"
+  },
+  {
+   "country_code": "TT"
+  },
+  {
+   "country_code": "TV"
+  },
+  {
+   "country_code": "TW"
+  },
+  {
+   "country_code": "TZ"
+  },
+  {
+   "country_code": "UA"
+  },
+  {
+   "country_code": "UG"
+  },
+  {
+   "country_code": "UM"
+  },
+  {
+   "country_code": "US"
+  },
+  {
+   "country_code": "UY"
+  },
+  {
+   "country_code": "UZ"
+  },
+  {
+   "country_code": "VA"
+  },
+  {
+   "country_code": "VC"
+  },
+  {
+   "country_code": "VE"
+  },
+  {
+   "country_code": "VG"
+  },
+  {
+   "country_code": "VI"
+  },
+  {
+   "country_code": "VN"
+  },
+  {
+   "country_code": "VU"
+  },
+  {
+   "country_code": "WF"
+  },
+  {
+   "country_code": "WS"
+  },
+  {
+   "country_code": "YE"
+  },
+  {
+   "country_code": "YT"
+  },
+  {
+   "country_code": "ZA"
+  },
+  {
+   "country_code": "ZM"
+  },
+  {
+   "country_code": "ZW"
+  }
+ ],
+ "universities": [
+  {
+   "university_id": "accademiaalbertina",
+   "name": "Accademia Albertina di Belle Arti di Torino",
+   "city": "Torino",
+   "aliases": [
+    "Академия Альбертина",
+    "Albertina Academy"
+   ]
+  },
+  {
+   "university_id": "accademiabologna",
+   "name": "Accademia di Belle Arti di Bologna",
+   "city": "Bologna",
+   "aliases": [
+    "Академия изящных искусств Болоньи",
+    "ABA Bologna"
+   ]
+  },
+  {
+   "university_id": "brera",
+   "name": "Accademia di Belle Arti di Brera",
+   "city": "Milano",
+   "aliases": [
+    "Брера",
+    "Академия Брера",
+    "Brera Academy"
+   ]
+  },
+  {
+   "university_id": "accademiafirenze",
+   "name": "Accademia di Belle Arti di Firenze",
+   "city": "Firenze",
+   "aliases": [
+    "Академия изящных искусств Флоренции",
+    "Florence Academy of Fine Arts"
+   ]
+  },
+  {
+   "university_id": "accademianapoli",
+   "name": "Accademia di Belle Arti di Napoli",
+   "city": "Napoli",
+   "aliases": [
+    "Академия изящных искусств Неаполя",
+    "Naples Academy of Fine Arts"
+   ]
+  },
+  {
+   "university_id": "accademiaroma",
+   "name": "Accademia di Belle Arti di Roma",
+   "city": "Roma",
+   "aliases": [
+    "Академия изящных искусств Рима",
+    "Rome Academy of Fine Arts"
+   ]
+  },
+  {
+   "university_id": "accademiavenezia",
+   "name": "Accademia di Belle Arti di Venezia",
+   "city": "Venezia",
+   "aliases": [
+    "Академия изящных искусств Венеции",
+    "Venice Academy of Fine Arts"
+   ]
+  },
+  {
+   "university_id": "unibo",
+   "name": "Alma Mater Studiorum - Università di Bologna",
+   "city": "Bologna",
+   "aliases": [
+    "Болонский университет",
+    "Болонья",
+    "UniBo",
+    "University of Bologna",
+    "Bologna University"
+   ]
+  },
+  {
+   "university_id": "conservatoriomilano",
+   "name": "Conservatorio di Milano Giuseppe Verdi",
+   "city": "Milano",
+   "aliases": [
+    "Консерватория Милана",
+    "Консерватория Верди",
+    "Conservatorio Verdi",
+    "Milan Conservatory"
+   ]
+  },
+  {
+   "university_id": "santacecilia",
+   "name": "Conservatorio di Musica Santa Cecilia",
+   "city": "Roma",
+   "aliases": [
+    "Санта Чечилия",
+    "Консерватория Санта Чечилия",
+    "Santa Cecilia Conservatory"
+   ]
+  },
+  {
+   "university_id": "domus",
+   "name": "Domus Academy",
+   "city": "Milano",
+   "aliases": [
+    "Домус",
+    "Домус Академи"
+   ]
+  },
+  {
+   "university_id": "gssi",
+   "name": "Gran Sasso Science Institute",
+   "city": "L'Aquila",
+   "aliases": [
+    "GSSI",
+    "Гран Сассо"
+   ]
+  },
+  {
+   "university_id": "humanitas",
+   "name": "Humanitas University",
+   "city": "Milano",
+   "aliases": [
+    "Хуманитас",
+    "Humanitas",
+    "Pieve Emanuele"
+   ]
+  },
+  {
+   "university_id": "imtlucca",
+   "name": "IMT Scuola Alti Studi Lucca",
+   "city": "Lucca",
+   "aliases": [
+    "IMT Lucca",
+    "ИМТ Лукка",
+    "IMT School for Advanced Studies Lucca"
+   ]
+  },
+  {
+   "university_id": "ied",
+   "name": "Istituto Europeo di Design",
+   "city": "Milano",
+   "aliases": [
+    "IED",
+    "ИЕД",
+    "Европейский институт дизайна",
+    "European Institute of Design"
+   ]
+  },
+  {
+   "university_id": "marangoni",
+   "name": "Istituto Marangoni",
+   "city": "Milano",
+   "aliases": [
+    "Марангони",
+    "Marangoni",
+    "Marangoni Institute"
+   ]
+  },
+  {
+   "university_id": "iusve",
+   "name": "Istituto Universitario Salesiano Venezia",
+   "city": "Venezia",
+   "aliases": [
+    "IUSVE",
+    "Салезианский институт Венеции"
+   ]
+  },
+  {
+   "university_id": "iusspavia",
+   "name": "IUSS - Scuola Universitaria Superiore Pavia",
+   "city": "Pavia",
+   "aliases": [
+    "IUSS",
+    "ИУСС"
+   ]
+  },
+  {
+   "university_id": "unibz",
+   "name": "Libera Università di Bolzano",
+   "city": "Bolzano",
+   "aliases": [
+    "Больцано",
+    "UniBz",
+    "Free University of Bozen-Bolzano",
+    "unibz"
+   ]
+  },
+  {
+   "university_id": "iulm",
+   "name": "Libera Università di Lingue e Comunicazione IULM",
+   "city": "Milano",
+   "aliases": [
+    "ИУЛМ",
+    "IULM",
+    "IULM University"
+   ]
+  },
+  {
+   "university_id": "linkcampus",
+   "name": "Link Campus University",
+   "city": "Roma",
+   "aliases": [
+    "Линк Кампус",
+    "Link Campus"
+   ]
+  },
+  {
+   "university_id": "luiss",
+   "name": "LUISS Guido Carli",
+   "city": "Roma",
+   "aliases": [
+    "Луисс",
+    "LUISS",
+    "LUISS University"
+   ]
+  },
+  {
+   "university_id": "lum",
+   "name": "LUM Giuseppe Degennaro University",
+   "city": "Casamassima",
+   "aliases": [
+    "LUM",
+    "ЛУМ",
+    "Касамассима"
+   ]
+  },
+  {
+   "university_id": "lumsa",
+   "name": "LUMSA - Libera Università Maria Ss. Assunta",
+   "city": "Roma",
+   "aliases": [
+    "Лумса",
+    "LUMSA"
+   ]
+  },
+  {
+   "university_id": "naba",
+   "name": "NABA - Nuova Accademia di Belle Arti",
+   "city": "Milano",
+   "aliases": [
+    "НАБА",
+    "NABA",
+    "Новая академия изящных искусств"
+   ]
+  },
+  {
+   "university_id": "poliba",
+   "name": "Politecnico di Bari",
+   "city": "Bari",
+   "aliases": [
+    "Политех Бари",
+    "PoliBa",
+    "Polytechnic University of Bari"
+   ]
+  },
+  {
+   "university_id": "polimi",
+   "name": "Politecnico di Milano",
+   "city": "Milano",
+   "aliases": [
+    "Политехнический университет Милана",
+    "Политехнико ди Милано",
+    "Политех Милан",
+    "PoliMi",
+    "Polytechnic University of Milan"
+   ]
+  },
+  {
+   "university_id": "polito",
+   "name": "Politecnico di Torino",
+   "city": "Torino",
+   "aliases": [
+    "Политехнический университет Турина",
+    "Туринский политех",
+    "PoliTo",
+    "Polytechnic University of Turin"
+   ]
+  },
+  {
+   "university_id": "rufa",
+   "name": "Rome University of Fine Arts",
+   "city": "Roma",
+   "aliases": [
+    "RUFA",
+    "РУФА"
+   ]
+  },
+  {
+   "university_id": "uniroma1",
+   "name": "Sapienza Università di Roma",
+   "city": "Roma",
+   "aliases": [
+    "Сапиенца",
+    "Ла Сапиенца",
+    "Sapienza",
+    "Sapienza University of Rome",
+    "Рим 1",
+    "Roma 1"
+   ]
+  },
+  {
+   "university_id": "sissa",
+   "name": "Scuola Internazionale Superiore di Studi Avanzati",
+   "city": "Trieste",
+   "aliases": [
+    "SISSA",
+    "СИССА",
+    "International School for Advanced Studies"
+   ]
+  },
+  {
+   "university_id": "sns",
+   "name": "Scuola Normale Superiore",
+   "city": "Pisa",
+   "aliases": [
+    "Нормале",
+    "Высшая нормальная школа",
+    "SNS",
+    "Normale"
+   ]
+  },
+  {
+   "university_id": "santanna",
+   "name": "Scuola Superiore Sant'Anna",
+   "city": "Pisa",
+   "aliases": [
+    "Сант'Анна",
+    "Sant Anna",
+    "SSSA"
+   ]
+  },
+  {
+   "university_id": "unint",
+   "name": "UNINT - Università degli Studi Internazionali di Roma",
+   "city": "Roma",
+   "aliases": [
+    "Унинт",
+    "UNINT",
+    "International University of Rome"
+   ]
+  },
+  {
+   "university_id": "unive",
+   "name": "Università Ca' Foscari Venezia",
+   "city": "Venezia",
+   "aliases": [
+    "Ка Фоскари",
+    "Ка' Фоскари",
+    "Ca Foscari",
+    "UniVe",
+    "Ca' Foscari University of Venice",
+    "Венеция"
+   ]
+  },
+  {
+   "university_id": "ucbm",
+   "name": "Università Campus Bio-Medico di Roma",
+   "city": "Roma",
+   "aliases": [
+    "Кампус Био-Медико",
+    "Campus Bio-Medico",
+    "UCBM"
+   ]
+  },
+  {
+   "university_id": "liuc",
+   "name": "Università Carlo Cattaneo - LIUC",
+   "city": "Castellanza",
+   "aliases": [
+    "LIUC",
+    "ЛИУК",
+    "Кастелланца"
+   ]
+  },
+  {
+   "university_id": "unicatt",
+   "name": "Università Cattolica del Sacro Cuore",
+   "city": "Milano",
+   "aliases": [
+    "Католический университет Святого Сердца",
+    "Католика",
+    "Cattolica",
+    "UniCatt",
+    "Catholic University of the Sacred Heart"
+   ]
+  },
+  {
+   "university_id": "bocconi",
+   "name": "Università Commerciale Luigi Bocconi",
+   "city": "Milano",
+   "aliases": [
+    "Боккони",
+    "Bocconi University",
+    "Университет Боккони"
+   ]
+  },
+  {
+   "university_id": "unimol",
+   "name": "Università degli Studi del Molise",
+   "city": "Campobasso",
+   "aliases": [
+    "Молизе",
+    "Кампобассо",
+    "UniMol"
+   ]
+  },
+  {
+   "university_id": "upo",
+   "name": "Università degli Studi del Piemonte Orientale",
+   "city": "Vercelli",
+   "aliases": [
+    "Восточный Пьемонт",
+    "UPO",
+    "Piemonte Orientale",
+    "University of Eastern Piedmont",
+    "Алессандрия",
+    "Новара"
+   ]
+  },
+  {
+   "university_id": "unisannio",
+   "name": "Università degli Studi del Sannio",
+   "city": "Benevento",
+   "aliases": [
+    "Саннио",
+    "Беневенто",
+    "Sannio"
+   ]
+  },
+  {
+   "university_id": "univaq",
+   "name": "Università degli Studi dell'Aquila",
+   "city": "L'Aquila",
+   "aliases": [
+    "Аквила",
+    "Л'Акуила",
+    "UnivAq",
+    "University of L'Aquila"
+   ]
+  },
+  {
+   "university_id": "uninsubria",
+   "name": "Università degli Studi dell'Insubria",
+   "city": "Varese",
+   "aliases": [
+    "Инсубрия",
+    "Insubria",
+    "Варезе",
+    "Комо",
+    "UniInsubria"
+   ]
+  },
+  {
+   "university_id": "unibas",
+   "name": "Università degli Studi della Basilicata",
+   "city": "Potenza",
+   "aliases": [
+    "Базилката",
+    "Потенца",
+    "Матера",
+    "UniBas"
+   ]
+  },
+  {
+   "university_id": "vanvitelli",
+   "name": "Università degli Studi della Campania Luigi Vanvitelli",
+   "city": "Caserta",
+   "aliases": [
+    "Ванвителли",
+    "Vanvitelli",
+    "Казерта"
+   ]
+  },
+  {
+   "university_id": "unitus",
+   "name": "Università degli Studi della Tuscia",
+   "city": "Viterbo",
+   "aliases": [
+    "Витербо",
+    "Тушия",
+    "Tuscia",
+    "UniTus"
+   ]
+  },
+  {
+   "university_id": "uniba",
+   "name": "Università degli Studi di Bari Aldo Moro",
+   "city": "Bari",
+   "aliases": [
+    "Бари",
+    "Альдо Моро",
+    "UniBa",
+    "Aldo Moro",
+    "University of Bari"
+   ]
+  },
+  {
+   "university_id": "unibg",
+   "name": "Università degli Studi di Bergamo",
+   "city": "Bergamo",
+   "aliases": [
+    "Бергамо",
+    "UniBg",
+    "University of Bergamo"
+   ]
+  },
+  {
+   "university_id": "unibs",
+   "name": "Università degli Studi di Brescia",
+   "city": "Brescia",
+   "aliases": [
+    "Брешиа",
+    "UniBs",
+    "University of Brescia"
+   ]
+  },
+  {
+   "university_id": "unica",
+   "name": "Università degli Studi di Cagliari",
+   "city": "Cagliari",
+   "aliases": [
+    "Кальяри",
+    "UniCa",
+    "University of Cagliari"
+   ]
+  },
+  {
+   "university_id": "unicas",
+   "name": "Università degli Studi di Cassino e del Lazio Meridionale",
+   "city": "Cassino",
+   "aliases": [
+    "Кассино",
+    "UniCas",
+    "University of Cassino"
+   ]
+  },
+  {
+   "university_id": "unict",
+   "name": "Università degli Studi di Catania",
+   "city": "Catania",
+   "aliases": [
+    "Катания",
+    "UniCt",
+    "University of Catania"
+   ]
+  },
+  {
+   "university_id": "unikore",
+   "name": "Università degli Studi di Enna Kore",
+   "city": "Enna",
+   "aliases": [
+    "Энна",
+    "Kore",
+    "Unikore"
+   ]
+  },
+  {
+   "university_id": "unife",
+   "name": "Università degli Studi di Ferrara",
+   "city": "Ferrara",
+   "aliases": [
+    "Феррара",
+    "UniFe",
+    "University of Ferrara"
+   ]
+  },
+  {
+   "university_id": "unifi",
+   "name": "Università degli Studi di Firenze",
+   "city": "Firenze",
+   "aliases": [
+    "Флоренция",
+    "Флорентийский университет",
+    "UniFi",
+    "University of Florence"
+   ]
+  },
+  {
+   "university_id": "unifg",
+   "name": "Università degli Studi di Foggia",
+   "city": "Foggia",
+   "aliases": [
+    "Фоджа",
+    "UniFg",
+    "University of Foggia"
+   ]
+  },
+  {
+   "university_id": "unige",
+   "name": "Università degli Studi di Genova",
+   "city": "Genova",
+   "aliases": [
+    "Генуя",
+    "Генуэзский университет",
+    "UniGe",
+    "University of Genoa"
+   ]
+  },
+  {
+   "university_id": "unimc",
+   "name": "Università degli Studi di Macerata",
+   "city": "Macerata",
+   "aliases": [
+    "Мачерата",
+    "UniMc",
+    "University of Macerata"
+   ]
+  },
+  {
+   "university_id": "unime",
+   "name": "Università degli Studi di Messina",
+   "city": "Messina",
+   "aliases": [
+    "Мессина",
+    "UniMe",
+    "University of Messina"
+   ]
+  },
+  {
+   "university_id": "unimi",
+   "name": "Università degli Studi di Milano",
+   "city": "Milano",
+   "aliases": [
+    "Миланский университет",
+    "Статале",
+    "UniMi",
+    "University of Milan",
+    "La Statale"
+   ]
+  },
+  {
+   "university_id": "unimib",
+   "name": "Università degli Studi di Milano-Bicocca",
+   "city": "Milano",
+   "aliases": [
+    "Бикокка",
+    "Милан-Бикокка",
+    "Bicocca",
+    "UniMiB"
+   ]
+  },
+  {
+   "university_id": "unimore",
+   "name": "Università degli Studi di Modena e Reggio Emilia",
+   "city": "Modena",
+   "aliases": [
+    "Модена",
+    "Реджо-Эмилия",
+    "UniMoRe",
+    "University of Modena and Reggio Emilia"
+   ]
+  },
+  {
+   "university_id": "unina",
+   "name": "Università degli Studi di Napoli Federico II",
+   "city": "Napoli",
+   "aliases": [
+    "Федерико II",
+    "Federico II",
+    "Неаполь",
+    "Неаполитанский университет",
+    "University of Naples Federico II"
+   ]
+  },
+  {
+   "university_id": "unior",
+   "name": "Università degli Studi di Napoli L'Orientale",
+   "city": "Napoli",
+   "aliases": [
+    "Ориентале",
+    "L'Orientale",
+    "Восточный университет Неаполя",
+    "Orientale"
+   ]
+  },
+  {
+   "university_id": "parthenope",
+   "name": "Università degli Studi di Napoli Parthenope",
+   "city": "Napoli",
+   "aliases": [
+    "Партенопе",
+    "Parthenope"
+   ]
+  },
+  {
+   "university_id": "unipd",
+   "name": "Università degli Studi di Padova",
+   "city": "Padova",
+   "aliases": [
+    "Падуя",
+    "Падуанский университет",
+    "UniPd",
+    "University of Padua",
+    "Padua"
+   ]
+  },
+  {
+   "university_id": "unipa",
+   "name": "Università degli Studi di Palermo",
+   "city": "Palermo",
+   "aliases": [
+    "Палермо",
+    "UniPa",
+    "University of Palermo"
+   ]
+  },
+  {
+   "university_id": "unipr",
+   "name": "Università degli Studi di Parma",
+   "city": "Parma",
+   "aliases": [
+    "Парма",
+    "UniPr",
+    "University of Parma"
+   ]
+  },
+  {
+   "university_id": "unipv",
+   "name": "Università degli Studi di Pavia",
+   "city": "Pavia",
+   "aliases": [
+    "Павия",
+    "UniPv",
+    "University of Pavia",
+    "Павийский университет"
+   ]
+  },
+  {
+   "university_id": "unipg",
+   "name": "Università degli Studi di Perugia",
+   "city": "Perugia",
+   "aliases": [
+    "Перуджа",
+    "UniPg",
+    "University of Perugia"
+   ]
+  },
+  {
+   "university_id": "iusm",
+   "name": "Università degli Studi di Roma Foro Italico",
+   "city": "Roma",
+   "aliases": [
+    "Форо Италико",
+    "Foro Italico",
+    "IUSM"
+   ]
+  },
+  {
+   "university_id": "uniroma2",
+   "name": "Università degli Studi di Roma Tor Vergata",
+   "city": "Roma",
+   "aliases": [
+    "Тор Вергата",
+    "Tor Vergata",
+    "Рим 2",
+    "Roma 2",
+    "University of Rome Tor Vergata"
+   ]
+  },
+  {
+   "university_id": "unisa",
+   "name": "Università degli Studi di Salerno",
+   "city": "Salerno",
+   "aliases": [
+    "Салерно",
+    "UniSa",
+    "University of Salerno"
+   ]
+  },
+  {
+   "university_id": "uniss",
+   "name": "Università degli Studi di Sassari",
+   "city": "Sassari",
+   "aliases": [
+    "Сассари",
+    "UniSs",
+    "University of Sassari"
+   ]
+  },
+  {
+   "university_id": "unisi",
+   "name": "Università degli Studi di Siena",
+   "city": "Siena",
+   "aliases": [
+    "Сиена",
+    "UniSi",
+    "University of Siena"
+   ]
+  },
+  {
+   "university_id": "unite",
+   "name": "Università degli Studi di Teramo",
+   "city": "Teramo",
+   "aliases": [
+    "Терамо",
+    "UniTe"
+   ]
+  },
+  {
+   "university_id": "unito",
+   "name": "Università degli Studi di Torino",
+   "city": "Torino",
+   "aliases": [
+    "Туринский университет",
+    "UniTo",
+    "University of Turin",
+    "Торино"
+   ]
+  },
+  {
+   "university_id": "unitn",
+   "name": "Università degli Studi di Trento",
+   "city": "Trento",
+   "aliases": [
+    "Тренто",
+    "UniTn",
+    "University of Trento"
+   ]
+  },
+  {
+   "university_id": "units",
+   "name": "Università degli Studi di Trieste",
+   "city": "Trieste",
+   "aliases": [
+    "Триест",
+    "UniTs",
+    "University of Trieste"
+   ]
+  },
+  {
+   "university_id": "uniud",
+   "name": "Università degli Studi di Udine",
+   "city": "Udine",
+   "aliases": [
+    "Удине",
+    "UniUd",
+    "University of Udine"
+   ]
+  },
+  {
+   "university_id": "uniurb",
+   "name": "Università degli Studi di Urbino Carlo Bo",
+   "city": "Urbino",
+   "aliases": [
+    "Урбино",
+    "Карло Бо",
+    "UniUrb",
+    "University of Urbino"
+   ]
+  },
+  {
+   "university_id": "univr",
+   "name": "Università degli Studi di Verona",
+   "city": "Verona",
+   "aliases": [
+    "Верона",
+    "UniVr",
+    "University of Verona"
+   ]
+  },
+  {
+   "university_id": "unich",
+   "name": "Università degli Studi G. d'Annunzio Chieti-Pescara",
+   "city": "Chieti",
+   "aliases": [
+    "Кьети-Пескара",
+    "Д'Аннунцио",
+    "D'Annunzio",
+    "UniCh"
+   ]
+  },
+  {
+   "university_id": "marconi",
+   "name": "Università degli Studi Guglielmo Marconi",
+   "city": "Roma",
+   "aliases": [
+    "Маркони",
+    "Marconi",
+    "Unimarconi"
+   ]
+  },
+  {
+   "university_id": "umg",
+   "name": "Università degli Studi Magna Græcia di Catanzaro",
+   "city": "Catanzaro",
+   "aliases": [
+    "Катандзаро",
+    "Magna Graecia",
+    "UMG"
+   ]
+  },
+  {
+   "university_id": "uniroma3",
+   "name": "Università degli Studi Roma Tre",
+   "city": "Roma",
+   "aliases": [
+    "Рома Тре",
+    "Roma Tre",
+    "Рим 3",
+    "Roma 3",
+    "Roma Tre University"
+   ]
+  },
+  {
+   "university_id": "unisalento",
+   "name": "Università del Salento",
+   "city": "Lecce",
+   "aliases": [
+    "Саленто",
+    "Лечче",
+    "UniSalento",
+    "University of Salento"
+   ]
+  },
+  {
+   "university_id": "unical",
+   "name": "Università della Calabria",
+   "city": "Rende",
+   "aliases": [
+    "Калабрия",
+    "UniCal",
+    "Козенца",
+    "Ренде",
+    "University of Calabria"
+   ]
+  },
+  {
+   "university_id": "univda",
+   "name": "Università della Valle d'Aosta",
+   "city": "Aosta",
+   "aliases": [
+    "Валле д'Аоста",
+    "Аоста",
+    "UniVdA",
+    "University of Aosta Valley"
+   ]
+  },
+  {
+   "university_id": "unicam",
+   "name": "Università di Camerino",
+   "city": "Camerino",
+   "aliases": [
+    "Камерино",
+    "UniCam",
+    "University of Camerino"
+   ]
+  },
+  {
+   "university_id": "unipi",
+   "name": "Università di Pisa",
+   "city": "Pisa",
+   "aliases": [
+    "Пиза",
+    "Пизанский университет",
+    "UniPi",
+    "University of Pisa"
+   ]
+  },
+  {
+   "university_id": "unisg",
+   "name": "Università di Scienze Gastronomiche",
+   "city": "Pollenzo",
+   "aliases": [
+    "Гастрономических наук",
+    "UNISG",
+    "University of Gastronomic Sciences",
+    "Поленцо"
+   ]
+  },
+  {
+   "university_id": "uer",
+   "name": "Università Europea di Roma",
+   "city": "Roma",
+   "aliases": [
+    "Европейский университет Рима",
+    "UER",
+    "European University of Rome"
+   ]
+  },
+  {
+   "university_id": "iuav",
+   "name": "Università Iuav di Venezia",
+   "city": "Venezia",
+   "aliases": [
+    "IUAV",
+    "Иуав",
+    "Архитектурный университет Венеции"
+   ]
+  },
+  {
+   "university_id": "unirc",
+   "name": "Università Mediterranea di Reggio Calabria",
+   "city": "Reggio Calabria",
+   "aliases": [
+    "Реджо-Калабрия",
+    "Mediterranea",
+    "UniRC"
+   ]
+  },
+  {
+   "university_id": "cusano",
+   "name": "Università Niccolò Cusano",
+   "city": "Roma",
+   "aliases": [
+    "Кузано",
+    "Cusano",
+    "Unicusano"
+   ]
+  },
+  {
+   "university_id": "unistrapg",
+   "name": "Università per Stranieri di Perugia",
+   "city": "Perugia",
+   "aliases": [
+    "Для иностранцев Перуджа",
+    "UniStraPg",
+    "University for Foreigners of Perugia"
+   ]
+  },
+  {
+   "university_id": "unistrasi",
+   "name": "Università per Stranieri di Siena",
+   "city": "Siena",
+   "aliases": [
+    "Для иностранцев Сиена",
+    "UniStraSi",
+    "University for Foreigners of Siena"
+   ]
+  },
+  {
+   "university_id": "univpm",
+   "name": "Università Politecnica delle Marche",
+   "city": "Ancona",
+   "aliases": [
+    "Анкона",
+    "Политех Марке",
+    "UnivPM",
+    "Marche Polytechnic University"
+   ]
+  },
+  {
+   "university_id": "suorsola",
+   "name": "Università Suor Orsola Benincasa",
+   "city": "Napoli",
+   "aliases": [
+    "Суор Орсола",
+    "Suor Orsola"
+   ]
+  },
+  {
+   "university_id": "uninettuno",
+   "name": "Università Telematica Internazionale Uninettuno",
+   "city": "Roma",
+   "aliases": [
+    "Униноттуно",
+    "Uninettuno",
+    "Nettuno"
+   ]
+  },
+  {
+   "university_id": "mercatorum",
+   "name": "Università Telematica Mercatorum",
+   "city": "Roma",
+   "aliases": [
+    "Меркаторум",
+    "Mercatorum"
+   ]
+  },
+  {
+   "university_id": "pegaso",
+   "name": "Università Telematica Pegaso",
+   "city": "Napoli",
+   "aliases": [
+    "Пегасо",
+    "Pegaso"
+   ]
+  },
+  {
+   "university_id": "unisanraffaeleroma",
+   "name": "Università Telematica San Raffaele Roma",
+   "city": "Roma",
+   "aliases": [
+    "Сан Раффаэле Рим",
+    "San Raffaele Roma"
+   ]
+  },
+  {
+   "university_id": "unitelma",
+   "name": "Università Telematica Unitelma Sapienza",
+   "city": "Roma",
+   "aliases": [
+    "Унителма",
+    "Unitelma"
+   ]
+  },
+  {
+   "university_id": "unisr",
+   "name": "Università Vita-Salute San Raffaele",
+   "city": "Milano",
+   "aliases": [
+    "Сан Раффаэле",
+    "San Raffaele",
+    "UniSR",
+    "Vita-Salute San Raffaele University"
+   ]
+  },
+  {
+   "university_id": "other",
+   "name": "Other university / Другой университет",
+   "city": "",
+   "aliases": [
+    "Другой",
+    "Другое",
+    "Other",
+    "Altro",
+    "Не из списка"
+   ]
+  }
+ ]
+}
